@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function(){
             Route::prefix('enrollment')->group(function(){
                 Route::post('/initiate', [PaymentController::class, 'initiate'])->name('payment.initiate');
                 Route::post('/complete', [EnrollmentController::class, 'store'])->name('payment.enroll');
+                Route::post('/free', [EnrollmentController::class, 'enroll'])->name('payment.free');
             });
             
             Route::get('/courses', [EnrollmentController::class, 'index'])->name('student.courses');

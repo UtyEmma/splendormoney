@@ -35,18 +35,23 @@ export const AdminSidebar = () => {
                     </li>
                     <li className="nav-item">
                         <a href="instructor-student-grid.html" className="nav-link">
+                            <i className="feather-users" /> Users
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a href="instructor-student-grid.html" className="nav-link">
                             <i className="feather-users" /> Students
                         </a>
                     </li>
                     <li className="nav-item">
-                    <a href="instructor-reviews.html" className="nav-link">
-                        <i className="feather-star" /> Reviews
-                    </a>
+                        <a href="instructor-reviews.html" className="nav-link">
+                            <i className="feather-star" /> Reviews
+                        </a>
                     </li>
                     <li className="nav-item">
-                    <a href="instructor-earnings.html" className="nav-link">
-                        <i className="feather-pie-chart" /> Earnings
-                    </a>
+                        <a href="instructor-earnings.html" className="nav-link">
+                            <i className="feather-pie-chart" /> Earnings
+                        </a>
                     </li>
                     <li className="nav-item">
                     <a href="instructor-orders.html" className="nav-link">
@@ -54,14 +59,9 @@ export const AdminSidebar = () => {
                     </a>
                     </li>
                     <li className="nav-item">
-                    <a href="instructor-payouts.html" className="nav-link">
-                        <i className="feather-dollar-sign" /> Payouts
-                    </a>
-                    </li>
-                    <li className="nav-item">
-                    <a href="instructor-tickets.html" className="nav-link">
-                        <i className="feather-server" /> Support Tickets
-                    </a>
+                        <a href="instructor-payouts.html" className="nav-link">
+                            <i className="feather-dollar-sign" /> Transactions
+                        </a>
                     </li>
                 </ul>
                 <div className="instructor-title">
@@ -69,44 +69,24 @@ export const AdminSidebar = () => {
                 </div>
                 <ul>
                     <li className="nav-item">
-                    <a href="instructor-edit-profile.html" className="nav-link ">
-                        <i className="feather-settings" /> Edit Profile
-                    </a>
+                        <a href="instructor-edit-profile.html" className="nav-link ">
+                            <i className="feather-settings" /> Admins
+                        </a>
                     </li>
                     <li className="nav-item">
-                    <a href="instructor-security.html" className="nav-link">
-                        <i className="feather-user" /> Security
-                    </a>
+                        <a href="instructor-security.html" className="nav-link">
+                            <i className="feather-user" /> Site Settings
+                        </a>
                     </li>
                     <li className="nav-item">
-                    <a href="instructor-social-profiles.html" className="nav-link">
-                        <i className="feather-refresh-cw" /> Social Profiles
-                    </a>
+                        <a href="instructor-social-profiles.html" className="nav-link">
+                            <i className="feather-refresh-cw" /> Security
+                        </a>
                     </li>
                     <li className="nav-item">
-                    <a href="instructor-notification.html" className="nav-link">
-                        <i className="feather-bell" /> Notifications
-                    </a>
-                    </li>
-                    <li className="nav-item">
-                    <a href="instructor-profile-privacy.html" className="nav-link">
-                        <i className="feather-lock" /> Profile Privacy
-                    </a>
-                    </li>
-                    <li className="nav-item">
-                    <a href="instructor-delete-profile.html" className="nav-link">
-                        <i className="feather-trash-2" /> Delete Profile
-                    </a>
-                    </li>
-                    <li className="nav-item">
-                    <a href="instructor-linked-account.html" className="nav-link">
-                        <i className="feather-user" /> Linked Accounts
-                    </a>
-                    </li>
-                    <li className="nav-item">
-                    <a href="index.html" className="nav-link">
-                        <i className="feather-power" /> Sign Out
-                    </a>
+                        <Link href={route('logout')} className="nav-link">
+                            <i className="feather-power" /> Sign Out
+                        </Link>
                     </li>
                 </ul>
                 </div>

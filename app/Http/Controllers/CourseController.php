@@ -9,7 +9,9 @@ use App\Library\FileHandler;
 use App\Library\Response;
 use App\Library\Str;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -28,13 +30,19 @@ class CourseController extends Controller
             $query->where("name", "LIKE", "%$keyword%");
         });
 
+
         return Inertia::render('Courses/Courses', [
             'courses' => $courses->get()
         ]);
     }
 
+    /**
+     * Fetch Courses
+     */
     function list(){
-        $courses = Course::all();
+        $courses = Course::with(['enrollments', 'enrollments.student', 'transactions'])->withCount([
+            'enrollments' , 'transactions'])->withSum('transactions', 'amount')->get();
+
         return Inertia::render('Admin/Courses/AdminCourses', [
             'courses' => $courses
         ]);

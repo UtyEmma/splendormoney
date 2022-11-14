@@ -22,8 +22,8 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('avatar')->nullable();
             $table->string('role');
-            $table->string('affiliate_id');
-            $table->string('referrer_id');
+            $table->string('affiliate_id')->nullable();
+            $table->string('referrer')->nullable();
             $table->integer('earnings');
             $table->string('status');
             $table->softDeletes();

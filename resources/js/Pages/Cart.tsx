@@ -7,11 +7,7 @@ import { CartCard } from './Cart/CartCard'
 export default function Cart() {
     
     const cart = useCart()
-
-    useEffect(() => {
-        console.log(cart)
-    }, [])
-
+    
     return (
         <MainLayout title='Cart'>
             <div className="breadcrumb-bar">

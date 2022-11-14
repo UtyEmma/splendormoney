@@ -11,7 +11,7 @@ interface IAdminCoursesProps extends InertiaProps {
 }
 
 export default function AdminCourses({courses} : IAdminCoursesProps) {
-
+    console.table(courses)
 
     return (
         <AdminLayout title='Courses'>

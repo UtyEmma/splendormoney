@@ -19,12 +19,12 @@ class Enrollment extends Model {
         return $this->belongsTo(Course::class, 'course_id');
     }
 
-    public function transaction () {
-        return $this->hasOne(Transaction::class, 'transaction_id');
+    public function transaction() {
+        return $this->hasOne(Transaction::class, 'id', 'transaction_id');
     }
 
 
-    public function enrollment(){
+    public function student(){
         return $this->belongsTo(User::class, 'student_id');
     }
 }

@@ -29,18 +29,27 @@ export const CartCard = () => {
                 cart?.reset()
             }
         })
-
     }
 
     const initiateCheckout = () => {
         if(cart?.courses.length! < 1) return console.log("No Items selected");
         const data = {courses: cart?.courses.map(course => course.id)} as any
-        Inertia.post(route('payment.initiate'), data, {
-            onSuccess: (res) => {
-                rave.init(res.props.details, onSuccess, onClose)
-            }
-        })
+        if(cart?.amount){
+            Inertia.post(route('payment.initiate'), data, {
+                onSuccess: (res) => {
+                    rave.init(res.props.details, onSuccess, onClose)
+                }
+            })
+        }else{
+            Inertia.post(route('payment.free'), data, {
+                onSuccess: (res) => {
+                    Inertia.get(route('student.courses'))
+                    cart?.reset()
+                }
+            })
+        }
     }
+
 
     return (
         <div className="row">

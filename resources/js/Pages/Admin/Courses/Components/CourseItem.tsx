@@ -1,3 +1,4 @@
+import Naira from '@/Components/Currency/Naira'
 import { Swal } from '@/Components/SweetAlert/Swal'
 import { ICourse } from '@/Types/course'
 import { Inertia } from '@inertiajs/inertia'
@@ -40,8 +41,8 @@ export const CourseItem = ({course} : ICourseItemProps) => {
                 </div>
                 </div>
             </td>
-            <td>3200</td>
-            <td>3200</td>
+            <td>{course.enrollments_count}</td>
+            <td><Naira /> {course.transactions_sum_amount ? course.transactions_sum_amount.toLocaleString() : 0}</td>
             <td><span className="badge info-low">{course.status.toUpperCase()}</span></td>
             <td >
                 <div className='d-flex gap-2'>

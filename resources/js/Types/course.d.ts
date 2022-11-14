@@ -13,6 +13,10 @@ interface ICourse {
     discount: number
     status: 'active' | 'inactive'
     modules: IModule[]
+    enrollments_count: number,
+    transactions_sum_amount: number
+    created_at: string
+    updated_at: string
 }
 
 interface IModule {

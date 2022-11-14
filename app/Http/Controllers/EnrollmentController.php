@@ -41,6 +41,7 @@ class EnrollmentController extends Controller {
     }
 
     public function store(Request $request) {
+        $user = Auth::user();
         $transaction = Transaction::where('reference', $request->reference)->first();
 
         $payment = PaymentService::verify($transaction, $request->flutterwave_id); // Check Payment Status
@@ -52,9 +53,16 @@ class EnrollmentController extends Controller {
         
         $courses = Course::findMany($transaction->courses); // Fetch the courses from the transaction
         
-        EnrollmentService::createMany($transaction, $courses->toArray()); // Enroll the User for all Courses purchased
+        EnrollmentService::createMany($user, $courses->toArray(), $transaction->id); // Enroll the User for all Courses purchased
         
-        return back()->with('Enrollment Completed Successfully');
+        return back()->with('message', 'Enrollment Completed Successfully');
+    }
+
+    public function enroll(Request $request) {
+        $user = Auth::user();
+        $enrollment = Enrollment::createMany($user, $request->courses);
+        
+        return back()->with('message', 'Enrollment Completed Successfully');
     }
 
     /**

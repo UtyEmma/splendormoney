@@ -32,5 +32,14 @@ class Course extends Model {
     function modules(){
         return $this->hasMany(Module::class, 'course_id');
     }
+
+    function enrollments(){
+        return $this->hasMany(Enrollment::class, 'course_id');
+    }
+
+    function transactions (){
+        return $this->hasManyThrough(Transaction::class, Enrollment::class, 'course_id', 'id', 'id', 'transaction_id');
+    }
+
     
 }

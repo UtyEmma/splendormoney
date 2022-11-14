@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('course_id');
             $table->string('student_id');
-            $table->string('transaction_id');
+            $table->string('transaction_id')->nullable();
             $table->string('status');
             $table->timestamps();
         });
