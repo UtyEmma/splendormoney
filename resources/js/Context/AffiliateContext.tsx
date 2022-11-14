@@ -13,7 +13,7 @@ const AffiliateContext = createContext<IAffiliateContext>({
 
 export const useAffiliate = () => useContext(AffiliateContext)
 
-export const AffiliateProvider = (children: any) => {
+export const AffiliateProvider = ({children}: any) => {
 
     const { ref } = useParams()
 

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Services\EnrollmentService;
 use App\Http\Services\PaymentService;
 use App\Http\Services\TransactionService;
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\Review;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,7 +25,13 @@ class EnrollmentController extends Controller {
      */
     public function index() {
         $user_id = Auth::id();
-        $enrolled_courses = User::find($user_id)->enrollments()->with(['course.modules.lectures', 'course.instructor'])->get(); 
+
+        $enrolled_courses = User::find($user_id)
+                                ->enrollments()
+                                ->with(['course.modules.lectures', 'course.instructor', 'course.reviews'])
+                                ->addSelect([
+                                    'reviewed' => Review::whereColumn('course_id', 'enrollments.course_id')->exists()
+                                ])->get();
         
         return Inertia::render('Student/EnrolledCourses', [
             'enrollments' => $enrolled_courses
@@ -43,26 +51,18 @@ class EnrollmentController extends Controller {
     public function store(Request $request) {
         $user = Auth::user();
         $transaction = Transaction::where('reference', $request->reference)->first();
-
-        $payment = PaymentService::verify($transaction, $request->flutterwave_id); // Check Payment Status
-        
+        $payment = PaymentService::verify($request->flutterwave_id); // Check Payment Status
         if($payment['status'] !== 'successful') return back()->with('error', "The Payment Was not Completed"); //Return Error if payment not completed
-
         if($payment['amount'] !== $transaction->amount) return back()->with('error', "The Transaction amount was invalid. Please contact Support");
-        
         TransactionService::complete($transaction, $user); // Complete the transaction
-        
         $courses = Course::findMany($transaction->courses); // Fetch the courses from the transaction
-        
         EnrollmentService::createMany($user, $courses->toArray(), $transaction->id); // Enroll the User for all Courses purchased
-        
         return back()->with('message', 'Enrollment Completed Successfully');
     }
 
     public function enroll(Request $request) {
         $user = Auth::user();
-        $enrollment = Enrollment::createMany($user, $request->courses);
-        
+        Enrollment::createMany($user, $request->courses);
         return back()->with('message', 'Enrollment Completed Successfully');
     }
 

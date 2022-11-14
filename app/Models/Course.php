@@ -18,7 +18,7 @@ class Course extends Model {
     ];
 
     function scopeWithRelations (Builder $query) {
-        $query->with(['modules', 'modules.lectures', 'instructor']);
+        $query->with(['modules', 'modules.lectures', 'instructor', 'reviews']);
     }
 
     function scopeActive(Builder $query){
@@ -39,6 +39,10 @@ class Course extends Model {
 
     function transactions (){
         return $this->hasManyThrough(Transaction::class, Enrollment::class, 'course_id', 'id', 'id', 'transaction_id');
+    }
+
+    function reviews(){
+        return $this->hasMany(Review::class, 'course_id');
     }
 
     

@@ -5,10 +5,11 @@ import { UserDropdown } from './UserDropdown'
 
 export const Header = ({index = false}: {index: boolean}) => {
     return (
-        <header className={`header ${!index && 'header-page'}`}>
+        <header className={`header ${!index ? 'header-page' : ''}`} style={{height: !index ? '80px' : '0px'}}>
             <div className="header-fixed">
                 <nav className="navbar navbar-expand-lg header-nav scroll-sticky">
-                    <div className={`container ${!index && 'header-border'}`}>
+                    <div className={`container `}>
+                    {/* ${!index ? 'header-border' : ''} */}
                         <div className="navbar-header">
                             <a id="mobile_btn" href="javascript:void(0);">
                                 <span className="bar-icon">

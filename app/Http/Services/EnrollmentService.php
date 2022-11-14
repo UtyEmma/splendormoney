@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Library\Number;
 use App\Library\Token;
 use App\Models\Course;
 use App\Models\Enrollment;
@@ -18,14 +19,15 @@ class EnrollmentService {
         ]);
     }
 
-    static function createMany(User $user, array $courses, $transaction_id = null){
-        $enrollments = array_map(function($course) use($transaction_id, $user){
+    static function createMany(User $user, array $courses, $transaction = null){
+        $enrollments = array_map(function($course) use($transaction, $user) {
             return [
                 'id' => Token::uuid('enrollments', 'id'),
                 "course_id" => $course['id'],
                 "student_id" => $user->id,
-                "transaction_id" => $transaction_id,
-                'status' => 'active'
+                "transaction_id" => $transaction ? $transaction->id : null,
+                'status' => 'active',
+                'amount' => Number::percentageDifference($course['discount'], $course['price'])
             ]; 
         }, $courses);
 

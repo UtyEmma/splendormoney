@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\SiteSettings;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -16,18 +17,28 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run() {
-        User::create([
-            'name' => 'Splendor Admin',
+        User::firstOrNew([
             'email' => 'admin@splendormoneyschool.com',
-            'password' => Hash::make('admin'),
             'role' => 'superadmin'
+        ], [
+            'name' => 'Splendor Admin',
+            'password' => Hash::make('admin')
         ]);
 
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        SiteSettings::firstOr(function(){
+            SiteSettings::create([
+                'email' => 'info@splendormoneyschool.com',
+                'commission' => 10, 
+                'address' => "27 Maximum Street Enugu", 
+                'name' => "Splendor Money School", 
+                'logo' => asset('assets/img/logo.svg'), 
+                'phone' => "+234 903 870 5881",
+                'test_mode' => true,
+                'flutterwave_test_secret_key' => env('FLUTTERWAVE_SECRET_TEST_KEY'),
+                'flutterwave_test_public_key' => env('FLUTTERWAVE_PUBLIC_TEST_KEY'),
+                'flutterwave_live_secret_key' => env('FLUTTERWAVE_SECRET_KEY'),
+                'flutterwave_live_public_key' => env('FLUTTERWAVE_PUBLIC_KEY')
+            ]);
+        });
     }
 }

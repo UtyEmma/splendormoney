@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('enrollments', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('course_id');
             $table->string('student_id');
-            $table->string('transaction_id')->nullable();
-            $table->integer('amount')->nullable();
+            $table->string('course_id');
+            $table->string('review');
+            $table->string('rating');
             $table->string('status');
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('enrollments');
+        Schema::dropIfExists('reviews');
     }
 };
