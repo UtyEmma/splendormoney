@@ -4,20 +4,19 @@ import Form from '@/Utils/Form';
 import {Button} from '@/Components/Buttons/Button'
 import { InputError } from '@/Components/Forms/InputError';
 import { Inertia } from '@inertiajs/inertia';
+import { useAffiliate } from '@/Context/AffiliateContext';
 
 export default function Register() {
+
+    const {getReferrer} = useAffiliate()
+
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         password: '',
-        terms: ''
+        terms: '',
+        referrer: ''
     });
-
-    useEffect(() => {
-        return () => {
-            reset('password');
-        };
-    }, []);
 
     const onHandleChange = (event: FormEvent<HTMLInputElement>) => {
         setData(event.currentTarget.name as keyof typeof data, Form.value(event.currentTarget) as any);
@@ -27,6 +26,16 @@ export default function Register() {
         e.preventDefault();
         post(route('register'));
     };
+
+    useEffect(() => {
+        return () => {
+            reset('password');
+        };
+    }, []);
+
+    useEffect(() => {
+        setData('referrer', getReferrer())
+    }, [])
 
     return (
         <>

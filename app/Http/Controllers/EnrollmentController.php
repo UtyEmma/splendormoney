@@ -47,9 +47,10 @@ class EnrollmentController extends Controller {
         $payment = PaymentService::verify($transaction, $request->flutterwave_id); // Check Payment Status
         
         if($payment['status'] !== 'successful') return back()->with('error', "The Payment Was not Completed"); //Return Error if payment not completed
+
         if($payment['amount'] !== $transaction->amount) return back()->with('error', "The Transaction amount was invalid. Please contact Support");
         
-        TransactionService::complete($transaction); // Complete the transaction
+        TransactionService::complete($transaction, $user); // Complete the transaction
         
         $courses = Course::findMany($transaction->courses); // Fetch the courses from the transaction
         

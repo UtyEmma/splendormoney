@@ -4,6 +4,7 @@ import { Header } from './Components/Header';
 import { Footer } from './Components/Footer';
 import { InertiaProps } from '@/Types/app';
 import { CartContext } from '@/Context/CartContext';
+import { AffiliateProvider } from '@/Context/AffiliateContext';
 
 interface IMainLayoutProps extends PropsWithChildren{
     title: string
@@ -14,18 +15,20 @@ export default function MainLayout({children, title, index = false} : IMainLayou
 
     return (
         <>
-            <CartContext>
-                <Head title={title} />
+            <AffiliateProvider>
+                <CartContext>
+                    <Head title={title} />
 
-                <div className="main-wrapper">
-                    <Header index={index}/>
+                    <div className="main-wrapper">
+                        <Header index={index}/>
 
-                    {children}
-                        
+                        {children}
+                            
 
-                    <Footer />
-                </div>    
-            </CartContext>
+                        <Footer />
+                    </div>    
+                </CartContext>
+            </AffiliateProvider>
         </>
     );
 }
