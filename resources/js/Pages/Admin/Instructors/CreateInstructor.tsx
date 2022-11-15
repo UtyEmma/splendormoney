@@ -5,11 +5,13 @@ import { SelectThumbnail } from '@/Components/Forms/SelectThumbnail'
 import { AdminLayout } from '@/Layouts/Admin/AdminLayout'
 import Form from '@/Utils/Form'
 import { useForm } from '@inertiajs/inertia-react'
-import React, { ChangeEvent, FormEvent } from 'react'
+import React, { ChangeEvent, FormEvent, useRef } from 'react'
 
 export default function CreateInstructor() {
 
-    const {data, processing, setData, errors, post} = useForm({
+    const newInstructorForm = useRef<HTMLFormElement>(null)
+
+    const {data, processing, setData, errors, post, reset} = useForm({
         name: '',
         email: '',
         description: '',
@@ -24,13 +26,18 @@ export default function CreateInstructor() {
 
     const submit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        post(route('admin.instructors.store'))
+        post(route('admin.instructors.store'), {
+            onSuccess: () => {
+                newInstructorForm.current?.reset()
+                reset()
+            }
+        })
     }
 
     return (
         <AdminLayout title='New Instructor'>
             <div className="settings-widget profile-details">
-                <form onSubmit={submit} >
+                <form onSubmit={submit} ref={newInstructorForm} >
                     <div className="settings-menu p-0">
                         <div className="checkout-form personal-address add-course-info">
                             <div className="personal-info-head">
@@ -41,7 +48,7 @@ export default function CreateInstructor() {
                             <div className="row">
                                 <div className="col-12">
                                     <div className='course-group border-0 px-0 mb-0 d-flex'>
-                                        <SelectThumbnail name='avatar' />
+                                        <SelectThumbnail onChange={handleChange} name='avatar' />
                                     </div>
                                     <InputError message={errors.avatar} />
                                 </div>

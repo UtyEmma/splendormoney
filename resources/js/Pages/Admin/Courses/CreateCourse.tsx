@@ -10,7 +10,7 @@ import { AdminLayout } from '@/Layouts/Admin/AdminLayout'
 import { InertiaProps } from '@/Types/app'
 import { IUser } from '@/Types/user'
 import Form from '@/Utils/Form'
-import { useForm } from '@inertiajs/inertia-react'
+import { Link, useForm } from '@inertiajs/inertia-react'
 import React, { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { CourseContent } from './Components/CourseContent'
 import { CourseDetails } from './Components/CourseDetails'
@@ -32,16 +32,28 @@ export default function CreateCourse({ instructors } : ICreateCourseProps) {
                         <div className="card">
                         <div className="widget-set">
                             <div className="widget-setcount">
-                            <ul id="progressbar">
-                                <li className="progress-active">
-                                    <p>Course Information</p>
-                                </li>
-                                <li>
-                                    <p>Course Content</p>
-                                </li>
-                            </ul>
+                                <ul id="progressbar">
+                                    <li className="progress-active">
+                                        <p>Course Information</p>
+                                    </li>
+                                    <li>
+                                        <p>Course Content</p>
+                                    </li>
+                                </ul>
                             </div>
                             <div className="widget-content multistep-form">
+                                <div className="px-5">
+                                    {
+                                        instructors.length < 1
+
+                                        &&
+
+                                        <div className="alert alert-warning">
+                                            <span className='fs-5 fw-bold'>You have not added any instructors.</span> <br/>
+                                            Please create an instructor before proceeding to create a course. <Link className='text-primary' href={route('admin.instructors.create')}>Create an Instructor</Link>
+                                        </div>
+                                    }
+                                </div>
                                 <CourseProvider>
                                     <Stepper reference={stepper} activeStep={step} setActiveStep={setStep}>
                                         <CourseDetails instructors={instructors} />

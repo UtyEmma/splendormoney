@@ -8,8 +8,9 @@ interface SwalProps<P> extends HTMLAttributes<P> {
     onCancel?: any
 }
 
-export const Swal = ({element: Element = 'button', text, status, children, confirm, cancel, button, onSuccess, onCancel, ...props}: SwalOptions & SwalProps<any>) => {    
+export const Swal = ({element: Element = 'button', text, title, status, children, confirm, cancel, button, onSuccess, onCancel, ...props}: SwalOptions & SwalProps<any>) => {    
     const options : SwalOptions = {
+        title: title,
         text: text ?? "Are you sure you want to proceed?",
         status: status,
         confirm: confirm ?? "Yes, proceed!",

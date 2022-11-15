@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AdminController extends Controller {
@@ -47,9 +49,11 @@ class AdminController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(){
+        $user = Auth::user();
+        return Inertia::render('Admin/Profile', [
+            'admin' => $user
+        ]);
     }
 
     /**

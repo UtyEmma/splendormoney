@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Enrollment extends Model {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['id', 'course_id', 'student_id', "transaction_id", 'status'];
+    protected $fillable = ['id', 'course_id', 'student_id', "transaction_id", 'amount', 'status', 'referrer_id'];
 
     protected $attributes = [
         'status' => 'active'
@@ -22,7 +22,6 @@ class Enrollment extends Model {
     public function transaction() {
         return $this->hasOne(Transaction::class, 'id', 'transaction_id');
     }
-
 
     public function student(){
         return $this->belongsTo(User::class, 'student_id');

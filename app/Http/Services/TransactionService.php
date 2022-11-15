@@ -33,6 +33,7 @@ class TransactionService {
     static function payAffiliate(User $user, Transaction $transaction){
         if(!$affiliate = User::where('affiliate_id', $user->referrer)->first()) return;
         $siteSettings = SiteSettings::first();
+        
         $payout = Number::percentageDifference($siteSettings->commission, $transaction->amount);
 
         $affiliate->earnings = $affiliate->earnings + $payout;

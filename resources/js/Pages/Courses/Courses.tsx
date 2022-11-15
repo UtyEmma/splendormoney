@@ -81,34 +81,6 @@ export default function Courses({courses}: ICoursesProps) {
                                     <div className="row">
                                         {courses.map(course => <CourseCard course={course} />)}
                                     </div>
-                                    
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <ul className="pagination lms-page">
-                                                <li className="page-item prev">
-                                                <a className="page-link" href="javascript:void(0)" tabIndex={-1}><i className="fas fa-angle-left" /></a>
-                                                </li>
-                                                <li className="page-item first-page active">
-                                                <a className="page-link" href="javascript:void(0)">1</a>
-                                                </li>
-                                                <li className="page-item">
-                                                <a className="page-link" href="javascript:void(0)">2</a>
-                                                </li>
-                                                <li className="page-item">
-                                                <a className="page-link" href="javascript:void(0)">3</a>
-                                                </li>
-                                                <li className="page-item">
-                                                <a className="page-link" href="javascript:void(0)">4</a>
-                                                </li>
-                                                <li className="page-item">
-                                                <a className="page-link" href="javascript:void(0)">5</a>
-                                                </li>
-                                                <li className="page-item next">
-                                                <a className="page-link" href="javascript:void(0)"><i className="fas fa-angle-right" /></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                 </>
 
                                 :

@@ -25,6 +25,7 @@ interface EditorModel {
 export const Editor = ({name, placeholder, className, onChange, defaultValue = "", minHeight = 200} : EditorModel) => {
     const [content, setContent] = useState(defaultValue)
     const editor : any = useRef()
+    const inputRef = useRef<HTMLInputElement>(null)
 
     const formats = [
         'header',
@@ -47,10 +48,14 @@ export const Editor = ({name, placeholder, className, onChange, defaultValue = "
         })
     }
 
+    useEffect(() => {
+        if(!inputRef.current?.value) setContent("")
+    }, [inputRef.current?.value])
+
     return (
         <div className='position-relative'>
             <ReactQuill theme="snow"  defaultValue={defaultValue} onChange={handleChange} formats={formats} ref={editor} placeholder={placeholder} />
-            <input name={name} value={content} readOnly hidden />
+            <input name={name} value={content} ref={inputRef} hidden />
         </div>
     )
 }

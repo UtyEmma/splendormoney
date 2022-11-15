@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, InputHTMLAttributes, PropsWithRef, useRef, useState } from 'react'
+import React, { ChangeEvent, FormEvent, InputHTMLAttributes, PropsWithRef, useEffect, useRef, useState } from 'react'
 
 type ImageSelectType = {
     name: string,
@@ -15,17 +15,20 @@ export const SelectThumbnail = ({name, defaultValue, ...props} : InputHTMLAttrib
         const file = e.currentTarget.files?.[0]
         const url = URL.createObjectURL(file!)
         setSrc(url)
-        props.onChange!(e)
+        props.onChange && props.onChange(e)
     }
 
     const remove = () => {
         imgInput.current!.value = ""
-        // imgInput.current!.files = null
         setSrc('')
     }
 
+    useEffect(() => {
+        if(!imgInput.current?.value) setSrc(defaultValue)
+    }, [imgInput.current?.value])
+
     return (
-        <div className="image-input image-input-empty image-input-outline  mb-3" data-kt-image-input="true" style={{backgroundImage: `url(${src || "/assets/img/user/user11.jpg"})`}}>
+        <div className="image-input image-input-empty image-input-outline  mb-3" data-kt-image-input="true" style={{backgroundImage: `url(${src || "/assets/img/blank-user.png"})`}}>
             <div className="image-input-wrapper w-150px h-150px position-relative">
                 <label className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
                     <i className="feather-edit-2 fs-7" />

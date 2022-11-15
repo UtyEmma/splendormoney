@@ -63,7 +63,7 @@ class EnrollmentController extends Controller {
     public function enroll(Request $request) {
         $user = Auth::user();
         Enrollment::createMany($user, $request->courses);
-        return back()->with('message', 'Enrollment Completed Successfully');
+        return back()->with('success', 'Enrollment Completed Successfully');
     }
 
     /**

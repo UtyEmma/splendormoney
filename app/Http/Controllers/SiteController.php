@@ -10,7 +10,7 @@ class SiteController extends Controller {
     
     function index () {
         $site = SiteSettings::first();
-        return Inertia::render('', [
+        return Inertia::render('Admin/Settings', [
             'site' => $site
         ]);
     }

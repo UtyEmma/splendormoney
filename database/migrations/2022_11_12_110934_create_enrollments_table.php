@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('transaction_id')->nullable();
             $table->integer('amount')->nullable();
             $table->string('status');
+            $table->string('referrer_id')->nullable();
             $table->timestamps();
         });
     }

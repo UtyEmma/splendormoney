@@ -25,7 +25,9 @@ class User extends Authenticatable
         'email',
         'password',
         'description',
-        'role'
+        'role',
+        'avatar',
+        'status'
     ];
 
     protected $attributes = [
@@ -53,8 +55,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    function scopeSuperAdmin(Builder $query){
+        $query->where('role', 'superadmin');
+    }
+
     function scopeInstructors(Builder $query){
         $query->where('role', 'instructor');
+    }
+
+    function scopeUsers(Builder $query){
+        $query->where('role', 'user');
     }
 
     function scopeStudents(Builder $query){
@@ -67,5 +77,21 @@ class User extends Authenticatable
 
     function enrollments() {
         return $this->hasMany(Enrollment::class, 'student_id');
+    }
+
+    function courses(){
+        return $this->hasMany(Course::class, 'instructor');
+    }
+
+    function students(){
+        return $this->hasManyThrough(Enrollment::class, Course::class, 'instructor', 'course_id', 'id', 'id');
+    }
+
+    function transactions(){
+        return $this->hasMany(Transaction::class, 'user_id');
+    }
+
+    function referrals() {
+        return $this->hasMany(Enrollment::class, 'referrer_id');
     }
 }

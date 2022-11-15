@@ -20,4 +20,8 @@ class Transaction extends Model
         'status' => 'pending'
     ];
 
+    function user(){
+        $this->belongsTo(User::class, 'user_id');
+    }
+
 }

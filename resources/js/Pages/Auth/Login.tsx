@@ -1,8 +1,11 @@
-import React, { FormEvent, useEffect } from 'react';import {InputError} from '@/Components/Forms/InputError';
+import React, { FormEvent, useEffect, useState } from 'react';import {InputError} from '@/Components/Forms/InputError';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 import { Button } from '@/Components/Buttons/Button';
 
 export default function Login({ status, canResetPassword }: any) {
+
+    const [passwordType, setPasswordType] = useState<'text' | 'password'>('password')
+
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -84,8 +87,8 @@ export default function Login({ status, canResetPassword }: any) {
                                 <div className="form-group">
                                     <label className="form-control-label">Password</label>
                                     <div className="pass-group">
-                                    <input type="password" className="form-control pass-input" name='password' value={data.password} onChange={onHandleChange} placeholder="Enter your password" />
-                                    <span className="feather-eye toggle-password" />
+                                    <input type={passwordType} className="form-control pass-input" name='password' value={data.password} onChange={onHandleChange} placeholder="Enter your password" />
+                                    <span role={'button'}  onClick={() => setPasswordType(passwordType === 'password' ? 'text' : 'password')} className="feather-eye toggle-password" />
                                     </div>
                                     <InputError message={errors.password} />
                                 </div>
@@ -109,13 +112,6 @@ export default function Login({ status, canResetPassword }: any) {
                         </div>
 
                         <div className="google-bg text-center">
-                            <span><a href="#">Or sign in with</a></span>
-                            <div className="sign-google">
-                                <ul>
-                                <li><a href="#"><img src="/assets/img/net-icon-01.png" className="img-fluid" alt="Logo" /> Sign In using Google</a></li>
-                                <li><a href="#"><img src="/assets/img/net-icon-02.png" className="img-fluid" alt="Logo" />Sign In using Facebook</a></li>
-                                </ul>
-                            </div>
                             <p className="mb-0">Do not have an account? <Link href="/register">Create an Account</Link></p>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run() {
-        User::firstOrNew([
+        User::firstOrCreate([
             'email' => 'admin@splendormoneyschool.com',
             'role' => 'superadmin'
         ], [
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
                 'commission' => 10, 
                 'address' => "27 Maximum Street Enugu", 
                 'name' => "Splendor Money School", 
-                'logo' => asset('assets/img/logo.svg'), 
+                'logo' => asset(url('assets/img/logo.svg')), 
                 'phone' => "+234 903 870 5881",
                 'test_mode' => true,
                 'flutterwave_test_secret_key' => env('FLUTTERWAVE_SECRET_TEST_KEY'),

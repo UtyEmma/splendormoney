@@ -20,13 +20,16 @@ class EnrollmentService {
     }
 
     static function createMany(User $user, array $courses, $transaction = null){
-        $enrollments = array_map(function($course) use($transaction, $user) {
+        $referrer = $user->referrer ? User::where('affiliate_id', $user->referrer)->first() : null;
+        
+        $enrollments = array_map(function($course) use($transaction, $user, $referrer) {
             return [
                 'id' => Token::uuid('enrollments', 'id'),
                 "course_id" => $course['id'],
                 "student_id" => $user->id,
                 "transaction_id" => $transaction ? $transaction->id : null,
                 'status' => 'active',
+                'referrer_id' => $referrer,
                 'amount' => Number::percentageDifference($course['discount'], $course['price'])
             ]; 
         }, $courses);

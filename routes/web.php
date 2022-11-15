@@ -8,6 +8,7 @@ use App\Http\Controllers\LectureController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -52,12 +53,16 @@ Route::middleware(['auth'])->group(function(){
     Route::prefix('admin')->middleware(['role:admin'])->group(function(){
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
+        Route::prefix('users')->group(function(){
+            Route::get('/', [UserController::class, 'index'])->name('admin.users.list');
+        });
+
         Route::prefix('instructors')->group(function(){
             Route::get('/', [InstructorController::class, 'list'])->name('admin.instructors.list');
             Route::get('/new', [InstructorController::class, 'create'])->name('admin.instructors.create');
             Route::post('/', [InstructorController::class, 'store'])->name('admin.instructors.store');
             Route::get('/{user}', [InstructorController::class, 'edit'])->name('admin.instructors.edit');
-            Route::put('/{user}', [InstructorController::class, 'update'])->name('admin.instructors.update');
+            Route::post('/{user}', [InstructorController::class, 'update'])->name('admin.instructors.update');
             Route::delete('/{user}', [InstructorController::class, 'destroy'])->name('admin.instructors.delete');
         });
 
@@ -80,9 +85,14 @@ Route::middleware(['auth'])->group(function(){
                     Route::put('/{lecture}', [LectureController::class, 'update'])->name('admin.courses.modules.lecture.update');
                     Route::delete('/{lecture}', [LectureController::class, 'destroy'])->name('admin.courses.modules.lecture.delete');
                 });
-            });
-            
+            }); 
         });
+
+        Route::prefix('transactions')->group(function(){
+            Route::get('/', [TransactionController::class, 'index'])->name('admin.transactions.list');
+        });
+        Route::get('settings', [SiteController::class, 'index'])->name('admin.settings');
+        Route::get('profile', [AdminController::class, 'show'])->name('admin.profile');
 
 
 

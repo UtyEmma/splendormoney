@@ -17,9 +17,16 @@ export default function MainLayout({children, title, index = false} : IMainLayou
     const { props } = usePage()
 
     useEffect(() => {
-        if(props.message) Notify.success(props.message as string)
-        if(props.error) Notify.failure(props.error as string)
-    }, [])
+        if(props.success) Notify.success(props.success as string || '')
+        if(props.message) Notify.info(props.message as string || '')
+        if(props.warning) Notify.warning(props.warning as string || '')
+        if(props.error) Notify.failure(props.error as string || '')
+
+        props.success = null
+        props.error = null
+        props.warning = null
+        props.message = null
+    }, [props])
 
     return (
         <AffiliateProvider>

@@ -59,6 +59,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('student.dashboard'));
+        return redirect(route('student.dashboard'))->with('Registration Successful! Welcome Onboard!');
     }
 }

@@ -40,4 +40,6 @@ class PaymentController extends Controller {
         return Inertia::render('Cart');
     }
 
+
+
 }

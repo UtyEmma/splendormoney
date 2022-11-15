@@ -41,7 +41,7 @@ class CourseController extends Controller
      */
     function list(){
         $courses = Course::with(['enrollments', 'enrollments.student', 'transactions'])->withCount([
-            'enrollments' , 'transactions'])->withSum('transactions', 'amount')->get();
+            'enrollments' , 'transactions'])->withSum('transactions', 'amount')->paginate(env('PAGINATION_COUNT'));
 
         return Inertia::render('Admin/Courses/AdminCourses', [
             'courses' => $courses
@@ -118,7 +118,7 @@ class CourseController extends Controller
         $course->status = $request->status;
         $course->save();
 
-        return redirect()->back()->with('message', "Course Status Updated");
+        return redirect()->back()->with('success', "Course Updated Successfully");
     }
 
     /**
@@ -132,7 +132,7 @@ class CourseController extends Controller
 
         $validated = $request->validate([
             "instructor" => ["required", Rule::exists('users', 'id')->where('role', 'instructor')],
-            "name" => ["required", "string", "max:255", Rule::unique('courses')->whereNot('id', $course->id)],
+            "name" => ["required", "string", "max:255", Rule::unique('courses', 'name')->ignore($course->id)],
             "description" => "nullable|string",
             "category" => "nullable|string",
             "image" => "nullable|file|mimetypes:image/*",
@@ -148,7 +148,7 @@ class CourseController extends Controller
         ])->toArray());
 
         $course = Course::withRelations()->find($course->id);
-        return back()->with('course', $course);
+        return back()->with(['course' => $course]);
     }
 
     /**
@@ -159,6 +159,6 @@ class CourseController extends Controller
      */
     public function destroy(Course $course) {
         $course->delete();
-        return redirect()->back()->with('message', 'Course Deleted Successfully');
+        return redirect()->back()->with('success', 'Course Deleted Successfully');
     }
 }

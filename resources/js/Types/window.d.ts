@@ -3,8 +3,11 @@ import { Route } from "ziggy-js"
 
 export {}
 
+type routeVal = string & {
+    current: () => keyof typeof Ziggy.routes
+}
 declare global {
-    function route(name?: keyof typeof Ziggy.routes, params?: RouteParamsWithQueryOverload | RouteParam | undefined, absolute?: boolean | undefined, config?: Config | undefined) : any
+    var route : (name?: keyof typeof Ziggy.routes, params?: RouteParamsWithQueryOverload | RouteParam | undefined, absolute?: boolean | undefined, config?: Config | undefined) =>  routeVal
 
     interface Window {
         Ziggy: {

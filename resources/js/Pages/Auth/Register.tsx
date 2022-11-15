@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 import Form from '@/Utils/Form';
 import {Button} from '@/Components/Buttons/Button'
@@ -9,6 +9,7 @@ import { useAffiliate } from '@/Context/AffiliateContext';
 export default function Register() {
 
     const {getReferrer} = useAffiliate()
+    const [passwordType, setPasswordType] = useState<'text' | 'password'>('password')
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
@@ -21,6 +22,7 @@ export default function Register() {
     const onHandleChange = (event: FormEvent<HTMLInputElement>) => {
         setData(event.currentTarget.name as keyof typeof data, Form.value(event.currentTarget) as any);
     };
+
 
     const submit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -100,8 +102,8 @@ export default function Register() {
                                     <div className="form-group">
                                         <label className="form-control-label">Password</label>
                                         <div className="pass-group" id="passwordInput">
-                                            <input type="password" name='password' value={data.password} onChange={onHandleChange} className="form-control pass-input" placeholder="Enter your password" />
-                                            <span className="toggle-password feather-eye" />
+                                            <input type={passwordType} name='password' value={data.password} onChange={onHandleChange} className="form-control pass-input" placeholder="Enter your password" />
+                                            <span role={'button'}  onClick={() => setPasswordType(passwordType === 'password' ? 'text' : 'password')} className={"toggle-password feather-eye"} />
                                         </div>
                                         <InputError message={errors.password} />
                                     </div>
@@ -118,13 +120,6 @@ export default function Register() {
                             </div>
 
                             <div className="google-bg text-center">
-                                <span><a href="#">Or sign in with</a></span>
-                                <div className="sign-google">
-                                    <ul>
-                                        <li><a href="#"><img src="assets/img/net-icon-01.png" className="img-fluid" alt="Logo" /> Sign In using Google</a></li>
-                                        <li><a href="#"><img src="assets/img/net-icon-02.png" className="img-fluid" alt="Logo" />Sign In using Facebook</a></li>
-                                    </ul>
-                                </div>
                                 <p className="mb-0">Already have an account? <Link href="/login">Sign in</Link></p>
                             </div>
                         </div>
