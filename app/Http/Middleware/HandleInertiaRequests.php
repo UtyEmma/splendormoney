@@ -47,6 +47,7 @@ class HandleInertiaRequests extends Middleware
             'error' => session()->get('error', null),
             'success' => session()->get('success', null),
             'warning' => session()->get('warning', null),
+            'details' => session()->get('details', null)
         ]);
     }
 }

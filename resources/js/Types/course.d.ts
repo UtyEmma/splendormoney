@@ -15,6 +15,8 @@ interface ICourse {
     modules: IModule[]
     enrollments_count: number,
     transactions_sum_amount: number
+    course_duration?: number
+    lectures_count: number
     created_at: string
     updated_at: string
 }

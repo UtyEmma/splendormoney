@@ -1,7 +1,12 @@
+import { useCart } from '@/Hooks/useCart'
+import { useRave } from '@/Hooks/useRave'
 import MainLayout from '@/Layouts/MainLayout'
 import { ICourse } from '@/Types/course'
+import Date from '@/Utils/Date'
 import { getVideoId, YoutubeVideoEmbedURL } from '@/Utils/Youtube'
+import { Inertia } from '@inertiajs/inertia'
 import { Link } from '@inertiajs/inertia-react'
+import pluralize from 'pluralize'
 import React from 'react'
 import { CourseDetailsPrice } from './Components/CourseDetailsPrice'
 import { CourseModuleItem } from './Components/CourseModuleItem'
@@ -11,8 +16,9 @@ interface ICourseDetailsProps {
 }
 
 export default function CourseDetails({course} : ICourseDetailsProps) {
+
     return (
-        <MainLayout title={course.name}  >
+        <MainLayout title={course.name} >
             <div>
                 <div className="breadcrumb-bar">
                     <div className="container">
@@ -60,16 +66,29 @@ export default function CourseDetails({course} : ICourseDetailsProps) {
                         <div className="course-info d-flex align-items-center border-bottom-0 m-0 p-0">
                             <div className="cou-info">
                                 <img src="/assets/img/icon/icon-01.svg" alt="" />
-                                <p>12+ Lesson</p>
+                                <p>{course.lectures_count} {pluralize('Lessons', course.lectures_count)}</p>
                             </div>
-                            <div className="cou-info">
-                                <img src="/assets/img/icon/timer-icon.svg" alt="" />
-                                <p>9hr 30min</p>
-                            </div>
-                            <div className="cou-info">
-                                <img src="/assets/img/icon/people.svg" alt="" />
-                                <p>32 students enrolled</p>
-                            </div>
+
+                            {
+                                course.course_duration
+
+                                &&
+
+                                <div className="cou-info">
+                                    <img src="/assets/img/icon/timer-icon.svg" alt="" />
+                                    <p>{course.course_duration && Date.secondsToHms(course.course_duration)}</p>
+                                </div>
+                            }
+                            {
+                                course.enrollments_count > 0
+
+                                &&
+
+                                <div className="cou-info">
+                                    <img src="/assets/img/icon/people.svg" alt="" />
+                                    <p>{course.enrollments_count} students enrolled</p>
+                                </div>
+                            }
                         </div>
                         </div>
                     </div>
@@ -93,7 +112,7 @@ export default function CourseDetails({course} : ICourseDetailsProps) {
                                     <h5 className="subs-title">Course Content</h5>
                                     </div>
                                     <div className="col-sm-6 text-sm-end">
-                                    <h6>92 Lectures 10:56:11</h6>
+                                    <h6>{course.lectures_count} Lectures {course.course_duration ? `- ${Date.secondsToHms(course.course_duration!)}` : ''}</h6>
                                     </div>
                                 </div>
 
@@ -210,49 +229,49 @@ export default function CourseDetails({course} : ICourseDetailsProps) {
                             <div className="video-sec vid-bg">
                             <div className="card">
                                 <div className="card-body" >
-                                <div>
-                                    {
-                                        course.video
+                                    <div>
+                                        {
+                                            course.video
 
-                                        ?
+                                            ?
 
-                                        <button type="button" className="video-thumbnail border-0 p-0 rounded-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <div className="play-icon">
-                                            <i className="fa-solid fa-play" />
+                                            <button type="button" className="video-thumbnail border-0 p-0 rounded-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <div className="play-icon">
+                                                <i className="fa-solid fa-play" />
+                                                </div>
+                                                <div className='overflow-hidden rounded-3' style={{height: '200px'}}>
+                                                    <img  src={course.image || "/assets/img/video.jpg"} alt="" />
+                                                </div>
+                                            </button>
+
+                                            :
+
+                                            <div className="video-thumbnail border-0 p-0 rounded-3">
+                                                <div className='overflow-hidden rounded-3' style={{height: '200px'}}>
+                                                    <img  src={course.image || "/assets/img/video.jpg"} alt="" />
+                                                </div>
                                             </div>
-                                            <div className='overflow-hidden rounded-3' style={{height: '200px'}}>
-                                                <img  src={course.image || "/assets/img/video.jpg"} alt="" />
+
+                                        }
+                                    </div>
+
+                                    <a href={YoutubeVideoEmbedURL(course.video)}  data-fancybox></a>
+
+                                    <div className="video-details">
+                                        <div className="course-fee">
+                                            <CourseDetailsPrice course={course} />
+                                        </div>
+                                        <div className="row gx-2">
+                                            <div className="col-md-6">
+                                                <a href="course-wishlist.html" className="btn btn-wish w-100"><i className="feather-heart" /> Add to Wishlist</a>
                                             </div>
-                                        </button>
-
-                                        :
-
-                                        <div className="video-thumbnail border-0 p-0 rounded-3">
-                                            <div className='overflow-hidden rounded-3' style={{height: '200px'}}>
-                                                <img  src={course.image || "/assets/img/video.jpg"} alt="" />
+                                            <div className="col-md-6">
+                                                <a href="javascript:;" className="btn btn-wish w-100"><i className="feather-share-2" /> Share</a>
                                             </div>
                                         </div>
-
-                                    }
-                                </div>
-
-                                <a href={YoutubeVideoEmbedURL(course.video)}  data-fancybox>
-                                    
-                                </a>
-                                <div className="video-details">
-                                    <div className="course-fee">
-                                        <CourseDetailsPrice course={course} />
+                                        <CourseEnrollBtn course={course} />
+                                        <AddTOCartBtn course={course} />
                                     </div>
-                                    <div className="row gx-2">
-                                    <div className="col-md-6">
-                                        <a href="course-wishlist.html" className="btn btn-wish w-100"><i className="feather-heart" /> Add to Wishlist</a>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <a href="javascript:;" className="btn btn-wish w-100"><i className="feather-share-2" /> Share</a>
-                                    </div>
-                                    </div>
-                                    <a href="checkout.html" className="btn btn-enroll w-100">Enroll Now</a>
-                                </div>
                                 </div>
                             </div>
                             </div>
@@ -261,20 +280,71 @@ export default function CourseDetails({course} : ICourseDetailsProps) {
                     </div>
                     </div>
                 </section>
-                </div>
+            </div>
 
-                <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered modal-lg" >
-                    <div className="modal-content" >
-                        <div className="modal-header border-0">
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
-                        </div>
-                        <div className="modal-body" style={{height: '500px'}}>
-                            <iframe width="100%" height="100%" className='h-100' src={YoutubeVideoEmbedURL(course.video)} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                        </div>
+            <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-lg" >
+                <div className="modal-content" >
+                    <div className="modal-header border-0">
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                     </div>
+                    <div className="modal-body" style={{height: '500px'}}>
+                        <iframe width="100%" height="100%" className='h-100' src={YoutubeVideoEmbedURL(course.video)} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </div>
                 </div>
+                </div>
+            </div>
         </MainLayout>
+    )
+}
+
+const CourseEnrollBtn = ({course}: {course: ICourse}) => {
+
+    const cart = useCart()
+    const rave = useRave()
+
+    function onClose (){
+
+    }
+
+    function onSuccess(res: any){
+        const reference = res.tx_ref
+        const amount = res.amount
+        const flutterwave_id = res.transaction_id
+
+        Inertia.post(route('payment.enroll'), {
+            reference, amount, flutterwave_id
+        }, {
+            onSuccess: (res) => {
+                cart?.remove(course.id)
+                Inertia.get(route('student.courses'))
+            }
+        })
+    }
+
+    const initiateCheckout = () => {
+        const data = {courses: [course.id]} as any
+        
+        if(course.price){
+            Inertia.post(route('payment.initiate'), data, {
+                onSuccess: (res) => rave.init(res.props.details, onSuccess, onClose),
+                onFinish: (res) => console.log(res)
+            })
+        }else{
+            Inertia.post(route('payment.free'), data, {
+                onSuccess: (res) => Inertia.get(route('student.courses'))
+            })
+        }
+    }
+
+    return (
+        <button onClick={initiateCheckout} className='btn btn-enroll w-100 mb-3'>Enroll Now</button>
+    )
+}
+
+const AddTOCartBtn = ({course}: {course: ICourse}) => {
+    const cart = useCart()
+    return (
+        <button onClick={() => cart?.add(course)} className="btn btn-enroll btn-outline-primary btn-rounded  btn-outline w-100">Add to Cart</button>
     )
 }

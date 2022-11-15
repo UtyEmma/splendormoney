@@ -18,7 +18,8 @@ class Course extends Model {
     ];
 
     function scopeWithRelations (Builder $query) {
-        $query->with(['modules', 'modules.lectures', 'instructor', 'reviews']);
+        $query->with(['modules', 'modules.lectures', 'instructor', 'reviews'])->withCount([
+            'enrollments', 'lectures'])->withSum('lectures as course_duration', 'duration');
     }
 
     function scopeActive(Builder $query){
@@ -45,5 +46,8 @@ class Course extends Model {
         return $this->hasMany(Review::class, 'course_id');
     }
 
+    function lectures(){
+        return $this->hasManyThrough(Lecture::class, Module::class, 'course_id', 'module_id', 'id', 'id');
+    }
     
 }

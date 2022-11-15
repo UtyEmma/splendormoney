@@ -90,6 +90,7 @@ Route::middleware(['auth'])->group(function(){
 
         Route::prefix('transactions')->group(function(){
             Route::get('/', [TransactionController::class, 'index'])->name('admin.transactions.list');
+            Route::delete('/{transaction}', [TransactionController::class, 'destroy'])->name('admin.transactions.delete');
         });
         Route::get('settings', [SiteController::class, 'index'])->name('admin.settings');
         Route::get('profile', [AdminController::class, 'show'])->name('admin.profile');

@@ -66,7 +66,7 @@ class LectureController extends Controller
         ]);
 
 
-        $course = $course->withRelations()->first();
+        $course = Course::withRelations()->find($course->id);
 
         return redirect()->back()->with('course', $course);
     }
@@ -116,7 +116,7 @@ class LectureController extends Controller
             'description' => $request->description
         ]);
 
-        $course = $course->withRelations()->first();
+        $course = Course::withRelations()->find($course->id);
 
         return redirect()->back()->with('course', $course);
     }

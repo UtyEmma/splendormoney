@@ -11,6 +11,7 @@
         "@inertiajs/progress": "^0.2.6",
         "@tailwindcss/forms": "^0.5.3",
         "@types/dompurify": "^2.3.4",
+        "@types/moment-duration-format": "^2.2.3",
         "@types/pluralize": "^0.0.29",
         "@types/react": "^18.0.25",
         "@vitejs/plugin-react": "^2.0.0",
@@ -27,6 +28,7 @@
     },
     "dependencies": {
         "moment": "^2.29.4",
+        "moment-duration-format": "^2.3.2",
         "notiflix": "^3.2.5",
         "pluralize": "^8.0.0",
         "react-quill": "^2.0.0",

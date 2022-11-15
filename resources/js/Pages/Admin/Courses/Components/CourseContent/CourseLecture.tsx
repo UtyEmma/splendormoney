@@ -62,11 +62,12 @@ export const CourseLecture = ({lecture, index, module_no}: ICourseLecture) => {
           
             video.onloadedmetadata = function() {
               window.URL.revokeObjectURL(video.src)
-              setData('duration', video.duration) ;
+              setData('duration', video.duration);
+              setData(file, file)
             }
         }
-
-        handleChange(e)
+        
+        setData('file', file)
     }
 
     return (

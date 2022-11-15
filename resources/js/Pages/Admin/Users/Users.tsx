@@ -31,7 +31,6 @@ export default function Users({users}: IUsersProps) {
 
     const searchUsers = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(Form.entries(e.currentTarget))
         Inertia.get(route('admin.users.list', Form.entries(e.currentTarget)))
     }
 

@@ -1,5 +1,7 @@
+import { Pagination } from '@/Components/Pagination/Pagination'
 import { useParams } from '@/Hooks/useParams'
 import MainLayout from '@/Layouts/MainLayout'
+import { IPagination } from '@/Types/app'
 import { ICourse } from '@/Types/course'
 import { Inertia } from '@inertiajs/inertia'
 import { Link } from '@inertiajs/inertia-react'
@@ -7,7 +9,7 @@ import React, { ChangeEvent, useEffect } from 'react'
 import { CourseCard } from './Components/CourseCard'
 
 interface ICoursesProps {
-    courses: ICourse[]
+    courses: IPagination<ICourse[]>
 }
 
 export default function Courses({courses}: ICoursesProps) {
@@ -73,13 +75,13 @@ export default function Courses({courses}: ICoursesProps) {
                             </div>
 
                             {
-                                courses.length > 0
+                                courses.total > 0
 
                                 ?
 
                                 <>
                                     <div className="row">
-                                        {courses.map(course => <CourseCard course={course} />)}
+                                        {courses.data.map(course => <CourseCard course={course} />)}
                                     </div>
                                 </>
 
@@ -91,6 +93,7 @@ export default function Courses({courses}: ICoursesProps) {
                             }
                         </div>
                     </div>
+                    <Pagination pagination={courses} />
                 </div>
             </section>
         </MainLayout>

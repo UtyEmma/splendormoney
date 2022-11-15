@@ -6,8 +6,6 @@ import { CartCard } from './Cart/CartCard'
 
 export default function Cart() {
     
-    const cart = useCart()
-    
     return (
         <MainLayout title='Cart'>
             <div className="breadcrumb-bar">

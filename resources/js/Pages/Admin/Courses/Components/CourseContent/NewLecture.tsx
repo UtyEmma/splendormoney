@@ -1,15 +1,15 @@
 import { Button } from '@/Components/Buttons/Button'
-import { Editor } from '@/Components/Forms/Editor'
 import { InputError } from '@/Components/Forms/InputError'
 import { useCourse } from '@/Context/CourseContext'
 import { ICourse, ILecture } from '@/Types/course'
 import Form from '@/Utils/Form'
-import { getVideoDuration } from '@/Utils/Video'
 import { useForm } from '@inertiajs/inertia-react'
-import React, { ChangeEvent, FormEvent } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect } from 'react'
 
 
 export const NewLecture = ({setShowNew, module} : any) => {
+
+    
     const {data, setData, processing, post, errors} = useForm({
         title: '',
         file: '',
@@ -17,13 +17,15 @@ export const NewLecture = ({setShowNew, module} : any) => {
         duration: 0
     })
     const {course, setCourse} = useCourse()
-
+    
+    
     const handleChange = (e: ChangeEvent<any>) => {
         setData(e.currentTarget.name, Form.value(e.currentTarget))
     }
 
     const createLecture = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        console.log(data)
         post(route('admin.courses.modules.lecture.store', {
             course: course!.id,
             module: module.id
@@ -36,22 +38,18 @@ export const NewLecture = ({setShowNew, module} : any) => {
     }
 
     const handleFileChange = (e: ChangeEvent<any>) => {
-        const file = e.currentTarget.files[0]
-        console.log(file)
-        console.log(file.type.split('/')[0])
+        const file = e.currentTarget.files[0]        
         const url = URL.createObjectURL(file)
         var video = document.createElement('video');
         video.preload = 'metadata';
         video.src = url;
       
         video.onloadedmetadata = function() {
-          window.URL.revokeObjectURL(video.src)
-          setData('duration', video.duration) ;
+          window.URL.revokeObjectURL(video.src)          
+          setData('duration', video.duration);
+          setData('file', file)
         }
-
-        handleChange(e)
     }
-
 
     return (
         <div>
@@ -79,7 +77,7 @@ export const NewLecture = ({setShowNew, module} : any) => {
                     <div>
                         <div className="form-group">
                             <label htmlFor="" className="form-label">Lecture Description</label>
-                            <textarea name="description" onChange={handleFileChange} className='form-control'></textarea>
+                            <textarea name="description" onChange={handleChange} className='form-control'></textarea>
                         </div>
                     </div>
                 </div>

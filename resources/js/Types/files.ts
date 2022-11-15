@@ -1,0 +1,1 @@
+export type FileByteFormat = 'Bytes' | 'KB' | 'MB' | 'GB' | 'TB' | 'PB' | 'EB' | 'ZB' | 'YB'

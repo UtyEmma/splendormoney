@@ -30,9 +30,8 @@ class CourseController extends Controller
             $query->where("name", "LIKE", "%$keyword%");
         });
 
-
         return Inertia::render('Courses/Courses', [
-            'courses' => $courses->get()
+            'courses' => $courses->paginate(env(16))
         ]);
     }
 
@@ -41,8 +40,8 @@ class CourseController extends Controller
      */
     function list(){
         $courses = Course::with(['enrollments', 'enrollments.student', 'transactions'])->withCount([
-            'enrollments' , 'transactions'])->withSum('transactions', 'amount')->paginate(env('PAGINATION_COUNT'));
-
+            'enrollments' , 'transactions', 'lectures'])->withSum('transactions', 'amount')->withSum('lectures as course_duration', 'duration')->paginate(env('PAGINATION_COUNT'));
+        
         return Inertia::render('Admin/Courses/AdminCourses', [
             'courses' => $courses
         ]);

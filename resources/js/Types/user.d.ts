@@ -5,7 +5,7 @@ export interface IUser {
     email: string
     avatar: string
     description?: string
-    role: string,
+    role: 'admin' | 'superadmin' | 'user' | 'instructor',
     created_at: string
     earnings: number
     status: keyof typeof StatusColor

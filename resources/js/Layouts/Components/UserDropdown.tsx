@@ -178,14 +178,9 @@ export const UserDropdown = () => {
                                     <span className="text-muted mb-0 text-capitalize">{auth.user.role}</span>
                                 </div>
                             </div>
-                            <a className="dropdown-item" href="setting-edit-profile.html"><i className="feather-user me-1" /> Profile</a>
-                            <a className="dropdown-item" href="setting-student-subscription.html"><i className="feather-star me-1" /> Subscription</a>
-                            <div className="dropdown-item night-mode">
-                                <span><i className="feather-moon me-1" /> Night Mode </span>
-                                <div className="form-check form-switch check-on m-0">
-                                <input className="form-check-input" type="checkbox" id="night-mode" />
-                                </div>
-                            </div>
+                            { auth.user.role === 'user' && <StudentDropDownItems /> }
+                            { auth.user.role === 'instructor' && <InstructorDropdownItems /> }
+                            { (auth.user.role === 'admin' || auth.user.role === 'superadmin') && <AdminDropDownItems /> }
                             <Link method='POST' className="dropdown-item" href={route('logout')}><i className="feather-log-out me-1" /> Logout</Link>
                             </div>
                         </li>
@@ -203,6 +198,39 @@ export const UserDropdown = () => {
                     </li>
                 </ul>
             }
+        </>
+    )
+}
+
+const AdminDropDownItems = () => {
+    return (
+        <>
+            <Link className="dropdown-item" href={route('admin.dashboard')}><i className="feather-user me-1" /> Dashboard</Link>
+            <Link className="dropdown-item" href={route('admin.settings')}><i className="feather-settings me-1" /> Settings</Link>
+        </>
+    )
+}
+
+const InstructorDropdownItems = () => {
+    return (
+        <>
+            <Link className="dropdown-item" href={route('admin.dashboard')}><i className="feather-user me-1" /> Dashboard</Link>
+            <Link className="dropdown-item" href={route('admin.settings')}><i className="feather-settings me-1" /> My Courses</Link>
+        </>
+    )
+}
+
+const StudentDropDownItems = () => {
+    return (
+        <>
+            <Link className="dropdown-item" href={route('student.dashboard')}><i className="feather-user me-1" /> Dashboard</Link>
+            <Link className="dropdown-item" href={route('student.courses')}><i className="feather-star me-1" />Enrolled Courses</Link>
+            <div className="dropdown-item night-mode">
+                <span><i className="feather-moon me-1" /> Night Mode </span>
+                <div className="form-check form-switch check-on m-0">
+                <input className="form-check-input" type="checkbox" id="night-mode" />
+                </div>
+            </div>
         </>
     )
 }

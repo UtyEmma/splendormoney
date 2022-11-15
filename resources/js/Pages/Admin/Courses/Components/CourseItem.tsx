@@ -4,7 +4,9 @@ import { ICourse } from '@/Types/course'
 import { Inertia } from '@inertiajs/inertia'
 import { Link } from '@inertiajs/inertia-react'
 import React from 'react'
-
+import moment from "moment";
+import Date from '@/Utils/Date'
+import pluralize from 'pluralize'
 interface ICourseItemProps {
     course: ICourse
 }
@@ -31,11 +33,11 @@ export const CourseItem = ({course} : ICourseItemProps) => {
                     <div className="course-info d-flex align-items-center border-bottom-0 pb-0">
                         <div className="rating-img d-flex align-items-center">
                             <img src="/assets/img/icon/icon-01.svg" alt="" />
-                            <p>10+ Lesson</p>
+                            <p>{course.lectures_count} {pluralize('Lesson', course.lectures_count)}</p>
                         </div>
                         <div className="course-view d-flex align-items-center">
                             <img src="/assets/img/icon/timer-start.svg" alt="" />
-                            <p>7hr 20min</p>
+                            <p>{Date.secondsToHms(course.course_duration!) }</p>
                         </div>
                     </div>
                 </div>

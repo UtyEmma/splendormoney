@@ -30,7 +30,7 @@ class EnrollmentController extends Controller {
                                 ->enrollments()
                                 ->with(['course.modules.lectures', 'course.instructor', 'course.reviews'])
                                 ->addSelect([
-                                    'reviewed' => Review::whereColumn('course_id', 'enrollments.course_id')->exists()
+                                    // 'reviewed' => Review::whereColumn('course_id', 'enrollments.course_id')->exists()
                                 ])->get();
         
         return Inertia::render('Student/EnrolledCourses', [
@@ -56,7 +56,7 @@ class EnrollmentController extends Controller {
         if($payment['amount'] !== $transaction->amount) return back()->with('error', "The Transaction amount was invalid. Please contact Support");
         TransactionService::complete($transaction, $user); // Complete the transaction
         $courses = Course::findMany($transaction->courses); // Fetch the courses from the transaction
-        EnrollmentService::createMany($user, $courses->toArray(), $transaction->id); // Enroll the User for all Courses purchased
+        EnrollmentService::createMany($user, $courses->toArray(), $transaction); // Enroll the User for all Courses purchased
         return back()->with('message', 'Enrollment Completed Successfully');
     }
 

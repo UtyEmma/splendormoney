@@ -1,6 +1,7 @@
 import { PriceDiscount } from '@/Components/Price/PriceDiscounts'
 import { useCart } from '@/Hooks/useCart'
 import { ICourse } from '@/Types/course'
+import Date from '@/Utils/Date'
 import { Link } from '@inertiajs/inertia-react'
 import pluralize from 'pluralize'
 import React from 'react'
@@ -10,11 +11,6 @@ interface ICourseCard {
 }
 
 export const CourseCard = ({course} : ICourseCard) => {
-    const courseLessons = () => {
-        const count = course.modules.reduce((prev, item) => prev + item.lectures.length, 0)
-        return count;
-    }
-
     const cart = useCart()
 
     return (
@@ -50,11 +46,20 @@ export const CourseCard = ({course} : ICourseCard) => {
                     <div className="course-info d-flex align-items-center">
                     <div className="rating-img d-flex align-items-center">
                         <img src="assets/img/icon/icon-01.svg" alt="" />
-                        <p>{courseLessons()}+ {pluralize('Lesson', courseLessons())}</p>
+                        <p>{course.lectures_count}+ {pluralize('Lesson', course.lectures_count)}</p>
                     </div>
+
                     <div className="course-view d-flex align-items-center">
-                        <img src="assets/img/icon/icon-02.svg" alt="" />
-                        <p>9hr 30min</p>
+                        {
+                            course.course_duration
+
+                            &&
+
+                            <>
+                                <img src="assets/img/icon/icon-02.svg" alt="" />
+                                <p>{Date.secondsToHms(course.course_duration)}</p>
+                            </>
+                        }
                     </div>
                     </div>
                     <div className="rating">
