@@ -70,7 +70,7 @@ export default function EnrolledCourses ({enrollments} : IEnrolledCoursesProps) 
                                                                     <span className="d-inline-block average-rating"><span>4.0</span></span>
                                                                     </div>
                                                                     <div className="edit-rate">
-                                                                    <a href="javascript:;">Edit rating</a>
+                                                                        <a href="javascript:;">Edit rating</a>
                                                                     </div>
                                                                 </div>
                                                                 <div className="progress-stip mb-0">

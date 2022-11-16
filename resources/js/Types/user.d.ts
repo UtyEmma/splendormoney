@@ -9,6 +9,7 @@ export interface IUser {
     created_at: string
     earnings: number
     status: keyof typeof StatusColor
+    affiliate_id: string
 }
 
 export interface IStudent extends IUser{

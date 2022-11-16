@@ -15,12 +15,16 @@ class Review extends Model {
         'status' => 'active'
     ];
 
+    function scopeActive($query){
+        $query->where('status', 'active');
+    }
+
     function course(){
         return $this->belongsTo(Course::class, 'course_id', 'id');
     }
 
     function student(){
-        return $this->belongsTo(Course::class, 'student_id', 'id');
+        return $this->belongsTo(User::class, 'student_id', 'id');
     }
 
 }

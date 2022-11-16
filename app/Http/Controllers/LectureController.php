@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Library\FileHandler;
 use App\Library\Str;
 use App\Models\Course;
+use App\Models\Enrollment;
 use App\Models\Lecture;
 use App\Models\Module;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -71,15 +73,23 @@ class LectureController extends Controller
         return redirect()->back()->with('course', $course);
     }
 
+    public function load(Enrollment $enrollment, Lecture $lecture) {
+        $user = Auth::user();
+
+        if($enrollment->student_id !== $user->id) return back()->with('error', "You are not enrolled for this course");
+        $video = Storage::drive('files')->path($lecture->file);
+        return back()->with('video', $video);
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Lecture  $lecture
      * @return \Illuminate\Http\Response
      */
-    public function show(Lecture $lecture)
-    {
-        //
+    public function show(Lecture $lecture) {
+        $id = Auth::id();
+        
     }
 
     /**

@@ -76,12 +76,19 @@ class EnrollmentController extends Controller {
         $user_id = Auth::id();
 
         if($enrollment->student_id !== $user_id) return back()->with('error', 'You are not enrolled for this course');
-        $course = $enrollment->course()->with(['modules.lectures', 'instructor'])->first();
+        $course = $enrollment->course()->withRelations()->first();
 
-        return Storage::get('course-files/inertia.text');
-        dd(Storage::get('course-files/inertia.text'));
+        $is_reviewed = Review::where([
+            'student_id' => $user_id,
+            'course_id' => $course->id
+        ])->first();
+
+        Inertia::share('video', session()->get('video', ''));
+
         return Inertia::render('Student/CourseView', [
-            'course' => $course
+            'course' => $course,
+            'review' => $is_reviewed,
+            'enrollment' => $enrollment
         ]);
     }
 

@@ -8,9 +8,12 @@ use App\Http\Requests\UpdateCourseRequest;
 use App\Library\FileHandler;
 use App\Library\Response;
 use App\Library\Str;
+use App\Models\Enrollment;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
@@ -89,8 +92,18 @@ class CourseController extends Controller
      */
     public function show($course) {
         $course = Course::withRelations()->where('slug', $course)->first();
+
+        $enrolled = Enrollment::where([
+            'student_id' => Auth::id(),
+            'course_id' => $course->id
+        ])->first();
+
+        $reviews = Review::where('course_id', $course->id)->with(['student'])->active()->limit(10)->get();
+
         return Inertia::render('Courses/CourseDetails', [
-            'course' => $course
+            'course' => $course,
+            'enrolled' => $enrolled,
+            'reviews' => $reviews
         ]);
     }
 

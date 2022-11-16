@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
+use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -37,14 +38,18 @@ class ReviewController extends Controller
      * @param  \App\Http\Requests\StoreReviewRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreReviewRequest $request) {
+    public function store(StoreReviewRequest $request, Course $course) {
         $user = Auth::user();
 
+        if(Review::where('course_id', $request->course_id)->where('student_id', $user->id)->exists()) 
+                    return back()->with('error', 'You have aldeady reviewd this Course');
+
         Review::create($request->safe()->merge([
-            'user_id' => $user->id
+            'course_id' => $request->course_id,
+            'student_id' => $user->id
         ])->toArray());
 
-        return back()->with('message', 'Review Submitted');
+        return back()->with('success', 'Review Submitted');
     }
 
     /**
@@ -78,10 +83,10 @@ class ReviewController extends Controller
      */
     public function update(UpdateReviewRequest $request, Review $review) {
         $user_id = Auth::id();
-        if($review->user_id !== $user_id) return back()->with('error', 'You are not authrzied to carry out this action');
+        if($review->student_id !== $user_id) return back()->with('error', 'You are not authorized to carry out this action');
         
         $review->update($request->safe()->toArray());
-        return back()->with('message', 'Review Updated Successfully');
+        return back()->with('success', 'Review Updated Successfully');
     }
 
     /**
@@ -92,6 +97,6 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review) {
         $review->delete();
-        return back()->with('message', 'Review Deleted Successfully');
+        return back()->with('success', 'Review Deleted Successfully');
     }
 }

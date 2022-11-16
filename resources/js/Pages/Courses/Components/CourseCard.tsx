@@ -1,4 +1,5 @@
 import { PriceDiscount } from '@/Components/Price/PriceDiscounts'
+import { Rating } from '@/Components/Rating/Rating'
 import { useCart } from '@/Hooks/useCart'
 import { ICourse } from '@/Types/course'
 import Date from '@/Utils/Date'
@@ -13,6 +14,8 @@ interface ICourseCard {
 export const CourseCard = ({course} : ICourseCard) => {
     const cart = useCart()
 
+    console.log(course)
+
     return (
         <div className="col-lg-4 col-md-6 d-flex">
             <div className="course-box course-design d-flex ">
@@ -21,7 +24,7 @@ export const CourseCard = ({course} : ICourseCard) => {
                     <Link href={route('courses.single', {
                         course: course.slug
                     })}>
-                        <img className="img-fluid" alt="" src={course.image} />
+                        <img className="img-fluid" style={{objectFit: 'cover', minHeight: '100%', minWidth: '100%'}} alt="" src={course.image} />
                     </Link>
                     <div className="price ">
                         <h3 ><PriceDiscount course={course} /></h3>
@@ -44,38 +47,34 @@ export const CourseCard = ({course} : ICourseCard) => {
                         course: course.slug
                     })}>{course.name}</Link></h3>
                     <div className="course-info d-flex align-items-center">
-                    <div className="rating-img d-flex align-items-center">
-                        <img src="assets/img/icon/icon-01.svg" alt="" />
-                        <p>{course.lectures_count}+ {pluralize('Lesson', course.lectures_count)}</p>
+                        <div className="rating-img d-flex align-items-center">
+                            <img src="assets/img/icon/icon-01.svg" alt="" />
+                            <p>{course.lectures_count}+ {pluralize('Lesson', course.lectures_count)}</p>
+                        </div>
+
+                        <div className="course-view d-flex align-items-center">
+                            {
+                                course.course_duration
+
+                                &&
+
+                                <>
+                                    <img src="assets/img/icon/icon-02.svg" alt="" />
+                                    <p>{Date.secondsToHms(course.course_duration)}</p>
+                                </>
+                            }
+                        </div>
                     </div>
 
-                    <div className="course-view d-flex align-items-center">
-                        {
-                            course.course_duration
+                        <Rating count={course.reviews_count} rating={(course.reviews_sum_rating / course.reviews.length)} />
 
-                            &&
-
-                            <>
-                                <img src="assets/img/icon/icon-02.svg" alt="" />
-                                <p>{Date.secondsToHms(course.course_duration)}</p>
-                            </>
-                        }
+                        <div className="mt-4 d-flex flex-column gap-3">
+                            <button onClick={() => cart?.add(course)} className="btn btn-lg rounded-pill btn-primary btn-outline btn-outline-primary  w-100">Add To Cart</button>
+                            <Link href={route('courses.single', {
+                                course: course.slug
+                            })} className="btn btn-enroll w-100">Enroll Now</Link>
+                        </div>
                     </div>
-                    </div>
-                    <div className="rating">
-                        <i className="fas fa-star filled" />
-                        <i className="fas fa-star filled" />
-                        <i className="fas fa-star filled" />
-                        <i className="fas fa-star filled" />
-                        <i className="fas fa-star" />
-                        <span className="d-inline-block average-rating"><span>4.0</span> (15)</span>
-                    </div>
-
-                    <div className="d-flex align-items-center justify-content-between">
-                        <button onClick={() => cart?.add(course)} className="btn btn-outline btn-outline-primary">Add To Cart</button>
-                        <button className="btn btn-primary">Buy Now</button>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>

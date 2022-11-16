@@ -89,7 +89,7 @@ export default function Transactions({transactions} : ITransactionsProps) {
                                                                 <Link href=''>{transaction.user.name}</Link>
                                                             </td>
 
-                                                            <td>{transaction.reference}</td>
+                                                            <td><span className='fw-bold'>{transaction.reference}</span></td>
                                                             <td><Naira /> {transaction.amount.toLocaleString() || 0}</td>
                                                             <td><span className={`badge badge-${StatusColor[transaction.status  as keyof typeof StatusColor]}`}>{transaction.status}</span></td>
                                                             

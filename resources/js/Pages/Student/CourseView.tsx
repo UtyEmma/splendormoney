@@ -1,12 +1,22 @@
 import MainLayout from '@/Layouts/MainLayout'
 import { StudentLayout } from '@/Layouts/Student/StudentLayout'
-import { ICourse } from '@/Types/course'
+import { ICourse, ILecture, IModule } from '@/Types/course'
+import Date from '@/Utils/Date'
 import { Link } from '@inertiajs/inertia-react'
 import pluralize from 'pluralize'
 import React, { useState } from 'react'
+import ReactPlayer from 'react-player'
+import { ReviewModal } from './Components/ReviewModal'
+
+interface ICourseViewProps {
+    course: ICourse
+    review: any,
+    enrollment: any,
+    video: string
+}
 
 
-export default function CourseView({course} : {course: ICourse}) {
+export default function CourseView({course, review, enrollment, video} : ICourseViewProps ) {
 
     const defaultItem = {
         module: course.modules?.[0],
@@ -15,6 +25,7 @@ export default function CourseView({course} : {course: ICourse}) {
         index: 0
     }
 
+    const [currentVideo, setCurrentVideo] = useState(video)
     const [playing, setPlaying] = useState(defaultItem)
 
     const next = () => {
@@ -34,66 +45,95 @@ export default function CourseView({course} : {course: ICourse}) {
     return (
         <MainLayout title='Course'>
             <div className="container py-5">
-                <div className='mb-5'>
-                    <Link href='..' replace className='fs-5'> <span className="feather-chevron-left"></span> Back to Courses</Link>
-                    <h2 className='fw-bold'>Course Content</h2>
-                    <h4>{course.name}</h4>
+                <div className='col-md-10 mx-auto mb-5'>
+                    <Link href='..' replace className='fs-6'> <span className="feather-chevron-left"></span> Back to Courses</Link>
+                    <h3 className='fw-bold'>Course Content</h3>
+                    <h5>{course.name}</h5>
                 </div>
 
                 <div className="row gap-4 gap-md-0">
-                    <div className="col-lg-8">
-                        <div className="student-widget lesson-introduction">
-                            <div className="lesson-widget-group p-0">
-                                <div className="introduct-video">
-                                    <video src={playing.lecture.file} onEnded={() => next()} disableRemotePlayback className="img-fluid" controlsList="nodownload" autoPlay controls></video>
+                    <div className="col-lg-10 mx-auto">
+                        <div className="card content-sec">
+                            <div className="introduct-video bg-primary">
+                                <ReactPlayer url={`${currentVideo}` || 'https://www.youtube.com/watch?v=ysz5S6PUM-U'} width={'100%'} controls={true} />
+                            </div>
+
+                            <div className="card-body">
+                                <div className="d-flex justify-content-between">
+                                    <div>
+                                        <h4 style={{fontWeight: "600"}} >{playing.lecture.title}</h4>
+                                        <p>{playing.lecture.description}</p>
+                                    </div>
+                                    <div>
+                                        <ReviewModal course={course} review={review} >{
+                                            review
+
+                                            ?
+
+                                            "Edit Course Review"
+                                            
+                                            :
+
+                                            "Review this Course"
+                                        }</ReviewModal>
+                                    </div>  
                                 </div>
-                                <div className="pt-3 px-3">
-                                    <h4 style={{fontWeight: "600"}} >{playing.lecture.title}</h4>
-                                    <p>{playing.lecture.description}</p>
-                                </div>
+
                             </div>
                         </div>
-                    </div>
-                    <div className="col-lg-4">
-                        <div className="lesson-group card bg-light">
-                            <div className='card-header mb-3'>
-                                <h4 style={{fontWeight: "600"}}>Course Content</h4>
-                            </div>
 
-                            <div className='p-2' style={{overflowY: "scroll",height: '500px',}}>
-                                {
-                                    course.modules.map((module, index) => (
-                                        <div className="course-card">
-                                            <h6 className="cou-title">
-                                            <a className="collapsed" data-bs-toggle="collapse" href={"#collapseOne"+module.id} aria-expanded="false">Module {index+1} <span>{module.lectures.length} {pluralize('Lesson', module.lectures.length)}</span> </a>
-                                            </h6>
-                                            <div id={"collapseOne"+module.id} className="card-collapse collapse pt-0">
-                                                <ul>
-                                                    {
-                                                        module.lectures.map((lecture, i) => (
-                                                            <li className='d-flex justify-content-between' role={'button'} onClick={() => setPlaying({
-                                                                module: module,
-                                                                lecture: lecture,
-                                                                index: i,
-                                                                module_index: index
-                                                            })}>
-                                                                <p className="play-intro">{lecture.title}</p>
+                        <div className="card content-sec">
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="col-sm-6">
+                                        <h5 className="subs-title">Course Content</h5>
+                                    </div>
+                                    <div className="col-sm-6 text-sm-end">
+                                    <h6>{course.lectures_count} Lectures {course.course_duration ? `- ${Date.secondsToHms(course.course_duration!)}` : ''}</h6>
+                                    </div>
+                                </div>
 
-                                                                <div>
-                                                                    {
-                                                                        playing.lecture.id === lecture.id  &&
-                                                                        <img src="/assets/img/icon/play-icon.svg" alt="" />
-                                                                    }
-                                                                    {/* <img src="/assets/img/icon/lock.svg" alt="" /> */}
-                                                                </div>
-                                                            </li>
-                                                        ))
-                                                    }
-                                                </ul>
+                                <div id="module-accordion">
+                                    {
+                                        course.modules.map((module, index) => (
+                                            <div className="course-card">
+                                                <h6 className="cou-title">
+                                                    <a className="collapsed" data-bs-toggle="collapse" data-bs-accordion={"#module-accordion"} href={"#collapseOne"+module.id} aria-expanded="false">Module {index + 1}: {module.title}</a>
+                                                </h6>
+
+                                                <div id={"collapseOne"+module.id} className="card-collapse collapse pb-3" >
+                                                    <ul className='px-3'>
+                                                        {
+                                                            module.lectures.map((lecture, i) => (
+                                                                <li role={'button'} className={`${(playing.lecture.id === lecture.id) && 'text-primary'} `} onClick={() => setPlaying({
+                                                                    module: module,
+                                                                    lecture: lecture,
+                                                                    index: i,
+                                                                    module_index: index
+                                                                })}>
+                                                                    <Link href={route('lecture.load', {
+                                                                        enrollment: enrollment.id,
+                                                                        lecture: lecture.id
+                                                                    })}>
+                                                                        <img src="assets/img/icon/play.svg" alt="" className="me-2" />
+                                                                        Lecture {index + 1}: {lecture.title}
+                                                                    </Link>
+                                                                    <div>
+                                                                        {
+                                                                            playing.lecture.id === lecture.id  &&
+                                                                            <img src="/assets/img/icon/play-icon.svg" alt="" />
+                                                                        }
+                                                                    </div>
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))
-                                }
+                                        ))
+                                    }
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -102,5 +142,47 @@ export default function CourseView({course} : {course: ICourse}) {
                 <hr />
             </div>
         </MainLayout>
+    )
+}
+
+
+interface ICourseModuleItemProps {
+    module: IModule
+    index: number
+}
+
+export const CourseModuleItem = ({module, index}: ICourseModuleItemProps) => {
+    return (
+        <div className="course-card">
+            <h6 className="cou-title">
+                <a className="collapsed" data-bs-toggle="collapse" data-bs-accordion={"#module-accordion"} href={"#collapseOne"+module.id} aria-expanded="false">{module.title}</a>
+            </h6>
+
+            <div id={"collapseOne"+module.id} className="card-collapse collapse" style={{}}>
+                <ul>
+                    {
+                        module.lectures.map((lecture, i) => <ModuleLecture module_index={index} lecture={lecture} index={i + 1} />)
+                    }
+                </ul>
+            </div>
+        </div>
+    )
+}
+
+interface IModuleLectureProps {
+    lecture: ILecture
+    index: number
+    module_index: number
+}
+
+export const ModuleLecture = ({lecture, module_index, index}: IModuleLectureProps) => {
+    return (
+        <li>
+            <p>
+                <img src="assets/img/icon/play.svg" alt="" className="me-2" />Lecture {module_index}.{index} {lecture.title}</p>
+            <div>
+                <span>{lecture.duration}</span>
+            </div>
+        </li>
     )
 }

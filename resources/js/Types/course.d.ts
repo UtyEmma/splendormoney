@@ -1,3 +1,4 @@
+import { IReview } from "./review"
 import { IUser } from "./user"
 
 interface ICourse {
@@ -19,6 +20,10 @@ interface ICourse {
     lectures_count: number
     created_at: string
     updated_at: string
+    enrollment: any
+    reviews_count: number
+    reviews: IReview[]
+    reviews_sum_rating: number
 }
 
 interface IModule {

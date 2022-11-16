@@ -8,6 +8,7 @@ use App\Http\Controllers\LectureController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TransactionController;
@@ -47,8 +48,14 @@ Route::middleware(['auth'])->group(function(){
             
             Route::get('/courses', [EnrollmentController::class, 'index'])->name('student.courses');
             Route::get('/courses/{enrollment}/{course:slug}', [EnrollmentController::class, 'show'])->name('student.courses.single');
+        
+        });
+
+        Route::prefix('lecture')->group(function(){
+            Route::get('{enrollment}/{lecture}', [LectureController::class, 'load'])->name('lecture.load');
         });
     });
+
 
     Route::prefix('admin')->middleware(['role:admin'])->group(function(){
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -92,12 +99,14 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/', [TransactionController::class, 'index'])->name('admin.transactions.list');
             Route::delete('/{transaction}', [TransactionController::class, 'destroy'])->name('admin.transactions.delete');
         });
+
         Route::get('settings', [SiteController::class, 'index'])->name('admin.settings');
         Route::get('profile', [AdminController::class, 'show'])->name('admin.profile');
+    });
 
-
-
-
+    Route::prefix('review')->group(function(){
+        Route::post('/{course}', [ReviewController::class, 'store'])->name('reviews.store');
+        Route::put('/{review}', [ReviewController::class, 'update'])->name('reviews.update');
     });
 });
 
