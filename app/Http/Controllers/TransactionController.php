@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -17,6 +18,15 @@ class TransactionController extends Controller {
 
         return Inertia::render('Admin/Transactions/Transactions', [
             'transactions' => $transactions->paginate(env('PAGINATION_COUNT'))
+        ]);
+    }
+
+    function list(Request $request){
+        $user_id = auth()->id();
+        $transactions = User::with(['transactions'])->find($user_id);
+        
+        return Inertia::render('Student/Transactions', [
+            'transactions' => $transactions
         ]);
     }
 

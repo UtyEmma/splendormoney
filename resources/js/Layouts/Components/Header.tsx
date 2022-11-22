@@ -19,7 +19,7 @@ export const Header = ({index = false}: {index: boolean}) => {
                                 </span>
                             </a>
                             <Link href={route('pages.home')} className="navbar-brand logo">
-                                <img src="/assets/img/logo.svg" className="img-fluid" alt="Logo" />
+                                <img src="/assets/logo.png" className="img-fluid" alt="Logo" />
                             </Link>
                         </div>
                         <div className="main-menu-wrapper">

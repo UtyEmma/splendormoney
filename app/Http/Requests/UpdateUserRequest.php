@@ -25,10 +25,18 @@ class UpdateUserRequest extends FormRequest
     public function rules(){
         return [
             'name' => 'required|string|max:255',
-            'email' => ["required", "string", "email", "max:255", Rule::unique('users', 'email')->ignore($this->request->all()['instructor_id'])],
-            'password' => ['nullable', Password::defaults(), 'confirmed'],
+            'email' => ["required", "string", "email", "max:255", Rule::unique('users', 'email')->ignore($this->user()->id , 'id')],
+            'password' => ['nullable', 'required_with:oldpassword', Password::defaults(), 'confirmed'],
+            'oldpassword' => ['nullable', 'required_with:password'],
             'description' => 'nullable|string',
             'avatar' => 'nullable|image'
+        ];
+    }
+
+    public function attributes(){
+        return [
+            'password' => 'Password',
+            'oldpassword' => "Old Password"
         ];
     }
 }

@@ -3,7 +3,7 @@ import { ICourse } from '@/Types/course'
 import { percentageDiff } from '@/Utils/Math'
 
 export interface ICart {
-    add: (course: any) => void,
+    add: (course: ICourse) => void,
     remove : (id: string) => void,
     courses: any[],
     amount: number,

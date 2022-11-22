@@ -23,7 +23,8 @@ interface ICourse {
     enrollment: any
     reviews_count: number
     reviews: IReview[]
-    reviews_sum_rating: number
+    reviews_sum_rating: number,
+    wishlist_count: number
 }
 
 interface IModule {

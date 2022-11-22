@@ -1,19 +1,19 @@
 import { Pagination } from '@/Components/Pagination/Pagination'
 import { Rating } from '@/Components/Rating/Rating'
-import { AdminLayout } from '@/Layouts/Admin/AdminLayout'
-import { ReviewModal } from '@/Pages/Student/Components/ReviewModal'
+import { StudentLayout } from '@/Layouts/Student/StudentLayout'
 import { InertiaProps, IPagination } from '@/Types/app'
 import { IReview } from '@/Types/review'
 import { Link } from '@inertiajs/inertia-react'
 import React from 'react'
+import { ReviewModal } from './Components/ReviewModal'
 
-interface IReviewsListProps extends InertiaProps{
+interface IReviewsProps extends InertiaProps {
     reviews: IPagination<IReview[]>
 }
 
-export default function ReviewsList({reviews} : IReviewsListProps) {
+export default function Reviews({reviews}: IReviewsProps) {
     return (
-        <AdminLayout title='Reviews'>
+        <StudentLayout title='Reviews'>
             <div className="settings-widget">
                 <div className="settings-inner-blk p-0">
                     <div className="sell-course-head comman-space">
@@ -58,7 +58,12 @@ export default function ReviewsList({reviews} : IReviewsListProps) {
                         
                         <div className="p-4">
                             <div className='border text-center p-5 rounded-3'>
-                                <h2>There are no reviews to show at the moment!</h2>
+                                <div className='mb-5'>
+                                    <h2>You have not reviewed any courses yet!</h2>
+                                    <h5>Click the link below to find courses you are enrolled in!</h5>
+                                </div>
+
+                                <Link className="btn btn-reply" href={route('student.courses')}>Find Courses</Link>
                             </div>
                         </div>
                     
@@ -67,6 +72,6 @@ export default function ReviewsList({reviews} : IReviewsListProps) {
                     <Pagination pagination={reviews} />
                 </div>
             </div>
-        </AdminLayout>
+        </StudentLayout>
     )
 }

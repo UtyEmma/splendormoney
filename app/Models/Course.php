@@ -18,8 +18,8 @@ class Course extends Model {
     ];
 
     function scopeWithRelations (Builder $query) {
-        $query->with(['modules', 'modules.lectures', 'instructor', 'reviews.student', 'reviews'])->withCount([
-            'enrollments', 'lectures', 'reviews'])->withSum('lectures as course_duration', 'duration')->withSum('reviews', 'rating');
+        $query->with(['modules', 'modules.lectures', 'instructor', 'reviews.student', 'wishlist', 'reviews'])->withCount([
+            'enrollments', 'lectures', 'reviews', 'wishlist'])->withSum('lectures as course_duration', 'duration')->withSum('reviews', 'rating');
     }
 
     function scopeActive(Builder $query){
@@ -28,6 +28,10 @@ class Course extends Model {
 
     function instructor () {
         return $this->belongsTo(User::class, 'instructor');
+    }
+
+    function wishlist(){
+        return $this->hasOneThrough(User::class, Wishlist::class, 'course_id', 'id', 'id', 'user_id');
     }
 
     function modules(){

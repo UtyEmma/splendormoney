@@ -1,4 +1,5 @@
 import { StatusColor } from "@/Utils/Status"
+import { IWishlist } from "./wishlist"
 export interface IUser {
     id: string
     name: string
@@ -10,6 +11,10 @@ export interface IUser {
     earnings: number
     status: keyof typeof StatusColor
     affiliate_id: string
+    enrollments_count?: number
+    transactions_count?: number
+    referrals_count?: number
+    wishlists: IWishlist[]
 }
 
 export interface IStudent extends IUser{

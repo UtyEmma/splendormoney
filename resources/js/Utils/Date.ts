@@ -1,4 +1,5 @@
 import moment, { Moment } from "moment";
+import { InbuiltDate } from "./Declarations";
 
 export default class Date {
 

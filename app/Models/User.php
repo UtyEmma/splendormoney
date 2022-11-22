@@ -27,7 +27,9 @@ class User extends Authenticatable
         'description',
         'role',
         'avatar',
-        'status'
+        'status',
+        'affiliate_id',
+        'referrer'
     ];
 
     protected $attributes = [
@@ -45,6 +47,8 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    static $admin = 'admin';
 
     /**
      * The attributes that should be cast.
@@ -71,8 +75,12 @@ class User extends Authenticatable
         $query->where('role', 'user');
     }
 
-    function scopeAdmin(Builder $query) {
+    function scopeAdmin(Builder $query){
         $query->where('role', 'admin');
+    }
+
+    function scopeAnyAdmin(Builder $query){
+        $query->where('role', 'admin')->orWhere('role', 'superadmin');
     }
 
     function enrollments() {
@@ -87,11 +95,29 @@ class User extends Authenticatable
         return $this->hasManyThrough(Enrollment::class, Course::class, 'instructor', 'course_id', 'id', 'id');
     }
 
+    static function isAnyAdmin(User $user = null){
+        $currentUser = $user ?? auth()->user();
+        return $currentUser->role === 'admin' || $currentUser->role === 'superadmin';
+    }
+
+    static function isRole($role, User $user = null){
+        $currentUser = $user ?? auth()->user();
+        return $currentUser->role === $role;
+    }
+
     function transactions(){
         return $this->hasMany(Transaction::class, 'user_id');
     }
 
     function referrals() {
         return $this->hasMany(Enrollment::class, 'referrer_id');
+    }
+
+    function downlines() {
+        return $this->hasMany(User::class, 'referrer');
+    }
+
+    function wishlists(){
+        return $this->hasMany(Wishlist::class, 'user_id');
     }
 }

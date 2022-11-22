@@ -6,6 +6,7 @@ use App\Models\Review;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -21,6 +22,10 @@ class ReviewController extends Controller
         return Inertia::render('Admin/Reviews/ReviewsList', [
             'reviews' => $reviews
         ]);
+    }
+
+    function list(){
+
     }
 
     /**
@@ -96,6 +101,8 @@ class ReviewController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Review $review) {
+        $user = auth()->user();
+        if($user->id !== $review->student_id && !User::isAnyAdmin()) return back()->with('error', 'You are not authorized to carry out this action'); 
         $review->delete();
         return back()->with('success', 'Review Deleted Successfully');
     }

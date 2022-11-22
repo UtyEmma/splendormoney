@@ -1,3 +1,5 @@
+import { Symbol } from '@/Components/Avatar/Symbol'
+import Naira from '@/Components/Currency/Naira'
 import { useCart } from '@/Hooks/useCart'
 import { InertiaProps } from '@/Types/app'
 import Currency from '@/Utils/Currency'
@@ -9,6 +11,8 @@ import { Cart } from './Cart'
 export const UserDropdown = () => {
 
     const {auth} = usePage().props as unknown as InertiaProps
+
+    const cart = useCart()
 
     return (
         <>
@@ -25,68 +29,77 @@ export const UserDropdown = () => {
                             <a href="#" className="dropdown-toggle" data-bs-toggle="dropdown">
                                 <img src="/assets/img/icon/wish.svg" alt="img" />
                             </a>
-                            <div className="wishes-list dropdown-menu dropdown-menu-right">
-                            <div className="wish-content">
-                                <ul>
-                                <li>
-                                    <div className="media">
-                                    <div className="d-flex media-wide">
-                                        <div className="avatar">
-                                        <a href="course-details.html">
-                                            <img alt="" src="/assets/img/course/course-04.jpg" />
-                                        </a>
-                                        </div>
-                                        <div className="media-body">
-                                        <h6><a href="course-details.html">Learn Angular...</a></h6>
-                                        <p>By Dave Franco</p>
-                                        <h5>$200 <span>$99.00</span></h5>
-                                        <div className="remove-btn">
-                                            <a href="#" className="btn">Add to cart</a>
-                                        </div>
-                                        </div>
+
+                            <div className="wishes-list dropdown-menu dropdown-menu-right p-0">
+                                <div className="wish-content p-0">
+                                    <div className="p-3 ">
+                                        <h5>Wishlist Courses</h5>
                                     </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="media">
-                                    <div className="d-flex media-wide">
-                                        <div className="avatar">
-                                        <a href="course-details.html">
-                                            <img alt="" src="/assets/img/course/course-14.jpg" />
-                                        </a>
-                                        </div>
-                                        <div className="media-body">
-                                        <h6><a href="course-details.html">Build Responsive Real...</a></h6>
-                                        <p>Jenis R.</p>
-                                        <h5>$200 <span>$99.00</span></h5>
-                                        <div className="remove-btn">
-                                            <a href="#" className="btn">Add to cart</a>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="media">
-                                    <div className="d-flex media-wide">
-                                        <div className="avatar">
-                                        <a href="course-details.html">
-                                            <img alt="" src="/assets/img/course/course-15.jpg" />
-                                        </a>
-                                        </div>
-                                        <div className="media-body">
-                                        <h6><a href="course-details.html">C# Developers Double ...</a></h6>
-                                        <p>Jesse Stevens</p>
-                                        <h5>$200 <span>$99.00</span></h5>
-                                        <div className="remove-btn">
-                                            <a href="#" className="btn">Remove</a>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </li>
-                                </ul>
-                            </div>
+                                    <ul>
+                                        {
+                                            auth.user.wishlists.length > 0
+
+                                            ?
+
+                                            auth.user.wishlists.map(wishlist => (
+                                                <li>
+                                                    <div className="media w-100">
+                                                        <div className="d-flex media-wide w-100">
+                                                            <div className="avatar">
+                                                            <Link href={route('courses.single', {
+                                                                course: wishlist.course?.slug
+                                                            })}>
+                                                                <img alt="" src={wishlist.course?.image} />
+                                                            </Link>
+                                                            </div>
+                                                            <div className="media-body flex-fill">
+                                                                <h6><Link href={route('courses.single', {
+                                                                    course: wishlist.course?.slug
+                                                                })} >{wishlist.course?.name}</Link></h6>
+                                                                <p>By {wishlist.course?.instructor.name}</p>
+                                                                {
+                                                                    wishlist.course?.discount
+
+                                                                    ?
+
+                                                                    <>
+                                                                        <h5>
+                                                                            <Naira /> {percentageDiff(wishlist.course?.price, wishlist.course.discount).toLocaleString()} 
+                                                                            <span className='ms-1'><Naira /> {wishlist.course?.price.toLocaleString()}</span>
+                                                                        </h5>
+                                                                    </>
+
+                                                                    :
+
+                                                                    <>
+                                                                        <h5>
+                                                                            <Naira /> {wishlist.course?.price.toLocaleString()} 
+                                                                        </h5>
+                                                                    </>
+                                                                }
+                                                                <div className="mt-2 d-flex justify-content-between">
+                                                                    <button onClick={() => cart?.add(wishlist.course!)} className="btn btn-primary btn-rounded btn-sm" >Add to cart</button>
+                                                                    <Link href={route('student.wishlist.toggle', {
+                                                                        course: wishlist.course?.id
+                                                                    })} className="btn btn-danger ms-2 btn-icon btn-sm">
+                                                                        <i className='fa fa-trash'></i>
+                                                                    </Link>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            ))
+
+                                            :
+
+                                            <li className='text-center p-3'>
+                                                <h3 className='fs-4'>You have not added any courses to your Wishlist</h3>
+                                                <Link href={route('courses.list')} className="mt-3 btn btn-primary">Find Courses</Link>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
                             </div>
                         </li>
                         <li className="nav-item noti-nav">
@@ -167,7 +180,7 @@ export const UserDropdown = () => {
                         <li className="nav-item user-nav">
                             <a href="#" className="dropdown-toggle" data-bs-toggle="dropdown">
                             <span className="user-img">
-                                <img src="/assets/img/user/user11.jpg" alt="" />
+                                <Symbol image={auth.user.avatar} name={auth.user.name} />
                                 <span className="status online" />
                             </span>
                             </a> 

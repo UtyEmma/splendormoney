@@ -38,10 +38,10 @@ export const AdminSidebar = () => {
                             <i className="feather-users" /> Users
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <a href="instructor-reviews.html" className="nav-link">
+                    <li className={`${route().current() === 'admin.reviews' && 'active'} nav-item`}>
+                        <Link href={route('admin.reviews')} className="nav-link">
                             <i className="feather-star" /> Reviews
-                        </a>
+                        </Link>
                     </li>
                     <li className={`${route().current() === 'admin.transactions.list' && 'active'} nav-item`}>
                         <Link href={route('admin.transactions.list')} className="nav-link">
@@ -55,10 +55,10 @@ export const AdminSidebar = () => {
                 </div>
                 
                 <ul>
-                    <li className="nav-item">
-                        <a href="instructor-edit-profile.html" className="nav-link ">
+                    <li className={`${route().current() === 'admin.admins' && 'active'} nav-item`}>
+                        <Link href={route('admin.admins')} className="nav-link ">
                             <i className="feather-users" /> Admins
-                        </a>
+                        </Link>
                     </li>
                     <li className={`${route().current() === 'admin.profile' && 'active'} nav-item`}>
                         <Link href={route('admin.profile')} >

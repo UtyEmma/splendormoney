@@ -1,0 +1,1 @@
+export var InbuiltDate : typeof Date = Date 

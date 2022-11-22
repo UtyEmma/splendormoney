@@ -1,9 +1,11 @@
+import { Symbol } from '@/Components/Avatar/Symbol'
 import { PriceDiscount } from '@/Components/Price/PriceDiscounts'
 import { Rating } from '@/Components/Rating/Rating'
 import { useCart } from '@/Hooks/useCart'
+import { InertiaProps } from '@/Types/app'
 import { ICourse } from '@/Types/course'
 import Date from '@/Utils/Date'
-import { Link } from '@inertiajs/inertia-react'
+import { Link, usePage } from '@inertiajs/inertia-react'
 import pluralize from 'pluralize'
 import React from 'react'
 
@@ -14,8 +16,8 @@ interface ICourseCard {
 export const CourseCard = ({course} : ICourseCard) => {
     const cart = useCart()
 
-    console.log(course)
-
+    const {auth} = usePage().props as unknown as InertiaProps
+    
     return (
         <div className="col-lg-4 col-md-6 d-flex">
             <div className="course-box course-design d-flex ">
@@ -33,22 +35,34 @@ export const CourseCard = ({course} : ICourseCard) => {
                 <div className="product-content">
                     <div className="course-group d-flex">
                     <div className="course-group-img d-flex align-items-center">
-                        <a href="instructor-profile.html"><img src={course.instructor.avatar || "/assets/img/user/user1.jpg"} alt="" className="img-fluid" /></a>
-                        <div className="course-name pb-0 mb-0">
-                            <h4 className='mb-0'><a href="instructor-profile.html">{course.instructor.name}</a></h4>
+                        <div className='me-2'>
+                            <Symbol image={course.instructor.avatar} size={45} name={course.instructor.name} />
+                        </div>
+                        <div className="course-name">
+                            <h4 className='mb-0'><p>{course.instructor.name}</p></h4>
                             <p className='mb-0'>Instructor</p>
+
+
                         </div>
                     </div>
-                    <div className="course-share d-flex align-items-center justify-content-center">
-                        <a href="#rate"><i className="fa-regular fa-heart" /></a>
-                    </div>
+                    {
+                        auth.user
+
+                        &&
+
+                        <div className="course-share d-flex align-items-center justify-content-center">
+                            <Link href={route('student.wishlist.toggle', {
+                                course: course.id
+                            })}><i className={`fa-heart ${course.wishlist_count ? 'fa-solid' : 'fa-regular'}`} /></Link>
+                        </div>
+                    }
                     </div>
                     <h3 className="title"><Link href={route('courses.single', {
                         course: course.slug
                     })}>{course.name}</Link></h3>
                     <div className="course-info d-flex align-items-center">
                         <div className="rating-img d-flex align-items-center">
-                            <img src="assets/img/icon/icon-01.svg" alt="" />
+                            <img src="/assets/img/icon/icon-01.svg" alt="" />
                             <p>{course.lectures_count}+ {pluralize('Lesson', course.lectures_count)}</p>
                         </div>
 
@@ -59,7 +73,7 @@ export const CourseCard = ({course} : ICourseCard) => {
                                 &&
 
                                 <>
-                                    <img src="assets/img/icon/icon-02.svg" alt="" />
+                                    <img src="/assets/img/icon/icon-02.svg" alt="" />
                                     <p>{Date.secondsToHms(course.course_duration)}</p>
                                 </>
                             }

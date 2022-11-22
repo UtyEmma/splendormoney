@@ -1,3 +1,5 @@
+import { IApp, InertiaProps } from '@/Types/app'
+import { InertiaApp, usePage } from '@inertiajs/inertia-react'
 import React from 'react'
 
 interface IShareButtonProps {
@@ -5,16 +7,25 @@ interface IShareButtonProps {
     title: string
 }
 
+interface IShareData {
+    app: IApp,
+    link: string
+}
+
+export const shareData = (data: IShareData) => {
+    return {
+        url: data.link
+    }
+}
+
 export const ShareButton = ({link, title}: IShareButtonProps) => {
 
+    const { app } = usePage().props as unknown as InertiaProps
+    
     const share = () => {
-        const shareData = {
-            title: `'Hi, come join Libraclass'`,
-            text: 'I am inviting you to join Libraclass',
+        navigator.share({
             url: link
-        }
-
-        navigator.share(shareData)
+        })
     }
 
     return (

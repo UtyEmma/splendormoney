@@ -4,7 +4,11 @@ export interface IAppContext {
     user: IUser | null
 }
 
+export interface IApp {
+    name: string,
+}
 export interface InertiaProps {
+    app: IApp,
     auth: {
         user: IUser | null
     },

@@ -3,10 +3,11 @@ import React from 'react'
 interface ISymbolProps {
     image: string,
     name: string
-    size?: number
+    size?: number,
+    className?: string
 }
 
-export const Symbol = ({image, name, size = 50}: ISymbolProps) => {
+export const Symbol = ({image, name, size = 50, className}: ISymbolProps) => {
 
     const setName = () => {
         if(image || !name) return
@@ -18,7 +19,6 @@ export const Symbol = ({image, name, size = 50}: ISymbolProps) => {
 
     return (
         <>
-            <div className="rounded-circle overflow-hidden p-1 bg-primary d-flex align-items-center justify-content-center" style={{width: `${size}px`, height: `${size}px`}}>
                 {
                     image 
                     
@@ -28,9 +28,12 @@ export const Symbol = ({image, name, size = 50}: ISymbolProps) => {
 
                     :
 
-                    <h4 className='my-0 text-white'>{setName()}</h4>
+                    <span className={`rounded-circle overflow-hidden p-2 bg-secondary d-flex align-items-center justify-content-center ${className}`} style={{width: `${size}px`, height: `${size}px`}}>
+                        <h4 className='my-0 text-white' style={{
+                            fontSize: `${size / 2}px`
+                        }} >{setName()}</h4>
+                    </span>
                 }
-            </div>
         </>
     )
 }

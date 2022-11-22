@@ -26,4 +26,8 @@ class Enrollment extends Model {
     public function student(){
         return $this->belongsTo(User::class, 'student_id');
     }
+
+    public function referer(){
+        return $this->belongsTo(User::class, 'referrer_id', 'affiliate_id');
+    }
 }

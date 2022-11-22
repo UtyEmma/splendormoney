@@ -1,45 +1,41 @@
 import { Button } from '@/Components/Buttons/Button'
 import { InputError } from '@/Components/Forms/InputError'
 import { SelectThumbnail } from '@/Components/Forms/SelectThumbnail'
-import { AdminLayout } from '@/Layouts/Admin/AdminLayout'
-import MainLayout from '@/Layouts/MainLayout'
+import { StudentLayout } from '@/Layouts/Student/StudentLayout'
 import { InertiaProps } from '@/Types/app'
-import { IUser } from '@/Types/user'
 import Form from '@/Utils/Form'
 import { useForm, usePage } from '@inertiajs/inertia-react'
 import React, { ChangeEvent, FormEvent, useRef } from 'react'
 
-interface IProfileProps extends InertiaProps {
-    admin: IUser
-}
-
-export default function Profile({admin} : IProfileProps) {
+export default function Profile() {
 
     const {auth} = usePage().props as unknown as InertiaProps
 
-    const {post, errors, setData, data, processing} = useForm({
-        ...auth.user, 
-        avatar: '',
+    const updateProfileForm = useRef<HTMLFormElement>(null)
+
+    const {data, processing, setData, errors, post, reset} = useForm({
+        name: auth.user?.name,
+        email: auth.user?.email,
+        description: auth.user?.description,
         password: '',
+        password_confirmation: '',
         oldpassword: '',
-        password_confirmation: ''
+        avatar: ''
     })
-
-    const updateProfileForm = useRef(null)
-
-    const submit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        post(route('admin.profile.update', {
-            user: auth.user?.id
-        }))
-    }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setData(e.currentTarget.name as keyof typeof data, Form.value(e.currentTarget) as any)
     }
 
+    const submit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        post(route('student.profile.update', {
+            user: auth.user?.id
+        }))
+    }
+
     return (
-        <AdminLayout title='Profile' >
+        <StudentLayout title='Profile' >
             <div className="settings-widget profile-details">
                 <form onSubmit={submit} autoComplete="off" ref={updateProfileForm} >
                     <div className="settings-menu p-0">
@@ -102,6 +98,6 @@ export default function Profile({admin} : IProfileProps) {
                     </div>
                 </form>
             </div>
-        </AdminLayout>
+        </StudentLayout>
     )
 }

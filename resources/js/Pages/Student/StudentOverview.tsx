@@ -1,7 +1,14 @@
 import { StudentLayout } from '@/Layouts/Student/StudentLayout'
+import { IUser } from '@/Types/user'
+import { Link } from '@inertiajs/inertia-react'
 import React from 'react'
 
-export default function StudentOverview() {
+interface IStudentOverviewProps {
+    user: IUser
+}
+
+export default function StudentOverview({user} : IStudentOverviewProps) {
+    console.log(user)
     return (
         <StudentLayout title='Student Dashboard' >
             <div className="settings-top-widget student-deposit-blk">
@@ -11,12 +18,12 @@ export default function StudentOverview() {
                         <div className="card-body">
                         <div className="view-all-grp d-flex">
                             <div className="student-ticket-view">
-                            <h3>50</h3>
-                            <p>Purchased Courses</p>
-                            <a href="purchase-history.html">View All</a>
+                                <h3>{user.enrollments_count}</h3>
+                                <p>Purchased Courses</p>
+                                <Link href={route('student.courses')}>View All</Link>
                             </div>
                             <div className="img-deposit-ticket">
-                            <img src="assets/img/students/book.svg" alt="" />
+                                <img src="assets/img/students/book.svg" alt="" />
                             </div>
                         </div>
                         </div>
@@ -27,9 +34,9 @@ export default function StudentOverview() {
                         <div className="card-body">
                         <div className="view-all-grp d-flex">
                             <div className="student-ticket-view">
-                            <h3>30</h3>
-                            <p>Total Transactions</p>
-                            <a href="deposit-student.html">View All</a>
+                                <h3>{user.transactions_count}</h3>
+                                <p>Total Transactions</p>
+                                <Link href={route('student.reviews')}>View All</Link>
                             </div>
                             <div className="img-deposit-ticket">
                             <img src="assets/img/students/receipt-text.svg" alt="" />
@@ -43,12 +50,12 @@ export default function StudentOverview() {
                         <div className="card-body">
                         <div className="view-all-grp d-flex">
                             <div className="student-ticket-view">
-                            <h3>20</h3>
-                            <p>Total Deposit</p>
-                            <a href="transactions-student.html">View All</a>
+                                <h3>{user.referrals_count}</h3>
+                                <p>Total Deposit</p>
+                                <Link href={route('student.referrals')}>View All</Link>
                             </div>
                             <div className="img-deposit-ticket">
-                            <img src="assets/img/students/empty-wallet-tick.svg" alt="" />
+                                <img src="assets/img/students/empty-wallet-tick.svg" alt="" />
                             </div>
                         </div>
                         </div>

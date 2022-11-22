@@ -11,39 +11,41 @@ export default function EnrolledCourses ({enrollments} : IEnrolledCoursesProps) 
     return (
         <StudentLayout title='Enrolled Courses'>
                 <div className="student-widget">
-                    <div className="student-widget-group">
-                        <div className="row">
-                        <div className="col-lg-12">
+                    <div className="student-widget-group p-5">
                             <div className="showing-list">
-                            <div className="row">
-                                <div className="col-lg-12">
-                                <div className="show-filter choose-search-blk">
-                                    <form action="#">
-                                    <div className="mycourse-student align-items-center">
-                                        <div className="student-search">
-                                        <div className=" search-group">
-                                            <i className="feather-search" />
-                                            <input type="text" className="form-control" placeholder="Search our courses" />
+                                <div className="row">
+                                    <div className="col-lg-12">
+                                    <div className="show-filter choose-search-blk">
+                                        <form action="#">
+                                        <div className="mycourse-student align-items-center">
+                                            <div className="student-search">
+                                            <div className=" search-group">
+                                                <i className="feather-search" />
+                                                <input type="text" className="form-control" placeholder="Search our courses" />
+                                            </div>
+                                            </div>
+                                            <div className="student-filter">
+                                            <div className="form-group select-form mb-0">
+                                                <select className="form-select select" name="sellist1">
+                                                <option>Newly published </option>
+                                                <option>Angular</option>
+                                                <option>React</option>
+                                                <option>Node</option>
+                                                </select>
+                                            </div>
+                                            </div>
                                         </div>
-                                        </div>
-                                        <div className="student-filter">
-                                        <div className="form-group select-form mb-0">
-                                            <select className="form-select select" name="sellist1">
-                                            <option>Newly published </option>
-                                            <option>Angular</option>
-                                            <option>React</option>
-                                            <option>Node</option>
-                                            </select>
-                                        </div>
-                                        </div>
+                                        </form>
                                     </div>
-                                    </form>
+                                    </div>
                                 </div>
-                                </div>
-                            </div>
                             </div>
                             <div className="row">
                                 {
+                                    enrollments.length > 0
+
+                                    ?
+
                                     enrollments?.map((enrollment: any) => (
                                         <div className="col-xl-6 col-lg-4 col-md-6 d-flex">
                                             <div className="course-box course-design  p-3">
@@ -92,11 +94,20 @@ export default function EnrolledCourses ({enrollments} : IEnrolledCoursesProps) 
                                             </div>
                                         </div>
                                     ))
+
+                                    :
+
+                                    <div className='border text-center p-5 rounded'>
+                                        <div className='mb-5'>
+                                            <h2>You are not enrolled for any courses yet!</h2>
+                                            <h5>Click the link below to find amazing courses you might be interested in!</h5>
+                                        </div>
+
+                                        <Link className="btn btn-reply" href={route('courses.list')}>Find Courses</Link>
+                                    </div>
                                 }
                             </div>
                         </div>
-                        </div>
-                    </div>
                 </div>
         </StudentLayout>
     )

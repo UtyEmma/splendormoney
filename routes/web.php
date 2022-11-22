@@ -13,6 +13,7 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishlistController;
 use App\Models\Enrollment;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +37,6 @@ Route::get('/cart', [PaymentController::class, 'cart'])->name('payment.cart');
 
 Route::middleware(['auth'])->group(function(){
     Route::middleware(['role:user'])->group(function(){
-
         Route::prefix('dashboard')->group(function(){
             Route::get('/', [StudentController::class, 'dashboard'])->name('student.dashboard');
             
@@ -48,7 +48,28 @@ Route::middleware(['auth'])->group(function(){
             
             Route::get('/courses', [EnrollmentController::class, 'index'])->name('student.courses');
             Route::get('/courses/{enrollment}/{course:slug}', [EnrollmentController::class, 'show'])->name('student.courses.single');
-        
+            
+            Route::prefix('profile')->group(function(){
+                Route::get('/', [StudentController::class, 'profile'])->name('student.profile');
+                Route::post('/{user}', [StudentController::class, 'update'])->name('student.profile.update');
+            });
+
+            Route::prefix('reviews')->group(function(){
+                Route::post('/{course}', [ReviewController::class, 'store'])->name('reviews.store');
+                Route::put('/{review}', [ReviewController::class, 'update'])->name('reviews.update');
+                Route::get('/student', [StudentController::class, 'reviews'])->name('student.reviews');
+            });
+
+            Route::prefix('wishlist')->group(function(){
+                Route::get('/', [WishlistController::class, 'index'])->name('student.wishlist');
+                Route::get('/{course}', [WishlistController::class, 'update'])->name('student.wishlist.toggle');
+            });
+
+            Route::prefix('referrals')->group(function(){
+                Route::get('/', [StudentController::class, 'refferals'])->name('student.referrals');
+            });
+
+            Route::get('/transactions', [TransactionController::class, 'list'])->name('student.transactions');
         });
 
         Route::prefix('lecture')->group(function(){
@@ -59,6 +80,13 @@ Route::middleware(['auth'])->group(function(){
 
     Route::prefix('admin')->middleware(['role:admin'])->group(function(){
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+        Route::prefix('admins')->group(function(){
+            Route::get('/', [AdminController::class, 'index'])->name('admin.admins');
+            Route::get('/{user}', [AdminController::class, 'edit'])->name('admin.admins.edit');
+            Route::post('/{user}', [AdminController::class, 'update'])->name('admin.admins.update');
+            Route::delete('/{user}', [AdminController::class, 'destroy'])->name('admin.admins.delete');
+        });
 
         Route::prefix('users')->group(function(){
             Route::get('/', [UserController::class, 'index'])->name('admin.users.list');
@@ -100,13 +128,20 @@ Route::middleware(['auth'])->group(function(){
             Route::delete('/{transaction}', [TransactionController::class, 'destroy'])->name('admin.transactions.delete');
         });
 
-        Route::get('settings', [SiteController::class, 'index'])->name('admin.settings');
-        Route::get('profile', [AdminController::class, 'show'])->name('admin.profile');
-    });
+        Route::prefix('settings')->group(function(){
+            Route::get('/', [SiteController::class, 'index'])->name('admin.settings');
+            Route::post('/{setting}', [SiteController::class, 'update'])->name('admin.settings.update');
+        });
 
-    Route::prefix('review')->group(function(){
-        Route::post('/{course}', [ReviewController::class, 'store'])->name('reviews.store');
-        Route::put('/{review}', [ReviewController::class, 'update'])->name('reviews.update');
+        Route::prefix('profile')->group(function(){
+            Route::get('/', [AdminController::class, 'show'])->name('admin.profile');
+            Route::post('/{user}', [AdminController::class, 'update'])->name('admin.profile.update');
+        });
+
+        Route::prefix('reviews')->group(function(){
+            Route::get('/', [ReviewController::class, 'index'])->name('admin.reviews');
+            Route::delete('/{review}', [ReviewController::class, 'destroy'])->name('admin.reviews.delete');
+        });
     });
 });
 

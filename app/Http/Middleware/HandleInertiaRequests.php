@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -32,11 +33,15 @@ class HandleInertiaRequests extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return mixed[]
      */
-    public function share(Request $request)
-    {
+    public function share(Request $request) {
+        $user = $request->user();
+
         return array_merge(parent::share($request), [
+            'app' => [
+                'name' => env('APP_NAME')
+            ],
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user ? User::with(['wishlists.course.instructor'])->withCount(['wishlists'])->find($user->id) : null,
             ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [

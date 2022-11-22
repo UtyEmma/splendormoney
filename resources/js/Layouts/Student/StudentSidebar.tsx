@@ -1,3 +1,4 @@
+import { Symbol } from '@/Components/Avatar/Symbol'
 import { InertiaProps } from '@/Types/app'
 import { Link, usePage } from '@inertiajs/inertia-react'
 import React from 'react'
@@ -15,8 +16,11 @@ export const StudentSidebar = () => {
                     <div className="settings-menu p-0">
                         <div className="profile-bg">
                             <img src="/assets/img/profile-bg.jpg" alt="" />
-                            <div className="profile-img">
-                                <a href="student-profile.html"><img src="/assets/img/user/user11.jpg" alt="" /></a>
+                            <div className="profile-img d-flex align-items-center justify-content-center mb-0" >
+                                <a href="">
+                                    <Symbol image={auth.user?.avatar!} size={90} name={auth.user?.name!}  />
+                                </a>
+                                {/* <a href="student-profile.html"><img src="/assets/img/user/user11.jpg" alt="" /></a> */}
                             </div>
                         </div>
                         <div className="profile-group">
@@ -32,7 +36,7 @@ export const StudentSidebar = () => {
                 </div>
                 <div className="settings-widget account-settings">
                     <div className="settings-menu">
-                        <h3>Student Area</h3>
+                        <h3>Student Menu</h3>
                         <ul>
                             <li className={`nav-item ${route().current() === 'student.dashboard' && 'active'}`}>
                                 <Link href={route('student.dashboard')} className="nav-link">
@@ -41,23 +45,33 @@ export const StudentSidebar = () => {
                             </li>
                             <li className={`${route().current() === 'student.courses' && 'active'} nav-item`}>
                                 <Link href={route('student.courses')} className="nav-link">
-                                    <i className="feather-user" /> My Courses
+                                    <i className="feather-book" /> My Courses
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <a href="setting-student-referral.html" className="nav-link">
-                                <i className="feather-heart" /> Wishlist
-                                </a>
+                            <li className={`${route().current() === 'student.wishlist' && 'active'} nav-item`}>
+                                <Link href={route('student.wishlist')} className="nav-link">
+                                    <i className="feather-heart" /> Wishlist
+                                </Link>
                             </li>
-                            <li className="nav-item">
-                                <a href="setting-student-referral.html" className="nav-link">
-                                <i className="feather-user-plus" /> Referrals
-                                </a>
+                            <li className={`${route().current() === 'student.reviews' && 'active'} nav-item`}>
+                                <Link href={route('student.reviews')} className="nav-link">
+                                <i className="feather-star" /> Reviews
+                                </Link>
                             </li>
-                            <li className="nav-item">
-                                <a href="setting-student-referral.html" className="nav-link">
-                                <i className="feather-settings" /> Settings
-                                </a>
+                            <li className={`${route().current() === 'student.transactions' && 'active'} nav-item`}>
+                                <Link href={route('student.transactions')} className="nav-link">
+                                    <i className="feather-file-text" /> Transactions
+                                </Link>
+                            </li>
+                            <li className={`${route().current() === 'student.referrals' && 'active'} nav-item`}>
+                                <Link href={route('student.referrals')} className="nav-link">
+                                    <i className="feather-user-plus" /> Referrals
+                                </Link>
+                            </li>
+                            <li className={`${route().current() === 'student.profile' && 'active'} nav-item`}>
+                                <Link href={route('student.profile')} className="nav-link">
+                                    <i className="feather-user" /> Profile
+                                </Link>
                             </li>
                             <li className="nav-item">
                                 <Link method='POST' href={route('logout')} className="nav-link">
