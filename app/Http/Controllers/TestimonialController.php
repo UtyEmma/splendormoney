@@ -18,6 +18,10 @@ class TestimonialController extends Controller {
     }
 
     function create(Request $request){
+        return Inertia::render('Admin/Testimonials/NewTestimonial');
+    }
+
+    function store(Request $request){
         $validated = $request->validate([
             'name' => 'required|string', 
             'message' => 'required|string', 

@@ -148,7 +148,8 @@ Route::middleware(['auth'])->group(function(){
 
         Route::prefix('testimonials')->group(function(){
             Route::get('/', [TestimonialController::class, 'list'])->name('admin.testimonials');
-            Route::post('/', [TestimonialController::class, 'create'])->name('admin.testimonials.create');
+            Route::get('/new', [TestimonialController::class, 'create'])->name('admin.testimonials.create');
+            Route::post('/', [TestimonialController::class, 'store'])->name('admin.testimonials.store');
             Route::put('/{testimonial}', [TestimonialController::class, 'update'])->name('admin.testimonials.update');
             Route::delete('/{testimonial}', [TestimonialController::class, 'destroy'])->name('admin.testimonials.delete');
 
