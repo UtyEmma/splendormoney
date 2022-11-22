@@ -48,7 +48,7 @@ export default function Admins({admins} : IAdminsProps ) {
                                             <button className="btn btn-outline-secondary btn-icon btn-primary" type="submit" id="button-addon2">
                                                 <i className="feather-search"></i>
                                             </button>
-                                    </div>
+                                    </div> 
                                 </form>
 
                                 <div  className='bg-white'>

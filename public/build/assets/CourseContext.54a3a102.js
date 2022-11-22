@@ -1,0 +1,1 @@
+import{r as e,j as n}from"./app.1ed4ea61.js";const C={course:null,setCourse:()=>{}},t=e.exports.createContext(C),c=()=>e.exports.useContext(t),x=({children:s,defaultCourse:o})=>{const[r,u]=e.exports.useState(o||null);return n(t.Provider,{value:{course:r,setCourse:u},children:s})};export{x as C,c as u};

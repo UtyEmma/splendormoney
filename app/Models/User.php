@@ -110,7 +110,7 @@ class User extends Authenticatable
     }
 
     function referrals() {
-        return $this->hasMany(Enrollment::class, 'referrer_id');
+        return $this->hasMany(Referral::class, 'referrer_id');
     }
 
     function downlines() {

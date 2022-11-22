@@ -1,0 +1,1 @@
+class s{static entries(e){return Object.fromEntries(new FormData(e).entries())}static value(e){return e.type==="checkbox"?e.checked:e.type==="file"?e.files.length<2?e.files[0]:e.files:e.value}}export{s as F};

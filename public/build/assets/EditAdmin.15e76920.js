@@ -1,0 +1,1 @@
+import{A as t}from"./AdminLayout.0370dad7.js";import{j as i}from"./app.1ed4ea61.js";import"./MainLayout.84dad613.js";import"./Symbol.49d534b8.js";import"./Naira.4325f9c0.js";import"./useCart.b40fb3e3.js";import"./Math.62460fa9.js";import"./AffiliateContext.6ca6173d.js";function f(){return i(t,{title:"Edit Admin"})}export{f as default};

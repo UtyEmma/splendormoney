@@ -1,135 +1,933 @@
 {
   "resources/js/app.jsx": {
-    "file": "assets/app.5893f543.js",
+    "file": "assets/app.1ed4ea61.js",
     "src": "resources/js/app.jsx",
     "isEntry": true,
     "dynamicImports": [
-      "resources/js/Pages/Auth/ConfirmPassword.jsx",
-      "resources/js/Pages/Auth/ForgotPassword.jsx",
-      "resources/js/Pages/Auth/Login.jsx",
-      "resources/js/Pages/Auth/Register.jsx",
-      "resources/js/Pages/Auth/ResetPassword.jsx",
-      "resources/js/Pages/Auth/VerifyEmail.jsx",
-      "resources/js/Pages/Dashboard.jsx",
-      "resources/js/Pages/Welcome.jsx"
+      "resources/js/Pages/About.tsx",
+      "resources/js/Pages/Admin/AdminDashboard.tsx",
+      "resources/js/Pages/Admin/Admins/Admins.tsx",
+      "resources/js/Pages/Admin/Admins/EditAdmin.tsx",
+      "resources/js/Pages/Admin/Courses/AdminCourses.tsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent.tsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/CourseLecture.tsx",
+      "_CourseModule.b896177d.js",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/NewLecture.tsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/NewModule.tsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseDetails.tsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseItem.tsx",
+      "resources/js/Pages/Admin/Courses/CreateCourse.tsx",
+      "resources/js/Pages/Admin/Courses/EditCourse.tsx",
+      "resources/js/Pages/Admin/Instructors/CreateInstructor.tsx",
+      "resources/js/Pages/Admin/Instructors/EditInstructor.tsx",
+      "resources/js/Pages/Admin/Instructors/Instructors.tsx",
+      "resources/js/Pages/Admin/Profile.tsx",
+      "resources/js/Pages/Admin/Reviews/ReviewsList.tsx",
+      "resources/js/Pages/Admin/Settings.tsx",
+      "resources/js/Pages/Admin/Transactions/Transactions.tsx",
+      "resources/js/Pages/Admin/Users/Users.tsx",
+      "resources/js/Pages/Auth/ForgotPassword.tsx",
+      "resources/js/Pages/Auth/Login.tsx",
+      "resources/js/Pages/Auth/Register.tsx",
+      "resources/js/Pages/Auth/ResetPassword.tsx",
+      "resources/js/Pages/Cart.tsx",
+      "resources/js/Pages/Cart/CartCard.tsx",
+      "resources/js/Pages/Courses/Components/CourseCard.tsx",
+      "resources/js/Pages/Courses/Components/CourseDetailsPrice.tsx",
+      "resources/js/Pages/Courses/Components/CourseModuleItem.tsx",
+      "resources/js/Pages/Courses/Components/CourseReview.tsx",
+      "resources/js/Pages/Courses/CourseDetails.tsx",
+      "resources/js/Pages/Courses/Courses.tsx",
+      "resources/js/Pages/Home.tsx",
+      "resources/js/Pages/Student/Components/ReviewModal.tsx",
+      "resources/js/Pages/Student/CourseView.tsx",
+      "resources/js/Pages/Student/EnrolledCourses.tsx",
+      "resources/js/Pages/Student/Profile.tsx",
+      "resources/js/Pages/Student/Referrals.tsx",
+      "resources/js/Pages/Student/Reviews.tsx",
+      "resources/js/Pages/Student/StudentOverview.tsx",
+      "resources/js/Pages/Student/Transactions.tsx",
+      "resources/js/Pages/Student/Wishlist.tsx",
+      "resources/js/Pages/Welcome.tsx"
     ],
     "css": [
-      "assets/app.62db8718.css"
+      "assets/app.b3ea895f.css"
     ]
   },
-  "resources/js/Pages/Auth/ConfirmPassword.jsx": {
-    "file": "assets/ConfirmPassword.fb3b1c39.js",
-    "src": "resources/js/Pages/Auth/ConfirmPassword.jsx",
+  "resources/js/Pages/About.tsx": {
+    "file": "assets/About.ecc7da41.js",
+    "src": "resources/js/Pages/About.tsx",
     "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_PrimaryButton.2083d0eb.js",
-      "_TextInput.c79cf294.js",
-      "_InputLabel.b01092b6.js",
-      "_ApplicationLogo.b155f5d3.js"
-    ]
-  },
-  "_PrimaryButton.2083d0eb.js": {
-    "file": "assets/PrimaryButton.2083d0eb.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_ApplicationLogo.b155f5d3.js"
-    ]
-  },
-  "_TextInput.c79cf294.js": {
-    "file": "assets/TextInput.c79cf294.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_InputLabel.b01092b6.js": {
-    "file": "assets/InputLabel.b01092b6.js",
+  "resources/js/Pages/Admin/AdminDashboard.tsx": {
+    "file": "assets/AdminDashboard.63daafb1.js",
+    "src": "resources/js/Pages/Admin/AdminDashboard.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.0370dad7.js",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "_AdminLayout.0370dad7.js": {
+    "file": "assets/AdminLayout.0370dad7.js",
+    "imports": [
+      "_MainLayout.84dad613.js",
+      "resources/js/app.jsx"
+    ]
+  },
+  "_MainLayout.84dad613.js": {
+    "file": "assets/MainLayout.84dad613.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "_useCart.b40fb3e3.js": {
+    "file": "assets/useCart.b40fb3e3.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_Math.62460fa9.js"
+    ]
+  },
+  "_AffiliateContext.6ca6173d.js": {
+    "file": "assets/AffiliateContext.6ca6173d.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_ApplicationLogo.b155f5d3.js": {
-    "file": "assets/ApplicationLogo.b155f5d3.js",
+  "_Math.62460fa9.js": {
+    "file": "assets/Math.62460fa9.js"
+  },
+  "_Symbol.49d534b8.js": {
+    "file": "assets/Symbol.49d534b8.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "resources/js/Pages/Auth/ForgotPassword.jsx": {
-    "file": "assets/ForgotPassword.daee16f6.js",
-    "src": "resources/js/Pages/Auth/ForgotPassword.jsx",
+  "_Naira.4325f9c0.js": {
+    "file": "assets/Naira.4325f9c0.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Admin/Admins/Admins.tsx": {
+    "file": "assets/Admins.320847b3.js",
+    "src": "resources/js/Pages/Admin/Admins/Admins.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Pagination.d31e8215.js",
+      "_Swal.58f858ec.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_AdminLayout.0370dad7.js",
+      "_Date.da9a6ca2.js",
+      "_Form.0fac4ef2.js",
+      "_Status.0e147aa3.js",
+      "resources/js/app.jsx",
+      "_SweetAlert.4169a23f.js",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js"
+    ]
+  },
+  "_Pagination.d31e8215.js": {
+    "file": "assets/Pagination.d31e8215.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_Swal.58f858ec.js": {
+    "file": "assets/Swal.58f858ec.js",
+    "imports": [
+      "_SweetAlert.4169a23f.js",
+      "resources/js/app.jsx"
+    ]
+  },
+  "_Date.da9a6ca2.js": {
+    "file": "assets/Date.da9a6ca2.js"
+  },
+  "_Form.0fac4ef2.js": {
+    "file": "assets/Form.0fac4ef2.js"
+  },
+  "_Status.0e147aa3.js": {
+    "file": "assets/Status.0e147aa3.js"
+  },
+  "_SweetAlert.4169a23f.js": {
+    "file": "assets/SweetAlert.4169a23f.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Admin/Admins/EditAdmin.tsx": {
+    "file": "assets/EditAdmin.15e76920.js",
+    "src": "resources/js/Pages/Admin/Admins/EditAdmin.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.0370dad7.js",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Courses/AdminCourses.tsx": {
+    "file": "assets/AdminCourses.b4e21072.js",
+    "src": "resources/js/Pages/Admin/Courses/AdminCourses.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Pagination.d31e8215.js",
+      "_AdminLayout.0370dad7.js",
+      "resources/js/app.jsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseItem.tsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_Swal.58f858ec.js",
+      "_SweetAlert.4169a23f.js",
+      "_Date.da9a6ca2.js",
+      "_pluralize.0e158798.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Courses/Components/CourseItem.tsx": {
+    "file": "assets/CourseItem.83093663.js",
+    "src": "resources/js/Pages/Admin/Courses/Components/CourseItem.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Naira.4325f9c0.js",
+      "_Swal.58f858ec.js",
+      "resources/js/app.jsx",
+      "_Date.da9a6ca2.js",
+      "_pluralize.0e158798.js",
+      "_SweetAlert.4169a23f.js"
+    ]
+  },
+  "_pluralize.0e158798.js": {
+    "file": "assets/pluralize.0e158798.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Admin/Courses/Components/CourseContent.tsx": {
+    "file": "assets/CourseContent.e46d82ff.js",
+    "src": "resources/js/Pages/Admin/Courses/Components/CourseContent.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Button.9b9201ed.js",
+      "_Stepper.27eb05a6.js",
+      "_CourseModule.b896177d.js",
+      "_CourseContext.54a3a102.js",
+      "resources/js/app.jsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/NewModule.tsx",
+      "_Swal.58f858ec.js",
+      "_SweetAlert.4169a23f.js",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/CourseLecture.tsx",
+      "_InputError.2613fea2.js",
+      "_Form.0fac4ef2.js",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/NewLecture.tsx"
+    ]
+  },
+  "_Button.9b9201ed.js": {
+    "file": "assets/Button.9b9201ed.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_Stepper.27eb05a6.js": {
+    "file": "assets/Stepper.27eb05a6.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_CourseModule.b896177d.js": {
+    "file": "assets/CourseModule.b896177d.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Swal.58f858ec.js",
+      "resources/js/app.jsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/CourseLecture.tsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/NewLecture.tsx"
+    ]
+  },
+  "_CourseContext.54a3a102.js": {
+    "file": "assets/CourseContext.54a3a102.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Admin/Courses/Components/CourseContent/NewModule.tsx": {
+    "file": "assets/NewModule.e4ca701d.js",
+    "src": "resources/js/Pages/Admin/Courses/Components/CourseContent/NewModule.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Button.9b9201ed.js",
+      "_CourseContext.54a3a102.js",
+      "_Form.0fac4ef2.js",
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Admin/Courses/Components/CourseContent/CourseLecture.tsx": {
+    "file": "assets/CourseLecture.a2a3b58a.js",
+    "src": "resources/js/Pages/Admin/Courses/Components/CourseContent/CourseLecture.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Button.9b9201ed.js",
+      "_InputError.2613fea2.js",
+      "_CourseContext.54a3a102.js",
+      "_Form.0fac4ef2.js",
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Admin/Courses/Components/CourseContent/NewLecture.tsx": {
+    "file": "assets/NewLecture.4cc63601.js",
+    "src": "resources/js/Pages/Admin/Courses/Components/CourseContent/NewLecture.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Button.9b9201ed.js",
+      "_InputError.2613fea2.js",
+      "_CourseContext.54a3a102.js",
+      "_Form.0fac4ef2.js",
+      "resources/js/app.jsx"
+    ]
+  },
+  "_InputError.2613fea2.js": {
+    "file": "assets/InputError.2613fea2.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Admin/Courses/Components/CourseDetails.tsx": {
+    "file": "assets/CourseDetails.de146e1d.js",
+    "src": "resources/js/Pages/Admin/Courses/Components/CourseDetails.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Button.9b9201ed.js",
+      "_Editor.1ce85276.js",
+      "_InputError.2613fea2.js",
+      "resources/js/app.jsx",
+      "_Youtube.399c6be6.js",
+      "_Stepper.27eb05a6.js",
+      "_CourseContext.54a3a102.js",
+      "_Form.0fac4ef2.js"
+    ]
+  },
+  "_Editor.1ce85276.js": {
+    "file": "assets/Editor.1ce85276.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_Youtube.399c6be6.js": {
+    "file": "assets/Youtube.399c6be6.js"
+  },
+  "resources/js/Pages/Admin/Courses/CreateCourse.tsx": {
+    "file": "assets/CreateCourse.14109b7e.js",
+    "src": "resources/js/Pages/Admin/Courses/CreateCourse.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Stepper.27eb05a6.js",
+      "_CourseContext.54a3a102.js",
+      "_AdminLayout.0370dad7.js",
+      "resources/js/app.jsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent.tsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseDetails.tsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_Button.9b9201ed.js",
+      "_CourseModule.b896177d.js",
+      "_Swal.58f858ec.js",
+      "_SweetAlert.4169a23f.js",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/CourseLecture.tsx",
+      "_InputError.2613fea2.js",
+      "_Form.0fac4ef2.js",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/NewLecture.tsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/NewModule.tsx",
+      "_Editor.1ce85276.js",
+      "_Youtube.399c6be6.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Courses/EditCourse.tsx": {
+    "file": "assets/EditCourse.a5110082.js",
+    "src": "resources/js/Pages/Admin/Courses/EditCourse.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Stepper.27eb05a6.js",
+      "_CourseContext.54a3a102.js",
+      "_AdminLayout.0370dad7.js",
+      "resources/js/app.jsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent.tsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseDetails.tsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_Button.9b9201ed.js",
+      "_CourseModule.b896177d.js",
+      "_Swal.58f858ec.js",
+      "_SweetAlert.4169a23f.js",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/CourseLecture.tsx",
+      "_InputError.2613fea2.js",
+      "_Form.0fac4ef2.js",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/NewLecture.tsx",
+      "resources/js/Pages/Admin/Courses/Components/CourseContent/NewModule.tsx",
+      "_Editor.1ce85276.js",
+      "_Youtube.399c6be6.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Instructors/CreateInstructor.tsx": {
+    "file": "assets/CreateInstructor.5e06f12a.js",
+    "src": "resources/js/Pages/Admin/Instructors/CreateInstructor.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Button.9b9201ed.js",
+      "_Editor.1ce85276.js",
+      "_InputError.2613fea2.js",
+      "_SelectThumbnail.b0017a0a.js",
+      "_AdminLayout.0370dad7.js",
+      "_Form.0fac4ef2.js",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "_SelectThumbnail.b0017a0a.js": {
+    "file": "assets/SelectThumbnail.b0017a0a.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Admin/Instructors/EditInstructor.tsx": {
+    "file": "assets/EditInstructor.3c60932b.js",
+    "src": "resources/js/Pages/Admin/Instructors/EditInstructor.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Button.9b9201ed.js",
+      "_Editor.1ce85276.js",
+      "_InputError.2613fea2.js",
+      "_SelectThumbnail.b0017a0a.js",
+      "_SweetAlert.4169a23f.js",
+      "_AdminLayout.0370dad7.js",
+      "_Form.0fac4ef2.js",
+      "_Status.0e147aa3.js",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Instructors/Instructors.tsx": {
+    "file": "assets/Instructors.20918890.js",
+    "src": "resources/js/Pages/Admin/Instructors/Instructors.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Naira.4325f9c0.js",
+      "_Pagination.d31e8215.js",
+      "_Swal.58f858ec.js",
+      "_AdminLayout.0370dad7.js",
+      "_Date.da9a6ca2.js",
+      "resources/js/app.jsx",
+      "_SweetAlert.4169a23f.js",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Profile.tsx": {
+    "file": "assets/Profile.18aafe5b.js",
+    "src": "resources/js/Pages/Admin/Profile.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Button.9b9201ed.js",
+      "_InputError.2613fea2.js",
+      "_SelectThumbnail.b0017a0a.js",
+      "_AdminLayout.0370dad7.js",
+      "_Form.0fac4ef2.js",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Reviews/ReviewsList.tsx": {
+    "file": "assets/ReviewsList.98a5c731.js",
+    "src": "resources/js/Pages/Admin/Reviews/ReviewsList.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Pagination.d31e8215.js",
+      "_Rating.b97422ea.js",
+      "_AdminLayout.0370dad7.js",
+      "resources/js/Pages/Student/Components/ReviewModal.tsx",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_Button.9b9201ed.js",
+      "_InputError.2613fea2.js"
+    ]
+  },
+  "_Rating.b97422ea.js": {
+    "file": "assets/Rating.b97422ea.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Student/Components/ReviewModal.tsx": {
+    "file": "assets/ReviewModal.12e189a5.js",
+    "src": "resources/js/Pages/Student/Components/ReviewModal.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Button.9b9201ed.js",
+      "_InputError.2613fea2.js",
+      "resources/js/app.jsx",
+      "_Rating.b97422ea.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Settings.tsx": {
+    "file": "assets/Settings.0977fe87.js",
+    "src": "resources/js/Pages/Admin/Settings.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Button.9b9201ed.js",
+      "_InputError.2613fea2.js",
+      "_SelectThumbnail.b0017a0a.js",
+      "_AdminLayout.0370dad7.js",
+      "_Form.0fac4ef2.js",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Transactions/Transactions.tsx": {
+    "file": "assets/Transactions.6f4544eb.js",
+    "src": "resources/js/Pages/Admin/Transactions/Transactions.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Naira.4325f9c0.js",
+      "_Pagination.d31e8215.js",
+      "_Swal.58f858ec.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_AdminLayout.0370dad7.js",
+      "_Date.da9a6ca2.js",
+      "_Form.0fac4ef2.js",
+      "_Status.0e147aa3.js",
+      "resources/js/app.jsx",
+      "_SweetAlert.4169a23f.js",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Users/Users.tsx": {
+    "file": "assets/Users.344254f3.js",
+    "src": "resources/js/Pages/Admin/Users/Users.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Naira.4325f9c0.js",
+      "_Pagination.d31e8215.js",
+      "_Swal.58f858ec.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_AdminLayout.0370dad7.js",
+      "_Date.da9a6ca2.js",
+      "_Form.0fac4ef2.js",
+      "_Status.0e147aa3.js",
+      "resources/js/app.jsx",
+      "_SweetAlert.4169a23f.js",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js"
+    ]
+  },
+  "resources/js/Pages/Auth/ForgotPassword.tsx": {
+    "file": "assets/ForgotPassword.c442f5e9.js",
+    "src": "resources/js/Pages/Auth/ForgotPassword.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_PrimaryButton.2083d0eb.js",
-      "_TextInput.c79cf294.js",
-      "_ApplicationLogo.b155f5d3.js"
+      "_InputError.2613fea2.js",
+      "_Button.9b9201ed.js"
     ]
   },
-  "resources/js/Pages/Auth/Login.jsx": {
-    "file": "assets/Login.908911cc.js",
-    "src": "resources/js/Pages/Auth/Login.jsx",
+  "resources/js/Pages/Auth/Login.tsx": {
+    "file": "assets/Login.e58575dc.js",
+    "src": "resources/js/Pages/Auth/Login.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_PrimaryButton.2083d0eb.js",
-      "_TextInput.c79cf294.js",
-      "_InputLabel.b01092b6.js",
-      "_ApplicationLogo.b155f5d3.js"
+      "_InputError.2613fea2.js",
+      "_Button.9b9201ed.js"
     ]
   },
-  "resources/js/Pages/Auth/Register.jsx": {
-    "file": "assets/Register.44bf9a55.js",
-    "src": "resources/js/Pages/Auth/Register.jsx",
+  "resources/js/Pages/Auth/Register.tsx": {
+    "file": "assets/Register.d00c3cce.js",
+    "src": "resources/js/Pages/Auth/Register.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_PrimaryButton.2083d0eb.js",
-      "_TextInput.c79cf294.js",
-      "_InputLabel.b01092b6.js",
-      "_ApplicationLogo.b155f5d3.js"
+      "_Form.0fac4ef2.js",
+      "_Button.9b9201ed.js",
+      "_InputError.2613fea2.js",
+      "_AffiliateContext.6ca6173d.js"
     ]
   },
-  "resources/js/Pages/Auth/ResetPassword.jsx": {
-    "file": "assets/ResetPassword.59d7b406.js",
-    "src": "resources/js/Pages/Auth/ResetPassword.jsx",
+  "resources/js/Pages/Auth/ResetPassword.tsx": {
+    "file": "assets/ResetPassword.878b6a8a.js",
+    "src": "resources/js/Pages/Auth/ResetPassword.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_PrimaryButton.2083d0eb.js",
-      "_TextInput.c79cf294.js",
-      "_InputLabel.b01092b6.js",
-      "_ApplicationLogo.b155f5d3.js"
+      "_Button.9b9201ed.js",
+      "_InputError.2613fea2.js"
     ]
   },
-  "resources/js/Pages/Auth/VerifyEmail.jsx": {
-    "file": "assets/VerifyEmail.0f326c02.js",
-    "src": "resources/js/Pages/Auth/VerifyEmail.jsx",
+  "resources/js/Pages/Cart.tsx": {
+    "file": "assets/Cart.fe929ba5.js",
+    "src": "resources/js/Pages/Cart.tsx",
     "isDynamicEntry": true,
     "imports": [
+      "_MainLayout.84dad613.js",
       "resources/js/app.jsx",
-      "_PrimaryButton.2083d0eb.js",
-      "_ApplicationLogo.b155f5d3.js"
+      "resources/js/Pages/Cart/CartCard.tsx",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_PriceDiscounts.b4179d29.js",
+      "_useRave.75c11741.js",
+      "_pluralize.0e158798.js"
     ]
   },
-  "resources/js/Pages/Dashboard.jsx": {
-    "file": "assets/Dashboard.a40a6302.js",
-    "src": "resources/js/Pages/Dashboard.jsx",
+  "resources/js/Pages/Cart/CartCard.tsx": {
+    "file": "assets/CartCard.0edc5013.js",
+    "src": "resources/js/Pages/Cart/CartCard.tsx",
     "isDynamicEntry": true,
     "imports": [
+      "_PriceDiscounts.b4179d29.js",
+      "_useCart.b40fb3e3.js",
+      "_useRave.75c11741.js",
       "resources/js/app.jsx",
-      "_ApplicationLogo.b155f5d3.js"
+      "_pluralize.0e158798.js",
+      "_Math.62460fa9.js"
     ]
   },
-  "resources/js/Pages/Welcome.jsx": {
-    "file": "assets/Welcome.aa63b792.js",
-    "src": "resources/js/Pages/Welcome.jsx",
+  "_PriceDiscounts.b4179d29.js": {
+    "file": "assets/PriceDiscounts.b4179d29.js",
+    "imports": [
+      "_Math.62460fa9.js",
+      "resources/js/app.jsx"
+    ]
+  },
+  "_useRave.75c11741.js": {
+    "file": "assets/useRave.75c11741.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Courses/Components/CourseCard.tsx": {
+    "file": "assets/CourseCard.b9b8dc8c.js",
+    "src": "resources/js/Pages/Courses/Components/CourseCard.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Symbol.49d534b8.js",
+      "_PriceDiscounts.b4179d29.js",
+      "_Rating.b97422ea.js",
+      "_useCart.b40fb3e3.js",
+      "_Date.da9a6ca2.js",
+      "resources/js/app.jsx",
+      "_pluralize.0e158798.js",
+      "_Math.62460fa9.js"
+    ]
+  },
+  "resources/js/Pages/Courses/Components/CourseDetailsPrice.tsx": {
+    "file": "assets/CourseDetailsPrice.f17a11f4.js",
+    "src": "resources/js/Pages/Courses/Components/CourseDetailsPrice.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Math.62460fa9.js",
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Courses/Components/CourseModuleItem.tsx": {
+    "file": "assets/CourseModuleItem.bfc998c0.js",
+    "src": "resources/js/Pages/Courses/Components/CourseModuleItem.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Courses/Components/CourseReview.tsx": {
+    "file": "assets/CourseReview.405a29f9.js",
+    "src": "resources/js/Pages/Courses/Components/CourseReview.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Symbol.49d534b8.js",
+      "_Rating.b97422ea.js",
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Courses/CourseDetails.tsx": {
+    "file": "assets/CourseDetails.180a657c.js",
+    "src": "resources/js/Pages/Courses/CourseDetails.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Rating.b97422ea.js",
+      "resources/js/app.jsx",
+      "_useCart.b40fb3e3.js",
+      "_useRave.75c11741.js",
+      "_MainLayout.84dad613.js",
+      "_Date.da9a6ca2.js",
+      "_Youtube.399c6be6.js",
+      "_pluralize.0e158798.js",
+      "resources/js/Pages/Courses/Components/CourseDetailsPrice.tsx",
+      "resources/js/Pages/Courses/Components/CourseModuleItem.tsx",
+      "resources/js/Pages/Courses/Components/CourseReview.tsx",
+      "_Math.62460fa9.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "resources/js/Pages/Courses/Courses.tsx": {
+    "file": "assets/Courses.d6e7229f.js",
+    "src": "resources/js/Pages/Courses/Courses.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Pagination.d31e8215.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_MainLayout.84dad613.js",
+      "resources/js/app.jsx",
+      "resources/js/Pages/Courses/Components/CourseCard.tsx",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_PriceDiscounts.b4179d29.js",
+      "_Rating.b97422ea.js",
+      "_Date.da9a6ca2.js",
+      "_pluralize.0e158798.js"
+    ]
+  },
+  "resources/js/Pages/Home.tsx": {
+    "file": "assets/Home.bcda566e.js",
+    "src": "resources/js/Pages/Home.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_MainLayout.84dad613.js",
+      "resources/js/app.jsx",
+      "resources/js/Pages/Courses/Components/CourseCard.tsx",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_PriceDiscounts.b4179d29.js",
+      "_Rating.b97422ea.js",
+      "_Date.da9a6ca2.js",
+      "_pluralize.0e158798.js"
+    ]
+  },
+  "resources/js/Pages/Student/CourseView.tsx": {
+    "file": "assets/CourseView.aaa62129.js",
+    "src": "resources/js/Pages/Student/CourseView.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_MainLayout.84dad613.js",
+      "_Date.da9a6ca2.js",
+      "resources/js/app.jsx",
+      "resources/js/Pages/Student/Components/ReviewModal.tsx",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_Button.9b9201ed.js",
+      "_InputError.2613fea2.js",
+      "_Rating.b97422ea.js"
+    ]
+  },
+  "resources/js/Pages/Student/EnrolledCourses.tsx": {
+    "file": "assets/EnrolledCourses.a4415a63.js",
+    "src": "resources/js/Pages/Student/EnrolledCourses.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_StudentLayout.c3bbf6f5.js",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "_StudentLayout.c3bbf6f5.js": {
+    "file": "assets/StudentLayout.c3bbf6f5.js",
+    "imports": [
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Student/Profile.tsx": {
+    "file": "assets/Profile.3f94c715.js",
+    "src": "resources/js/Pages/Student/Profile.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Button.9b9201ed.js",
+      "_InputError.2613fea2.js",
+      "_SelectThumbnail.b0017a0a.js",
+      "_StudentLayout.c3bbf6f5.js",
+      "_Form.0fac4ef2.js",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "resources/js/Pages/Student/Referrals.tsx": {
+    "file": "assets/Referrals.1c901751.js",
+    "src": "resources/js/Pages/Student/Referrals.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_StudentLayout.c3bbf6f5.js",
+      "_MainLayout.84dad613.js",
+      "resources/js/app.jsx",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "resources/js/Pages/Student/Reviews.tsx": {
+    "file": "assets/Reviews.3b9eb742.js",
+    "src": "resources/js/Pages/Student/Reviews.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Pagination.d31e8215.js",
+      "_Rating.b97422ea.js",
+      "_StudentLayout.c3bbf6f5.js",
+      "resources/js/app.jsx",
+      "resources/js/Pages/Student/Components/ReviewModal.tsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_Button.9b9201ed.js",
+      "_InputError.2613fea2.js"
+    ]
+  },
+  "resources/js/Pages/Student/StudentOverview.tsx": {
+    "file": "assets/StudentOverview.9a8a0a69.js",
+    "src": "resources/js/Pages/Student/StudentOverview.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_StudentLayout.c3bbf6f5.js",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "resources/js/Pages/Student/Transactions.tsx": {
+    "file": "assets/Transactions.bde49104.js",
+    "src": "resources/js/Pages/Student/Transactions.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Naira.4325f9c0.js",
+      "_Pagination.d31e8215.js",
+      "_AffiliateContext.6ca6173d.js",
+      "_StudentLayout.c3bbf6f5.js",
+      "_Date.da9a6ca2.js",
+      "_Form.0fac4ef2.js",
+      "_Status.0e147aa3.js",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_useCart.b40fb3e3.js",
+      "_Math.62460fa9.js"
+    ]
+  },
+  "resources/js/Pages/Student/Wishlist.tsx": {
+    "file": "assets/Wishlist.3bc7bb08.js",
+    "src": "resources/js/Pages/Student/Wishlist.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Pagination.d31e8215.js",
+      "_StudentLayout.c3bbf6f5.js",
+      "_Math.62460fa9.js",
+      "resources/js/app.jsx",
+      "_MainLayout.84dad613.js",
+      "_Symbol.49d534b8.js",
+      "_Naira.4325f9c0.js",
+      "_useCart.b40fb3e3.js",
+      "_AffiliateContext.6ca6173d.js"
+    ]
+  },
+  "resources/js/Pages/Welcome.tsx": {
+    "file": "assets/Welcome.96775a6f.js",
+    "src": "resources/js/Pages/Welcome.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx"
     ]
   },
   "resources/js/app.css": {
-    "file": "assets/app.62db8718.css",
+    "file": "assets/app.b3ea895f.css",
     "src": "resources/js/app.css"
   }
 }

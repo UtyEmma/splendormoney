@@ -1,0 +1,1 @@
+import{a as r,j as t}from"./app.1ed4ea61.js";const m=({loading:a=!1,children:n,...s})=>r("button",{...s,className:`btn btn-primary btn-start ${s.className}`,children:[n,a&&t("span",{className:"spinner-border spinner-border-sm align-middle ms-2"})]});export{m as B};

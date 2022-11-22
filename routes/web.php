@@ -8,16 +8,15 @@ use App\Http\Controllers\LectureController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WishlistController;
-use App\Models\Enrollment;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +65,7 @@ Route::middleware(['auth'])->group(function(){
             });
 
             Route::prefix('referrals')->group(function(){
-                Route::get('/', [StudentController::class, 'refferals'])->name('student.referrals');
+                Route::get('/', [ReferralController::class, 'index'])->name('student.referrals');
             });
 
             Route::get('/transactions', [TransactionController::class, 'list'])->name('student.transactions');
@@ -141,6 +140,18 @@ Route::middleware(['auth'])->group(function(){
         Route::prefix('reviews')->group(function(){
             Route::get('/', [ReviewController::class, 'index'])->name('admin.reviews');
             Route::delete('/{review}', [ReviewController::class, 'destroy'])->name('admin.reviews.delete');
+        });
+
+        Route::prefix('referrals')->group(function(){
+            Route::get('/', [ReferralController::class, 'list'])->name('admin.referrals');
+        });
+
+        Route::prefix('testimonials')->group(function(){
+            Route::get('/', [TestimonialController::class, 'list'])->name('admin.testimonials');
+            Route::post('/', [TestimonialController::class, 'create'])->name('admin.testimonials.create');
+            Route::put('/{testimonial}', [TestimonialController::class, 'update'])->name('admin.testimonials.update');
+            Route::delete('/{testimonial}', [TestimonialController::class, 'destroy'])->name('admin.testimonials.delete');
+
         });
     });
 });

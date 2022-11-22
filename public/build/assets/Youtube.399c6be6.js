@@ -1,0 +1,1 @@
+function u(t){const o=/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/,e=t.match(o);return e&&e[2].length===11?e[2]:""}function n(t){return`https://www.youtube.com/embed/${u(t)}`}export{n as Y,u as g};
