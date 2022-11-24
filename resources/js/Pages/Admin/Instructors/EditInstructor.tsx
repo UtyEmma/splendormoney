@@ -27,8 +27,6 @@ export default function EditInstructor({instructor}: IEditInstructorProps) {
         instructor_id: instructor.id
     })
 
-    console.log(data.status)
-
     const editInstructorForm = useRef<HTMLFormElement>(null)
 
     const handleChange = (e: ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {

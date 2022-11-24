@@ -21,10 +21,12 @@ export interface IStudent extends IUser{
     enrollments_count: number,
     transactions_sum_amount?: number
     referrals_count: number
+    enrollments?: any[] 
 }
 
 export interface InstructorModel extends IUser{
     courses_count?: number
     students_count?: number
     students_sum_amount?: number
+    earnings: number
 }

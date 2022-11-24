@@ -1,15 +1,18 @@
+import Naira from '@/Components/Currency/Naira'
+import { InstructorLayout } from '@/Layouts/Instructor/InstructorLayout'
 import { StudentLayout } from '@/Layouts/Student/StudentLayout'
-import { IUser } from '@/Types/user'
+import { InstructorModel, IUser } from '@/Types/user'
+import Currency from '@/Utils/Currency'
 import { Link } from '@inertiajs/inertia-react'
 import React from 'react'
 
-interface IStudentOverviewProps {
-    user: IUser
+interface InstructorOverviewProps {
+    user: InstructorModel
 }
 
-export default function StudentOverview({user} : IStudentOverviewProps) {
+export default function InstructorOverview({user} : InstructorOverviewProps) {
     return (
-        <StudentLayout title='Student Dashboard' >
+        <InstructorLayout title='Instructor Dashboard' >
             <div className="settings-top-widget student-deposit-blk">
                 <div className="row">
                     <div className="col-lg-4 col-md-6">
@@ -17,8 +20,8 @@ export default function StudentOverview({user} : IStudentOverviewProps) {
                         <div className="card-body">
                         <div className="view-all-grp d-flex">
                             <div className="student-ticket-view">
-                                <h3>{user.enrollments_count}</h3>
-                                <p>Purchased Courses</p>
+                                <h3>{user.students_count}</h3>
+                                <p>Students</p>
                                 <Link href={route('student.courses')}>View All</Link>
                             </div>
                             <div className="img-deposit-ticket">
@@ -33,8 +36,8 @@ export default function StudentOverview({user} : IStudentOverviewProps) {
                         <div className="card-body">
                         <div className="view-all-grp d-flex">
                             <div className="student-ticket-view">
-                                <h3>{user.transactions_count}</h3>
-                                <p>Total Transactions</p>
+                                <h3>{user.courses_count}</h3>
+                                <p>Courses</p>
                                 <Link href={route('student.reviews')}>View All</Link>
                             </div>
                             <div className="img-deposit-ticket">
@@ -49,8 +52,8 @@ export default function StudentOverview({user} : IStudentOverviewProps) {
                         <div className="card-body">
                         <div className="view-all-grp d-flex">
                             <div className="student-ticket-view">
-                                <h3>{user.referrals_count}</h3>
-                                <p>Total Deposit</p>
+                                <h3 className='text-success'><Naira className='fs-3 text-success' /> {user.earnings.toLocaleString()}</h3>
+                                <p>Earnings</p>
                                 <Link href={route('student.referrals')}>View All</Link>
                             </div>
                             <div className="img-deposit-ticket">
@@ -62,6 +65,6 @@ export default function StudentOverview({user} : IStudentOverviewProps) {
                     </div>
                 </div>
                 </div>
-        </StudentLayout>
+        </InstructorLayout>
     )
 }

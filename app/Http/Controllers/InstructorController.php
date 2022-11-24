@@ -6,6 +6,7 @@ use App\Http\Requests\Auth\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Library\FileHandler;
 use App\Models\Course;
+use App\Models\Enrollment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,51 @@ use Inertia\Inertia;
 class InstructorController extends Controller {
     
     function index(){
+        $user_id = auth()->id();
+        $user = User::withCount(['students', 'courses'])->withSum('students as earnings', 'amount')->find($user_id);
+        return Inertia::render('Instructor/InstructorOverview', [
+            'user' => $user
+        ]);
+    }
 
+    function courses(){
+        $user_id = auth()->id();
+        $user = User::find($user_id);
+        $courses = $user->courses()
+                        ->with(['enrollments', ])
+                        ->withCount(['enrollments', 'lectures'])
+                        ->withSum('transactions', 'amount')
+                        ->paginate(env('PAGINATION_COUNT'));
+
+        return Inertia::render('Instructor/InstructorCourses', [
+            'courses' => $courses
+        ]);
+    }
+    
+    function students (){
+        $user = User::find(auth()->id());
+        
+        $students = $user->students()->distinct()->with(['student', 'student.enrollments', 'course'])->paginate(env('PAGINATION_COUNT'));
+    
+        return Inertia::render('Instructor/InstructorStudents', [
+            'students' => $students
+        ]);
+    }
+
+    function reviews(){
+        $user_id = auth()->id();
+        $user = User::find($user_id);
+        $reviews = $user->reviews()->with(['course.instructor', 'student'])->paginate(env('PAGINATION_COUNT'));
+        return Inertia::render('Instructor/InstructorReviews', [
+            'reviews' => $reviews
+        ]);
+    }
+
+    function profile(){
+        $user = auth()->user();
+        return Inertia::render('Instructor/InstructorReviews', [
+            'instructor' => $user
+        ]);
     }
 
     function list() {

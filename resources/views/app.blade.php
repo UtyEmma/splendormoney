@@ -17,9 +17,16 @@
         
         <link rel="stylesheet" href="/assets/plugins/feather/feather.css">
         
+        <link rel="stylesheet" href="assets/plugins/slick/slick.css">
+        <link rel="stylesheet" href="assets/plugins/slick/slick-theme.css">
+
         <link rel="stylesheet" href="/assets/css/style.css">
         <link rel="stylesheet" href="/assets/css/plugins.min.css">
 
+
+        <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
+        <link rel="stylesheet" href="assets/plugins/aos/aos.css">
         <!-- Scripts -->
         @routes
         @viteReactRefresh
@@ -31,8 +38,16 @@
 
 
         <script src="/assets/js/bootstrap.bundle.min.js"></script>
-        <script src="/assets/js/owl.carousel.min.js"></script>
-        <script src="/assets/js/script.js"></script>
 		<script src="/assets/js/jquery-3.6.0.min.js"></script>
+        <script src="/assets/js/owl.carousel.min.js" defer></script>
+        <script src="assets/plugins/select2/js/select2.min.js"></script>
+        <script src="assets/plugins/feather/feather.min.js"></script>
+        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <script src="assets/js/jquery.waypoints.js"></script>
+        <script src="assets/js/jquery.counterup.min.js"></script>
+        <script src="assets/plugins/slick/slick.js"></script>
+        <script src="assets/plugins/aos/aos.js"></script>
+        <script src="/assets/js/script.js" defer></script>
     </body>
 </html>

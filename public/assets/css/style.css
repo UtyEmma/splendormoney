@@ -2708,7 +2708,7 @@ html.menu-opened body {
 .testimonial-all {
 	padding: 40px;
 	position: relative;
-	background-image: linear-gradient(#57504d, #f2f3f6);
+	/* background-image: linear-gradient(#57504d, #f2f3f6); */
 }
 .testi-right {
 	position: relative;

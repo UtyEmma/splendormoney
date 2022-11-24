@@ -32,7 +32,9 @@ export default function Admins({admins} : IAdminsProps ) {
     }
 
     const deleteUser = (id: string) => {
-        Inertia.delete(route('admin.admins.delete'));
+        Inertia.delete(route('admin.admins.delete', {
+            user: id
+        }));
     }
 
     return (
@@ -52,11 +54,7 @@ export default function Admins({admins} : IAdminsProps ) {
                                 </form>
 
                                 <div  className='bg-white'>
-                                    <select name='filter' className='form-control form-select' onChange={fetchUsers} placeholder="Filter Users" >
-                                        <option selected={!filter} value="">All</option>
-                                        <option selected={filter === 'enrolled'} value="enrolled">Enrolled Users</option>
-                                        <option selected={filter === 'notenrolled'} value="notenrolled">Unenrolled Users</option>
-                                    </select>
+                                    <Link className="btn btn-primary" href={route('admin.admins.create')}>Create Admin</Link>
                                 </div>
                             </div>
                             <table className="table table-nowrap mb-0">
@@ -116,7 +114,7 @@ export default function Admins({admins} : IAdminsProps ) {
                                                 <div className='border p-4'>
                                                     <h3>Nothing to Display</h3>
 
-                                                    <p>There are no Users available!</p>
+                                                    <p>There are no Admins available!</p>
                                                 </div>
                                             </td>
                                         </tr>

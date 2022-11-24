@@ -10,15 +10,17 @@ use Inertia\Inertia;
 class TestimonialController extends Controller {
     
     function list(){
-        $testimonials = Testimonial::all();
+        $testimonials = Testimonial::paginate(env('PAGINATION_COUNT'));
         
         return Inertia::render('Admin/Testimonials/Testimonials', [
             'testimonials' => $testimonials
         ]);
     }
 
-    function create(Request $request){
-        return Inertia::render('Admin/Testimonials/NewTestimonial');
+    function create(Request $request, Testimonial $testimonial){
+        return Inertia::render('Admin/Testimonials/NewTestimonial', [
+            'testimonial' => $testimonial
+        ]);
     }
 
     function store(Request $request){

@@ -6,6 +6,7 @@ import { InertiaProps } from '@/Types/app';
 import { CartContext } from '@/Context/CartContext';
 import { AffiliateProvider } from '@/Context/AffiliateContext';
 import { Notify } from 'notiflix';
+import { MasterInit } from './MasterInit';
 
 interface IMainLayoutProps extends PropsWithChildren{
     title: string
@@ -42,6 +43,7 @@ export default function MainLayout({children, title, index = false} : IMainLayou
                     <Footer />
                 </div>    
             </CartContext>
+            <MasterInit />
         </AffiliateProvider>
     );
 }

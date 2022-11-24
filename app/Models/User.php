@@ -95,16 +95,6 @@ class User extends Authenticatable
         return $this->hasManyThrough(Enrollment::class, Course::class, 'instructor', 'course_id', 'id', 'id');
     }
 
-    static function isAnyAdmin(User $user = null){
-        $currentUser = $user ?? auth()->user();
-        return $currentUser->role === 'admin' || $currentUser->role === 'superadmin';
-    }
-
-    static function isRole($role, User $user = null){
-        $currentUser = $user ?? auth()->user();
-        return $currentUser->role === $role;
-    }
-
     function transactions(){
         return $this->hasMany(Transaction::class, 'user_id');
     }
@@ -120,4 +110,21 @@ class User extends Authenticatable
     function wishlists(){
         return $this->hasMany(Wishlist::class, 'user_id');
     }
+
+    function reviews(){
+        return $this->hasManyThrough(Review::class, Course::class, 'instructor', 'course_id', 'id', 'id');
+    }
+
+    static function isAnyAdmin(User $user = null){
+        $currentUser = $user ?? auth()->user();
+        return $currentUser->role === 'admin' || $currentUser->role === 'superadmin';
+    }
+
+    static function isRole($role, User $user = null){
+        $currentUser = $user ?? auth()->user();
+        return $currentUser->role === $role;
+    }
+
+    
+
 }

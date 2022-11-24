@@ -15,8 +15,11 @@ class CheckUserRole
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next, string $role) {
+        $roleArray = explode('|', $role);
+
         $user = $request->user();
-        if(!$user->role == $role) abort(401);
+        // dd($roleArray, $user->role);
+        if(!in_array($user->role, $roleArray)) return abort(401);
         
         return $next($request);
     }

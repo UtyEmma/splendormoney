@@ -76,13 +76,14 @@ Route::middleware(['auth'])->group(function(){
         });
     });
 
-
-    Route::prefix('admin')->middleware(['role:admin'])->group(function(){
+    Route::prefix('admin')->middleware(['role:admin|superadmin'])->group(function(){
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
         Route::prefix('admins')->group(function(){
             Route::get('/', [AdminController::class, 'index'])->name('admin.admins');
-            Route::get('/{user}', [AdminController::class, 'edit'])->name('admin.admins.edit');
+            Route::get('/new', [AdminController::class, 'create'])->name('admin.admins.create');
+            Route::post('/', [AdminController::class, 'store'])->name('admin.admins.store');
+            Route::get('/{user?}', [AdminController::class, 'edit'])->name('admin.admins.edit');
             Route::post('/{user}', [AdminController::class, 'update'])->name('admin.admins.update');
             Route::delete('/{user}', [AdminController::class, 'destroy'])->name('admin.admins.delete');
         });
@@ -150,10 +151,18 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/', [TestimonialController::class, 'list'])->name('admin.testimonials');
             Route::get('/new', [TestimonialController::class, 'create'])->name('admin.testimonials.create');
             Route::post('/', [TestimonialController::class, 'store'])->name('admin.testimonials.store');
-            Route::put('/{testimonial}', [TestimonialController::class, 'update'])->name('admin.testimonials.update');
+            Route::post('/{testimonial}', [TestimonialController::class, 'update'])->name('admin.testimonials.update');
+            Route::get('/{testimonial}', [TestimonialController::class, 'create'])->name('admin.testimonials.edit');
             Route::delete('/{testimonial}', [TestimonialController::class, 'destroy'])->name('admin.testimonials.delete');
-
         });
+    });
+
+    Route::prefix('instructor')->middleware(['role:instructor'])->group(function(){
+        Route::get('/', [InstructorController::class, 'index'])->name('instructor.dashboard');
+        Route::get('/courses', [InstructorController::class, 'courses'])->name('instructor.courses');
+        Route::get('/students', [InstructorController::class, 'students'])->name('instructor.students');
+        Route::get('/reviews', [InstructorController::class, 'reviews'])->name('instructor.reviews');
+        Route::get('/profile', [InstructorController::class, 'profile'])->name('instructor.profile');
     });
 });
 

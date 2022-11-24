@@ -30,7 +30,9 @@ class EnrollmentService {
                 "transaction_id" => $transaction ? $transaction->id : null,
                 'status' => 'active',
                 'referrer_id' => $referrer,
-                'amount' => Number::percentageDifference($course['discount'], $course['price'])
+                'amount' => Number::percentageDifference($course['discount'], $course['price']),
+                'created_at' => now(),
+                'updated_at' => now()
             ]; 
         }, $courses);
 

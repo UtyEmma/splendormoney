@@ -466,7 +466,7 @@ export default function Home({auth, courses} : IHomeProps) {
                         <div className="product trend-product">
                             <div className="product-img">
                             <a href="course-details.html">
-                                <img className="img-fluid" alt="" src="assets/img/course/course-07.jpg" />
+                                <img className="img-fluid" alt="" src="/assets/img/course/course-07.jpg" />
                             </a>
                             <div className="price">
                                 <h3>$200 <span>$99.00</span></h3>
@@ -1094,7 +1094,7 @@ export default function Home({auth, courses} : IHomeProps) {
                 <div className="review">
                 <div className="container">
                     <div className="testi-quotes">
-                    <img src="assets/img/qute.png" alt="" />
+                        <img src="/assets/img/qute.png" alt="" />
                     </div>
                     <div className="mentor-testimonial lazy slider aos" data-aos="fade-up" data-sizes="50vw ">
                     <div className="d-flex justify-content-center">
