@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\SiteSettings;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -35,11 +36,10 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request) {
         $user = $request->user();
+        $settings = SiteSettings::select(['email', 'address', 'logo', 'test_mode', 'name', 'phone'])->first();
 
         return array_merge(parent::share($request), [
-            'app' => [
-                'name' => env('APP_NAME')
-            ],
+            'app' => $settings,
             'auth' => [
                 'user' => $user ? User::with(['wishlists.course.instructor'])->withCount(['wishlists'])->find($user->id) : null,
             ],

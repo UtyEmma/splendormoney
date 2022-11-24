@@ -50,7 +50,7 @@ export default function InstructorReviews({reviews}: InstructorReviewsProps) {
                                                 element={'span'}
                                                 status='warning'
                                                 text='Are you sure you wish to delete this review' 
-                                                onSuccess={() => Inertia.delete(route('admin.reviews.delete', {
+                                                onSuccess={() => Inertia.delete(route('instructor.reviews.delete', {
                                                     review: review.id
                                                 }))} 
                                                 className='btn btn-reply text-danger'

@@ -35,8 +35,8 @@ export const Header = ({index = false}: {index: boolean}) => {
                                 <li className={`${route().current() === 'pages.home' && 'active'} nav-item`}>
                                     <Link href={route('pages.home')}>Home</Link>
                                 </li>
-                                <li >
-                                    <a href="/about">About Us</a>
+                                <li className={`${route().current() === 'pages.about' && 'active'} nav-item`}>
+                                    <Link href={route('pages.about')}>About Us</Link>
                                 </li>
                                 <li className={`${route().current() === 'courses.list' && 'active'} nav-item`}>
                                     <Link href={route('courses.list')}>Find Courses</Link>

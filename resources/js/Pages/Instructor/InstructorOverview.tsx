@@ -22,7 +22,7 @@ export default function InstructorOverview({user} : InstructorOverviewProps) {
                             <div className="student-ticket-view">
                                 <h3>{user.students_count}</h3>
                                 <p>Students</p>
-                                <Link href={route('student.courses')}>View All</Link>
+                                <Link href={route('instructor.courses')}>View All</Link>
                             </div>
                             <div className="img-deposit-ticket">
                                 <img src="assets/img/students/book.svg" alt="" />

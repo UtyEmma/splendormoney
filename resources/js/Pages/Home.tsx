@@ -11,7 +11,7 @@ interface IHomeProps extends InertiaProps{
 
 export default function Home({auth, courses} : IHomeProps) {
     return (
-        <MainLayout title='' index>
+        <MainLayout title='Home' index>
             <section className="home-slide d-flex align-items-center">
                 <div className="container">
                 <div className="row ">
@@ -372,6 +372,7 @@ export default function Home({auth, courses} : IHomeProps) {
                     </div>
                 </div>
             </section>
+
             <section className="section master-skill">
                 <div className="container">
                     <div className="row">
@@ -1056,6 +1057,7 @@ export default function Home({auth, courses} : IHomeProps) {
                 </div>
                 </div>
             </section>
+
             <section className="section share-knowledge">
                 <div className="container">
                 <div className="row">
@@ -1080,6 +1082,7 @@ export default function Home({auth, courses} : IHomeProps) {
                 </div>
                 </div>
             </section>
+
             <section className="section user-love">
                 <div className="container">
                 <div className="section-header white-header aos" data-aos="fade-up">
@@ -1090,6 +1093,7 @@ export default function Home({auth, courses} : IHomeProps) {
                 </div>
                 </div>
             </section>
+
             <section className="testimonial-four">
                 <div className="review">
                 <div className="container">
@@ -1158,6 +1162,7 @@ export default function Home({auth, courses} : IHomeProps) {
                 </div>
                 </div>
             </section>
+            
             <section className="section become-instructors aos" data-aos="fade-up">
                 <div className="container">
                 <div className="row">

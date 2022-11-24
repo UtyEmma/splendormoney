@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PagesController::class, 'index'])->name('pages.home');
+Route::get('/about', [PagesController::class, 'about'])->name('pages.about');
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.list');
 Route::get('/courses/{course:slug}', [CourseController::class, 'show'])->name('courses.single');
 Route::get('/cart', [PaymentController::class, 'cart'])->name('payment.cart');
@@ -161,8 +162,16 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/', [InstructorController::class, 'index'])->name('instructor.dashboard');
         Route::get('/courses', [InstructorController::class, 'courses'])->name('instructor.courses');
         Route::get('/students', [InstructorController::class, 'students'])->name('instructor.students');
-        Route::get('/reviews', [InstructorController::class, 'reviews'])->name('instructor.reviews');
-        Route::get('/profile', [InstructorController::class, 'profile'])->name('instructor.profile');
+
+        Route::prefix('reviews')->group(function(){
+            Route::get('/', [InstructorController::class, 'reviews'])->name('instructor.reviews');
+            Route::delete('/{review}', [ReviewController::class, 'destroy'])->name('instructor.reviews.delete');
+        });
+
+        Route::prefix('profile')->group(function(){
+            Route::get('/', [InstructorController::class, 'profile'])->name('instructor.profile');
+            Route::post('/{user}', [InstructorController::class, 'update'])->name('instructor.profile.update');
+        });
     });
 });
 

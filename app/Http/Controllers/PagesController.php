@@ -17,4 +17,10 @@ class PagesController extends Controller {
         ]);
     }
 
+    function about(){
+        return Inertia::render('About', [
+
+        ]);
+    }
+
 }

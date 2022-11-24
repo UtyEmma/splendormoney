@@ -1,6 +1,8 @@
 import { Button } from '@/Components/Buttons/Button'
+import { Editor } from '@/Components/Forms/Editor'
 import { InputError } from '@/Components/Forms/InputError'
 import { SelectThumbnail } from '@/Components/Forms/SelectThumbnail'
+import { InstructorLayout } from '@/Layouts/Instructor/InstructorLayout'
 import { StudentLayout } from '@/Layouts/Student/StudentLayout'
 import { InertiaProps } from '@/Types/app'
 import Form from '@/Utils/Form'
@@ -29,13 +31,13 @@ export default function InstructorProfile() {
 
     const submit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        post(route('student.profile.update', {
+        post(route('instructor.profile.update', {
             user: auth.user?.id
         }))
     }
 
     return (
-        <StudentLayout title='Profile' >
+        <InstructorLayout title='Profile' >
             <div className="settings-widget profile-details">
                 <form onSubmit={submit} autoComplete="off" ref={updateProfileForm} >
                     <div className="settings-menu p-0">
@@ -64,6 +66,14 @@ export default function InstructorProfile() {
                                         <label className="form-control-label">Email</label>
                                         <input type="text" className="form-control" onChange={handleChange} defaultValue={data.email} name='email' placeholder="Enter your Email" />
                                         <InputError message={errors.email} />
+                                    </div>
+                                </div>
+
+                                <div className="col-lg-12">
+                                    <div className="form-group">
+                                        <label className="form-control-label">About</label>
+                                        <Editor onChange={handleChange} name='description' defaultValue={data.description} />
+                                        <InputError message={errors.description} />
                                     </div>
                                 </div>
 
@@ -98,6 +108,6 @@ export default function InstructorProfile() {
                     </div>
                 </form>
             </div>
-        </StudentLayout>
+        </InstructorLayout>
     )
 }

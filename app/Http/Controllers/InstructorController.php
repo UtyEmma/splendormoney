@@ -59,7 +59,7 @@ class InstructorController extends Controller {
 
     function profile(){
         $user = auth()->user();
-        return Inertia::render('Instructor/InstructorReviews', [
+        return Inertia::render('Instructor/InstructorProfile', [
             'instructor' => $user
         ]);
     }
@@ -101,7 +101,7 @@ class InstructorController extends Controller {
             'password' => ['nullable', Password::defaults(), 'confirmed'],
             'description' => 'nullable|string',
             'avatar' => 'nullable|image',
-            'status' => 'required|string|in:active,inactive'
+            'status' => 'nullable|string|in:active,inactive'
         ]);
         
         $avatar = $request->hasFile('avatar') ? FileHandler::upload($request->file('avatar')) : $user->avatar;
