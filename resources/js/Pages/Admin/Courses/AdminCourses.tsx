@@ -27,23 +27,15 @@ export default function AdminCourses({courses} : IAdminCoursesProps) {
                             <div className="instruct-search-blk">
                                 <div className="show-filter choose-search-blk">
                                 <form action="#">
-                                    <div className="row gx-2 align-items-center">
-                                    <div className="col-md-6 col-item">
-                                        <div className=" search-group">
-                                        <i className="feather-search" />
-                                        <input type="text" className="form-control" placeholder="Search our courses" />
+                                    <div className="d-flex align-items-center justify-content-between">
+                                        <div className="">
+                                            <div className=" search-group">
+                                            <i className="feather-search" />
+                                            <input type="text" className="form-control" placeholder="Search our courses" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-6 col-item">
-                                        <div className="form-group select-form mb-0">
-                                        <select className="form-select select" name="sellist1">
-                                            <option>Choose</option>
-                                            <option>Angular</option>
-                                            <option>React</option>
-                                            <option>Node</option>
-                                        </select>
-                                        </div>
-                                    </div>
+
+                                        <Link href={route('admin.courses.create')} className="btn btn-primary">Create Course</Link>
                                     </div>
                                 </form>
                                 </div>

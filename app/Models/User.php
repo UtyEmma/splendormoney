@@ -75,6 +75,10 @@ class User extends Authenticatable
         $query->where('role', 'user');
     }
 
+    function scopeIsActive(Builder $query){
+        $query->where('status', 'active');
+    }
+
     function scopeAdmin(Builder $query){
         $query->where('role', 'admin');
     }

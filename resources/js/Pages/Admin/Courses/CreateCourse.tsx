@@ -8,6 +8,7 @@ import { Stepper } from '@/Components/Stepper/Stepper'
 import { CourseProvider } from '@/Context/CourseContext'
 import { AdminLayout } from '@/Layouts/Admin/AdminLayout'
 import { InertiaProps } from '@/Types/app'
+import { ICategory } from '@/Types/category'
 import { IUser } from '@/Types/user'
 import Form from '@/Utils/Form'
 import { Link, useForm } from '@inertiajs/inertia-react'
@@ -16,10 +17,11 @@ import { CourseContent } from './Components/CourseContent'
 import { CourseDetails } from './Components/CourseDetails'
 
 interface ICreateCourseProps extends InertiaProps {
-    instructors: IUser[]
+    instructors: IUser[],
+    categories: ICategory[]
 }
 
-export default function CreateCourse({ instructors } : ICreateCourseProps) {
+export default function CreateCourse({ instructors , categories} : ICreateCourseProps) {
 
     const [step, setStep] = useState(1)
     const stepper = useRef(null)
@@ -56,7 +58,7 @@ export default function CreateCourse({ instructors } : ICreateCourseProps) {
                                 </div>
                                 <CourseProvider>
                                     <Stepper reference={stepper} activeStep={step} setActiveStep={setStep}>
-                                        <CourseDetails instructors={instructors} />
+                                        <CourseDetails categories={categories} instructors={instructors} />
                                         <CourseContent />
                                     </Stepper>
                                 </CourseProvider>

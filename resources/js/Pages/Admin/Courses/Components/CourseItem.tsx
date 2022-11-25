@@ -24,12 +24,16 @@ export const CourseItem = ({course} : ICourseItemProps) => {
             <td>
                 <div className="sell-table-group d-flex align-items-center">
                 <div className="sell-group-img overflow-hidden rounded-3">
-                    <a href="course-details.html">
+                    <Link href={route('admin.courses.edit', {
+                        course: course.slug
+                    })}>
                         <img src={course.image} className="img-fluid" style={{objectFit: 'cover'}} alt="" />
-                    </a>
+                    </Link>
                 </div>
                 <div className="sell-tabel-info">
-                    <p><a href="course-details.html">{course.name}</a></p>
+                    <p><Link href={route('admin.courses.edit', {
+                        course: course.slug
+                    })}>{course.name}</Link></p>
                     <div className="course-info d-flex align-items-center border-bottom-0 pb-0">
                         <div className="rating-img d-flex align-items-center">
                             <img src="/assets/img/icon/icon-01.svg" alt="" />

@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('faqs', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('question');
-            $table->string('answer');
-            $table->boolean('status');
-            $table->timestamps();
+        Schema::table('courses', function (Blueprint $table) {
+            $table->string('category_id')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('faqs');
+        Schema::table('courses', function (Blueprint $table) {
+            //
+        });
     }
 };

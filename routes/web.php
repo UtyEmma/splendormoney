@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LectureController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PaymentController;
@@ -32,10 +35,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PagesController::class, 'index'])->name('pages.home');
 Route::get('/about', [PagesController::class, 'about'])->name('pages.about');
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.list');
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.list');
 Route::get('/courses/{course:slug}', [CourseController::class, 'show'])->name('courses.single');
 Route::get('/cart', [PaymentController::class, 'cart'])->name('payment.cart');
+Route::get('/faqs', [FaqController::class, 'index'])->name('pages.faq');
+
 
 Route::middleware(['auth'])->group(function(){
+    Route::get('/uploads', MediaController::class)->name('media.file');
+
     Route::middleware(['role:user'])->group(function(){
         Route::prefix('dashboard')->group(function(){
             Route::get('/', [StudentController::class, 'dashboard'])->name('student.dashboard');
@@ -156,6 +164,19 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/{testimonial}', [TestimonialController::class, 'create'])->name('admin.testimonials.edit');
             Route::delete('/{testimonial}', [TestimonialController::class, 'destroy'])->name('admin.testimonials.delete');
         });
+
+        Route::prefix('faqs')->group(function(){
+            Route::get('/', [FaqController::class, 'list'])->name('admin.faq');
+            Route::post('/{faq?}', [FaqController::class, 'store'])->name('admin.faq.update');
+            Route::delete('/{faq}', [FaqController::class, 'destroy'])->name('admin.faq.delete');
+        });
+
+        Route::prefix('categories')->group(function(){
+            Route::get('/', [CategoryController::class, 'list'])->name('admin.categories');
+            Route::get('/edit/{category?}', [CategoryController::class, 'edit'])->name('admin.category.edit');
+            Route::post('/{category?}', [CategoryController::class, 'update'])->name('admin.category.update');
+            Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('admin.category.delete');
+        });
     });
 
     Route::prefix('instructor')->middleware(['role:instructor'])->group(function(){
@@ -173,6 +194,7 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/{user}', [InstructorController::class, 'update'])->name('instructor.profile.update');
         });
     });
+    
 });
 
 require __DIR__.'/auth.php';

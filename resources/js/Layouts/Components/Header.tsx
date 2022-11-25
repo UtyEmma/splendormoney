@@ -4,6 +4,7 @@ import React from 'react'
 import { UserDropdown } from './UserDropdown'
 
 export const Header = ({index = false}: {index: boolean}) => {
+    const {app} = usePage().props as unknown as InertiaProps
     return (
         <header className={`header ${!index ? 'header-page' : ''}`} style={{height: !index ? '80px' : '0px'}}>
             <div className="header-fixed">
@@ -19,7 +20,7 @@ export const Header = ({index = false}: {index: boolean}) => {
                                 </span>
                             </a>
                             <Link href={route('pages.home')} className="navbar-brand logo">
-                                <img src="/assets/logo.png" className="img-fluid" alt="Logo" />
+                                <img src={app.logo} className="img-fluid" alt="Logo" />
                             </Link>
                         </div>
                         <div className="main-menu-wrapper">
@@ -39,10 +40,13 @@ export const Header = ({index = false}: {index: boolean}) => {
                                     <Link href={route('pages.about')}>About Us</Link>
                                 </li>
                                 <li className={`${route().current() === 'courses.list' && 'active'} nav-item`}>
-                                    <Link href={route('courses.list')}>Find Courses</Link>
+                                    <Link href={route('courses.list')}>Courses</Link>
+                                </li>
+                                <li className={`${route().current() === 'pages.faq' && 'active'} nav-item`}>
+                                    <Link href={route('pages.faq')}>FAQs</Link>
                                 </li>
                                 <li >
-                                    <a href="#">Contact Us</a>
+                                    {/* <a href="#">Contact Us</a> */}
                                 </li>
                                 <li className="login-link">
                                 <a href="/login">Login / Signup</a>

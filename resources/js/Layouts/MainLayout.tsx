@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
-import { Head, Link, usePage } from '@inertiajs/inertia-react';
+import { Head, InertiaApp, Link, usePage } from '@inertiajs/inertia-react';
 import { Header } from './Components/Header';
 import { Footer } from './Components/Footer';
 import { InertiaProps } from '@/Types/app';

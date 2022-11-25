@@ -1,6 +1,12 @@
+import { Disclose } from '@/Components/Toggle/Disclose'
+import { InertiaProps } from '@/Types/app'
+import { Link, usePage } from '@inertiajs/inertia-react'
 import React from 'react'
 
 export const Footer = () => {
+
+    const {app} = usePage().props as unknown as InertiaProps
+
     return (
         <footer className="footer">
             <div className="footer-top">
@@ -9,58 +15,50 @@ export const Footer = () => {
                     <div className="col-lg-4 col-md-6">
                     <div className="footer-widget footer-about">
                         <div className="footer-logo">
-                        <img src="assets/img/logo.svg" alt="logo" />
+                        <img src={app.logo} alt="logo" />
                         </div>
                         <div className="footer-about-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris</p>
+                        {/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris</p> */}
                         </div>
                     </div>
                     </div>
-                    <div className="col-lg-2 col-md-6">
+                    <div className="col-lg-4 col-md-6">
                     <div className="footer-widget footer-menu">
-                        <h2 className="footer-title">For Instructor</h2>
+                        <h2 className="footer-title">Quick Menu</h2>
                         <ul>
-                        <li><a href="instructor-profile.html">Profile</a></li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Register</a></li>
-                        <li><a href="instructor-list.html">Instructor</a></li>
-                        <li><a href="deposit-instructor-dashboard.html"> Dashboard</a></li>
-                        </ul>
-                    </div>
-                    </div>
-                    <div className="col-lg-2 col-md-6">
-                    <div className="footer-widget footer-menu">
-                        <h2 className="footer-title">For Student</h2>
-                        <ul>
-                        <li><a href="student-profile.html">Profile</a></li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Register</a></li>
-                        <li><a href="students-list.html">Student</a></li>
-                        <li><a href="deposit-student-dashboard.html"> Dashboard</a></li>
+                        <li><Link href={route('login')}>Login</Link></li>
+                        <li><Link href={route('register')}>Register</Link></li>
+                        <li><Link href={route('pages.about')}>About Us</Link></li>
+                        <li><Link href={route('pages.faq')}>Frequently Asked Questions</Link></li>
+                        <li><Link href={"deposit-instructor-dashboard.html"}> Contact Us</Link></li>
                         </ul>
                     </div>
                     </div>
                     <div className="col-lg-4 col-md-6">
                     <div className="footer-widget footer-contact">
-                        <h2 className="footer-title">News letter</h2>
-                        <div className="news-letter">
-                        <form>
-                            <input type="text" className="form-control" placeholder="Enter your email address" name="email" />
-                        </form>
-                        </div>
+                        <h2 className="footer-title">Contact Information</h2>
+                        {/* <div className="news-letter">
+                            <form>
+                                <input type="text" className="form-control" placeholder="Enter your email address" name="email" />
+                            </form>
+                        </div> */}
                         <div className="footer-contact-info">
-                        <div className="footer-address">
+
+                        <Disclose as={'div'} show={!!app.address} className="footer-address">
                             <img src="assets/img/icon/icon-20.svg" alt="" className="img-fluid" />
-                            <p> 3556 Beech Street, San Francisco,<br /> California, CA 94108 </p>
-                        </div>
-                        <p>
-                            <img src="assets/img/icon/icon-19.svg" alt="" className="img-fluid" />
-                            <a href="https://dreamslms.dreamguystech.com/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="21455344404c524d4c52614459404c514d440f424e4c">[email&nbsp;protected]</a>
-                        </p>
-                        <p className="mb-0">
+                            <p> {app.address}</p>
+                        </Disclose>
+                        <Disclose show={!!app.email}>
+                            <p>
+                                <img src="assets/img/icon/icon-19.svg" alt="" className="img-fluid" />
+                                <a href={`mailto:${app.email}`} className="__cf_email__" data-cfemail="21455344404c524d4c52614459404c514d440f424e4c">{app.email}</a>
+                            </p>
+                        </Disclose>
+
+                        <Disclose as={'p'} show={!!app.phone} className="mb-0">
                             <img src="assets/img/icon/icon-21.svg" alt="" className="img-fluid" />
-                            +19 123-456-7890
-                        </p>
+                            {app.phone}
+                        </Disclose>
                         </div>
                     </div>
                     </div>
@@ -81,7 +79,7 @@ export const Footer = () => {
                     </div>
                     <div className="col-md-6">
                         <div className="copyright-text">
-                        <p className="mb-0">© 2022 DreamsLMS. All rights reserved.</p>
+                        <p className="mb-0">© {new Date().getFullYear()} {app.name}. All rights reserved.</p>
                         </div>
                     </div>
                     </div>

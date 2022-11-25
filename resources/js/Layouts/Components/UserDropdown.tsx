@@ -102,7 +102,7 @@ export const UserDropdown = () => {
                                 </div>
                             </div>
                         </li>
-                        <li className="nav-item noti-nav">
+                        {/* <li className="nav-item noti-nav">
                             <a href="#" className="dropdown-toggle" data-bs-toggle="dropdown">
                                 <img src="/assets/img/icon/notification.svg" alt="img" />
                             </a>
@@ -176,7 +176,7 @@ export const UserDropdown = () => {
                                     </ul>
                                 </div>
                             </div>
-                        </li>
+                        </li> */}
                         <li className="nav-item user-nav">
                             <a href="#" className="dropdown-toggle" data-bs-toggle="dropdown">
                             <span className="user-img">

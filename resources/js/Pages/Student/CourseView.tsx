@@ -53,29 +53,21 @@ export default function CourseView({course, review, enrollment, video} : ICourse
 
                 <div className="row gap-4 gap-md-0">
                     <div className="col-lg-10 mx-auto">
-                        <div className="card content-sec">
-                            <div className="introduct-video bg-primary">
-                                <ReactPlayer url={`${currentVideo}` || 'https://www.youtube.com/watch?v=ysz5S6PUM-U'} width={'100%'} controls={true} />
+                        <div className="card content-sec border-0">
+                            <div className="introduct-video">
+                                <ReactPlayer url={route('media.file', {
+                                    path: video
+                                })} width={'100%'} height="570px" playing  controls={true}  />
                             </div>
 
-                            <div className="card-body">
+                            <div className="card-body px-0 py-2">
                                 <div className="d-flex justify-content-between">
                                     <div>
                                         <h4 style={{fontWeight: "600"}} >{playing.lecture.title}</h4>
                                         <p>{playing.lecture.description}</p>
                                     </div>
                                     <div>
-                                        <ReviewModal course={course} review={review} >{
-                                            review
-
-                                            ?
-
-                                            "Edit Course Review"
-                                            
-                                            :
-
-                                            "Review this Course"
-                                        }</ReviewModal>
+                                        
                                     </div>  
                                 </div>
 

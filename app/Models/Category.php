@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Faq extends Model {
+class Category extends Model {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['question', 'answer', 'status'];
+    protected $fillable = ['name', 'description', 'image', 'slug', 'status'];
 
     protected $attributes = [
         'status' => true
@@ -18,4 +18,10 @@ class Faq extends Model {
     function scopeIsActive($query){
         $query->where('status', true);
     }
+
+    function courses(){
+        return $this->hasMany(Course::class, 'category', 'id');
+    }
+
+
 }

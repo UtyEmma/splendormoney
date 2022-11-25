@@ -25,13 +25,15 @@ class StoreCourseRequest extends FormRequest
     {
         return [
             "instructor" => ["required", Rule::exists('users', 'id')->where('role', 'instructor')],
+            'category' => ['nullable', 'exists:categories,id'],
             "name" => "required|string|max:255|unique:courses,name",
             "description" => "nullable|string",
             "category" => "nullable|string",
             "image" => "nullable|file|mimetypes:image/*",
             "video" => "nullable|url",
             "price" => "required|numeric",
-            "discount" => "nullable|numeric|min:0|max:100"
+            "discount" => "nullable|numeric|min:0|max:100",
+            'status' => 'required|in:active,inactive,pending'
         ];
     }
 }

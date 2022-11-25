@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCourseRequest;
 use App\Library\FileHandler;
 use App\Library\Response;
 use App\Library\Str;
+use App\Models\Category;
 use App\Models\Enrollment;
 use App\Models\Review;
 use App\Models\User;
@@ -59,9 +60,11 @@ class CourseController extends Controller
         $instructors = User::instructors()->get();
 
         Inertia::share('course', Session::get('course'));
+        $categories = Category::all();
 
         return Inertia::render('Admin/Courses/CreateCourse', [
-            'instructors' => $instructors
+            'instructors' => $instructors,
+            'categories' => $categories
         ]);
     }
 
@@ -116,9 +119,11 @@ class CourseController extends Controller
     public function edit($course) {
         $course = Course::withRelations()->where('slug', $course)->first();
         $instructors = User::instructors()->get();
+        $categories = Category::all();
         return Inertia::render('Admin/Courses/EditCourse', [
             'course' => $course,
-            'instructors' => $instructors
+            'instructors' => $instructors,
+            'categories' => $categories
         ]);
     }
 
@@ -145,12 +150,14 @@ class CourseController extends Controller
         $validated = $request->validate([
             "instructor" => ["required", Rule::exists('users', 'id')->where('role', 'instructor')],
             "name" => ["required", "string", "max:255", Rule::unique('courses', 'name')->ignore($course->id)],
+            'category' => ['nullable', 'exists:categories,id'],
             "description" => "nullable|string",
             "category" => "nullable|string",
             "image" => "nullable|file|mimetypes:image/*",
             "video" => "nullable|url",
             "price" => "required|numeric",
             "discount" => "nullable|numeric|min:0|max:100",
+            'status' => 'required|in:active,inactive,pending'
         ]);
 
         $image = $request->hasFile('image') ? FileHandler::upload($request->file('image')) : $course->image;

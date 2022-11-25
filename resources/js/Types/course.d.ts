@@ -12,7 +12,7 @@ interface ICourse {
     video: string
     price: number
     discount: number
-    status: 'active' | 'inactive'
+    status: 'active' | 'inactive' | 'pending'
     modules: IModule[]
     enrollments_count: number,
     transactions_sum_amount: number

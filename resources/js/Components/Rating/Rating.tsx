@@ -46,11 +46,11 @@ export const Rating = ({rating = 1, count}: IRatingProps) => {
             {
                 [...Array(5)].map((num, i) => {
                     i += 1
-                    return <i className={`fas fa-star ${i <= rating && 'filled'} fs-5`} />
+                    return <i className={`fas fa-star ${i <= (rating || 1) && 'filled'} fs-5`} />
                 })
             }
             
-            <span className="d-inline-block average-rating fs-5 ms-2"><span> {rating}.0</span> {count && <>({count})</>}</span>
+            <span className="d-inline-block average-rating fs-5 ms-2"><span> {rating || 1}.0</span> {(count && count > 0) && <>({count})</>}</span>
         </div>
     )
 }

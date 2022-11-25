@@ -1,6 +1,7 @@
 import { Stepper } from '@/Components/Stepper/Stepper'
 import { CourseProvider } from '@/Context/CourseContext'
 import { AdminLayout } from '@/Layouts/Admin/AdminLayout'
+import { ICategory } from '@/Types/category'
 import { ICourse } from '@/Types/course'
 import { IUser } from '@/Types/user'
 import React, { useRef, useState } from 'react'
@@ -10,9 +11,10 @@ import { CourseDetails } from './Components/CourseDetails'
 interface IEditCourseProps  {
     course: ICourse
     instructors: IUser[]
+    categories: ICategory[]
 }
 
-export default function EditCourse({course, instructors}: IEditCourseProps) {
+export default function EditCourse({course, instructors, categories}: IEditCourseProps) {
 
     const [step, setStep] = useState(1)
     const stepper = useRef(null)
@@ -37,7 +39,7 @@ export default function EditCourse({course, instructors}: IEditCourseProps) {
                             <div className="widget-content multistep-form">
                                 <CourseProvider defaultCourse={course}>
                                     <Stepper reference={stepper} activeStep={step} setActiveStep={setStep}>
-                                        <CourseDetails instructors={instructors} />
+                                        <CourseDetails categories={categories} instructors={instructors} />
                                         <CourseContent />
                                     </Stepper>
                                 </CourseProvider>

@@ -13,6 +13,11 @@ export const AdminSidebar = () => {
                         <i className="feather-home" /> Dashboard
                     </Link>
                     </li>
+                    <li className={`${route().current() === 'admin.categories' && 'active'} nav-item`}>
+                        <Link href={route('admin.categories')} >
+                            <i className="feather-bookmark" /> Categories
+                        </Link>
+                    </li>
                     <li className={`${route().current() === 'admin.courses.list' && 'active'} nav-item`}>
                         <Link href={route('admin.courses.list')} >
                             <i className="feather-book" /> Courses
@@ -55,7 +60,12 @@ export const AdminSidebar = () => {
                     </li>
                     <li className={`${route().current() === 'admin.testimonials' && 'active'} nav-item`}>
                         <Link href={route('admin.testimonials')} className="nav-link">
-                            <i className="feather-user-plus" /> Testimonials
+                            <i className="feather-message-circle" /> Testimonials
+                        </Link>
+                    </li>
+                    <li className={`${route().current() === 'admin.faq' && 'active'} nav-item`}>
+                        <Link href={route('admin.faq')} className="nav-link">
+                            <i className="feather-help-circle" /> FAQs
                         </Link>
                     </li>
                 </ul>

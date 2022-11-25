@@ -6,6 +6,11 @@ export interface IAppContext {
 
 export interface IApp {
     name: string,
+    email: string
+    address: string
+    logo: string
+    test_mode: boolean
+    phone: string
 }
 export interface InertiaProps {
     app: IApp,

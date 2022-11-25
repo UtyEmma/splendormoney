@@ -8,9 +8,11 @@ use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\Lecture;
 use App\Models\Module;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 
 class LectureController extends Controller
@@ -75,10 +77,16 @@ class LectureController extends Controller
 
     public function load(Enrollment $enrollment, Lecture $lecture) {
         $user = Auth::user();
-
         if($enrollment->student_id !== $user->id) return back()->with('error', "You are not enrolled for this course");
-        $video = Storage::drive('files')->path($lecture->file);
-        return back()->with('video', $video);
+
+        // dd($lecture->file);
+        // return back Storage::drive('files')->response($lecture->file);
+        // $file = file($video);        
+        // dd($stream);
+        // dd($file);
+        // dd($video);
+
+        return back()->with('video', $lecture->file);
     }
 
     /**

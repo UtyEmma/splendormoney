@@ -5,6 +5,7 @@ import { SelectImgWithPreview } from '@/Components/Forms/SelectImgWithPreview'
 import { SelectVideoWithPreview } from '@/Components/Forms/SelectVideoWithPreview'
 import { useStepper } from '@/Components/Stepper/Stepper'
 import { useCourse } from '@/Context/CourseContext'
+import { ICategory } from '@/Types/category'
 import { ICourse } from '@/Types/course'
 import { IUser } from '@/Types/user'
 import Form from '@/Utils/Form'
@@ -13,9 +14,10 @@ import React, { ChangeEvent, FormEvent } from 'react'
 
 interface ICourseContentProps {
     instructors: IUser[]
+    categories: ICategory[]
 }
 
-export const CourseDetails = ({instructors} : ICourseContentProps ) => {
+export const CourseDetails = ({instructors, categories} : ICourseContentProps ) => {
 
     const stepper = useStepper()
     const {setCourse, course} = useCourse()
@@ -27,7 +29,9 @@ export const CourseDetails = ({instructors} : ICourseContentProps ) => {
         price: course?.price || 0,
         discount: course?.discount || 0,
         image: '',
-        video: course?.video || ''
+        video: course?.video || '',
+        category: course?.category,
+        status: course?.status || 'active'
     })
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -76,6 +80,29 @@ export const CourseDetails = ({instructors} : ICourseContentProps ) => {
 
                             <div className="col-md-4">
                                 <div className="form-group">
+                                    <label className="add-course-label">Course Status</label>
+                                    <select onChange={handleChange} defaultValue={data.status} className="form-select form-control" name='instructor' >
+                                        <option value="active">Active</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select> 
+                                    <InputError message={errors.category} />
+                                </div>
+                            </div>
+        
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label className="add-course-label">Select Category</label>
+                                    <select onChange={handleChange} defaultValue={data.category} className="form-select form-control" name='instructor' >
+                                        <option value="">Select Category</option>
+                                        { categories.map(category => <option value={category.id}>{category.name}</option>) }
+                                    </select> 
+                                    <InputError message={errors.category} />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <div className="form-group">
                                     <label className="add-course-label">Instructor</label>
                                     <select onChange={handleChange} defaultValue={data.instructor} className="form-select form-control" name='instructor' >
                                         <option value="">Select Instructor</option>
@@ -85,6 +112,7 @@ export const CourseDetails = ({instructors} : ICourseContentProps ) => {
                                 </div>
                             </div>
                         </div>
+        
 
                         <div className="form-group mb-4">
                             <label className="add-course-label">Course Description</label>

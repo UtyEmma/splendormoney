@@ -34,12 +34,13 @@ const Modal = ({ id, children, title } : IModalProps) => {
 }
 
 interface IModalButtonProps extends PropsWithChildren<ComponentProps<'button'>>{
-    as: ElementType
+    as?: ElementType
+    id: string
 }
 
-const ModalButton = ({as: Element, id, ...props }: IModalButtonProps ) => {
+const ModalButton = ({as: Element = 'button', id, ...props }: IModalButtonProps ) => {
     return (
-        <Element {...props} className={`btn btn-primary ${props.className}`} data-bs-target={`#${id}`} data-bs-toggle='modal' >{props.children}</Element>
+        <Element {...props} className={`btn ${props.className}`} data-bs-target={`#${id}`} data-bs-toggle='modal' >{props.children}</Element>
     )
 }
 
