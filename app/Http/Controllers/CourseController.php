@@ -14,6 +14,7 @@ use App\Models\Review;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Benchmark;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -34,8 +35,15 @@ class CourseController extends Controller
             $query->where("name", "LIKE", "%$keyword%");
         });
 
+        $courses->when($request->input('category'), function($query, $category){
+            $query->whereRelation('category', "slug",  $category);
+        });
+
+        $categories = Category::isActive()->get();
+
         return Inertia::render('Courses/Courses', [
-            'courses' => $courses->paginate(env(16))
+            'courses' => $courses->paginate(env('PAGINATION_COUNT')),
+            'categories' => $categories
         ]);
     }
 

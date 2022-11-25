@@ -47,7 +47,7 @@ export default function Home({auth, courses, categories, testimonials, instructo
                                 <input type="text" name='keyword' className="form-control" placeholder="Search for Courses..." />
                                 <span className="drop-detail">
                                 <select name='category'  className="form-select ">
-                                    <option>Category</option>
+                                    <option value={''}>Category</option>
                                     {
                                         categories.map(category => <option value={category.slug}>{category.name}</option>)
                                     }

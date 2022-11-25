@@ -53,5 +53,9 @@ class Course extends Model {
     function lectures(){
         return $this->hasManyThrough(Lecture::class, Module::class, 'course_id', 'module_id', 'id', 'id');
     }
+
+    function category(){
+        return $this->belongsTo(Category::class, 'category');
+    }
     
 }
