@@ -1,14 +1,17 @@
 import React, { FormEvent } from 'react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { InputError } from '@/Components/Forms/InputError';
 import { Button } from '@/Components/Buttons/Button';
+import { InertiaProps } from '@/Types/app';
 
 export default function ForgotPassword({ status }: any) {
     const { data, setData, post, processing, errors } = useForm({
         email: '',
     });
+
+    const {app} = usePage().props as unknown as InertiaProps
 
     const onHandleChange = (event: FormEvent<HTMLInputElement>) => {
         setData(event.currentTarget.name as any, event.currentTarget.value);
@@ -63,7 +66,7 @@ export default function ForgotPassword({ status }: any) {
                                 <div className="w-100">
                                     <div className="img-logo">
                                         <Link href={route('pages.home')}>
-                                            <img src="/assets/img/logo.svg" className="img-fluid" alt="Logo" />
+                                            <img src={app.logo} className="img-fluid" alt="Logo" />
                                         </Link>
                                     <div className="back-home">
                                         <Link href={route('pages.home')}>Back to Home</Link>

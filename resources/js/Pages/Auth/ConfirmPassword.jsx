@@ -7,6 +7,8 @@ import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/inertia-react';
 
 export default function ConfirmPassword() {
+
+    const {app} = usePage().props
     const { data, setData, post, processing, errors, reset } = useForm({
         password: '',
     });

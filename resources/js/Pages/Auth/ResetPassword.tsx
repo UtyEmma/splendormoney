@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { Button } from '@/Components/Buttons/Button';
 import { InputError } from '@/Components/Forms/InputError';
+import { InertiaProps } from '@/Types/app';
 
 export default function ResetPassword({ token, email }: any) {
+
+    const {app} = usePage().props as unknown as InertiaProps
+
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,
         email: email,
@@ -70,7 +74,7 @@ export default function ResetPassword({ token, email }: any) {
                                 <div className="w-100">
                                     <div className="img-logo">
                                         <Link href={route('pages.home')}>
-                                            <img src="/assets/img/logo.svg" className="img-fluid" alt="Logo" />
+                                            <img src={app.logo} className="img-fluid" alt="Logo" />
                                         </Link>
                                     <div className="back-home">
                                         <Link href={route('pages.home')}>Back to Home</Link>

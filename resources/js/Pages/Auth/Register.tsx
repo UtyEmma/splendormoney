@@ -1,16 +1,17 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
 import Form from '@/Utils/Form';
 import {Button} from '@/Components/Buttons/Button'
 import { InputError } from '@/Components/Forms/InputError';
 import { Inertia } from '@inertiajs/inertia';
 import { useAffiliate } from '@/Context/AffiliateContext';
+import { InertiaProps } from '@/Types/app';
 
 export default function Register() {
 
     const {getReferrer} = useAffiliate()
     const [passwordType, setPasswordType] = useState<'text' | 'password'>('password')
-
+    const {app} = usePage().props as unknown as InertiaProps
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -79,7 +80,7 @@ export default function Register() {
                         <div className="login-wrapper">
                             <div className="loginbox pb-5">
                                 <div className="img-logo">
-                                    <img src="assets/img/logo.svg" className="img-fluid" alt="Logo" />
+                                    <img src={app.logo} className="img-fluid" alt="Logo" />
                                     <div className="back-home">
                                         <a href="/">Back to Home</a>
                                     </div>
