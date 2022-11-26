@@ -26,10 +26,10 @@ export const Header = ({index = false}: {index: boolean}) => {
                         <div className="main-menu-wrapper">
                             <div className="menu-header">
                                 <Link href={route('pages.home')} className="menu-logo">
-                                    <img src="assets/img/logo.svg" className="img-fluid" alt="Logo" />
+                                    <img src={app.logo} className="img-fluid" alt="Logo" />
                                 </Link>
                                     <a id="menu_close" className="menu-close" href="javascript:void(0);">
-                                <i className="fas fa-times" />
+                                    <i className="fas fa-times" />
                                 </a>
                             </div>
                             <ul className="main-nav">
@@ -48,8 +48,8 @@ export const Header = ({index = false}: {index: boolean}) => {
                                 <li >
                                     {/* <a href="#">Contact Us</a> */}
                                 </li>
-                                <li className="login-link">
-                                <a href="/login">Login / Signup</a>
+                                <li className="login-link ">
+                                    <Link href={route('login')}>Login / Signup</Link>
                                 </li>
                             </ul>
                         </div>
