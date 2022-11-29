@@ -1,0 +1,1 @@
+import{a as s,F as a}from"./app.f808fee2.js";const c=({image:e,name:m,size:r=50,className:t})=>s(a,{children:s("img",{src:e||"/assets/img/blank-user.png",className:"img-fluid",style:{objectFit:"cover"}})});export{c as S};

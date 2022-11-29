@@ -1,0 +1,1 @@
+import{r as e,a as n}from"./app.f808fee2.js";const a={course:null,setCourse:()=>{}},t=e.exports.createContext(a),c=()=>e.exports.useContext(t),x=({children:s,defaultCourse:o})=>{const[r,u]=e.exports.useState(o||null);return n(t.Provider,{value:{course:r,setCourse:u},children:s})};export{x as C,c as u};

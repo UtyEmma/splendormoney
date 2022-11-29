@@ -1,0 +1,1 @@
+import{p as t}from"./Math.62460fa9.js";import{j as e,a as c}from"./app.f808fee2.js";const o=({course:r,showDiscount:i=!0})=>r.price?e("h3",{children:["\u20A6 ",t(r.price,r.discount).toLocaleString()," ",i&&e("span",{children:["\u20A6 ",r.price.toLocaleString()]})]}):c("h3",{className:"free-color",children:"FREE"});export{o as P};
