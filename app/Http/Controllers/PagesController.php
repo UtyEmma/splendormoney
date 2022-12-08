@@ -28,9 +28,15 @@ class PagesController extends Controller {
     }
 
     function about(){
-        return Inertia::render('About', [
+        return Inertia::render('About');
+    }
 
-        ]);
+    function terms(){
+        return Inertia::render('Terms');
+    }
+
+    function privacy(){
+        return Inertia::render('Privacy');
     }
 
 }

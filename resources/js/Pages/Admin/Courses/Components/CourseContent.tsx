@@ -44,7 +44,7 @@ export const CourseContent = () => {
                     <div className="">
                         <div className='mb-0 d-flex justify-content-between'>
                             <button onClick={() => setShowNew(true)} className="btn btn-primary">Add Module</button>
-                            <Disclose show={showNew}>
+                            <Disclose show={showNew || course?.modules.length! < 1}>
                                 <button onClick={() => setShowNew(false)} className="btn btn-light">Cancel</button>
                             </Disclose>
                         </div>

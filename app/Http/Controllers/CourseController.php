@@ -70,6 +70,8 @@ class CourseController extends Controller
         Inertia::share('course', Session::get('course'));
         $categories = Category::all();
 
+        Inertia()->share('course', session()->get('course'));
+
         return Inertia::render('Admin/Courses/CreateCourse', [
             'instructors' => $instructors,
             'categories' => $categories
@@ -128,6 +130,7 @@ class CourseController extends Controller
         $course = Course::withRelations()->where('slug', $course)->first();
         $instructors = User::instructors()->get();
         $categories = Category::all();
+
         return Inertia::render('Admin/Courses/EditCourse', [
             'course' => $course,
             'instructors' => $instructors,
@@ -175,7 +178,9 @@ class CourseController extends Controller
         ])->toArray());
 
         $course = Course::withRelations()->find($course->id);
-        return back()->with(['course' => $course]);
+        return back()->with([
+            'course' => $course
+        ]);
     }
 
     /**

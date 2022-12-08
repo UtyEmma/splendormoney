@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Library\FileHandler;
+use App\Models\Course;
+use App\Models\Enrollment;
+use App\Models\Review;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +20,21 @@ use Inertia\Inertia;
 class AdminController extends Controller {
 
     function dashboard(){
+        $students = User::where('role', 'user')->count();
+        $enrollments = Enrollment::count();
+        $courses = Course::count();
+        $revenue = Transaction::isCompleted()->get()->sum('amount');
+        $top_courses = Course::whereHas('enrollments')->withSum('transactions', 'amount')->withCount('enrollments')->get()->sortByDesc(fn ($query) => $query->transactions_sum_amount)->take(7);
+        $reviews = Review::get();
+
         return Inertia::render('Admin/AdminDashboard', [
+            'students' => $students,
+            'courses' => $courses,
+            'revenue' => $revenue,
+            'enrollments' => $enrollments,
+            'top_courses' => $top_courses,
+            'reviews' => $reviews->count(),
+            'rating' => $reviews->avg('rating')
         ]);
     }
 

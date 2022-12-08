@@ -1,16 +1,17 @@
 import { InertiaProps } from '@/Types/app'
+import { IUser, IUserRole } from '@/Types/user'
+import { Ziggy } from '@/ziggy'
 import { Link, usePage } from '@inertiajs/inertia-react'
 import React from 'react'
 import { UserDropdown } from './UserDropdown'
 
 export const Header = ({index = false}: {index: boolean}) => {
-    const {app} = usePage().props as unknown as InertiaProps
+    const {app, auth} = usePage().props as unknown as InertiaProps
     return (
-        <header className={`header ${!index ? 'header-page' : ''}`} style={{height: !index ? '80px' : '0px'}}>
-            <div className="header-fixed">
+        <header className={`header ${!index ? 'header-page' : ''}`} style={{height: !index ? '80px' : '0'}}>
+            <div className="header-fixed ">
                 <nav className="navbar navbar-expand-lg header-nav scroll-sticky">
-                    <div className={`container `}>
-                    {/* ${!index ? 'header-border' : ''} */}
+                    <div className={`container ${index ? '' : 'header-border'}`}>
                         <div className="navbar-header">
                             <a id="mobile_btn" href="javascript:void(0);">
                                 <span className="bar-icon">
@@ -45,12 +46,25 @@ export const Header = ({index = false}: {index: boolean}) => {
                                 <li className={`${route().current() === 'pages.faq' && 'active'} nav-item`}>
                                     <Link href={route('pages.faq')}>FAQs</Link>
                                 </li>
-                                <li >
-                                    {/* <a href="#">Contact Us</a> */}
-                                </li>
-                                <li className="login-link ">
-                                    <Link href={route('login')}>Login / Signup</Link>
-                                </li>
+                                
+                                {
+                                    auth.user
+
+                                    ?
+
+                                    <>
+                                        <li className={`login-link  d-md-none d-block`}>
+                                            <Link href={route(DashboardLinks[auth.user?.role!])}>My Dashboard</Link>
+                                        </li>
+                                    </>
+
+                                    :
+
+                                    <li className={`login-link ${(route().current() === 'login' || route().current() === 'register') && 'active'}  d-md-none d-block`}>
+                                        <Link href={route('login')}>Login / Signup</Link>
+                                    </li>
+
+                                }
                             </ul>
                         </div>
                         
@@ -61,4 +75,11 @@ export const Header = ({index = false}: {index: boolean}) => {
         </header>
 
     )
+}
+
+const DashboardLinks : Record<IUserRole, keyof typeof Ziggy.routes>= {
+    user: 'student.dashboard',
+    admin: 'admin.dashboard',
+    superadmin: 'admin.dashboard',
+    instructor: 'instructor.dashboard',
 }

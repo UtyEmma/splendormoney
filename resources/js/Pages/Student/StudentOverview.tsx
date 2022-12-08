@@ -34,8 +34,8 @@ export default function StudentOverview({user} : IStudentOverviewProps) {
                         <div className="view-all-grp d-flex">
                             <div className="student-ticket-view">
                                 <h3>{user.transactions_count}</h3>
-                                <p>Total Transactions</p>
-                                <Link href={route('student.reviews')}>View All</Link>
+                                <p>Transactions</p>
+                                <Link href={route('student.transactions')}>View All</Link>
                             </div>
                             <div className="img-deposit-ticket">
                             <img src="assets/img/students/receipt-text.svg" alt="" />
@@ -50,7 +50,7 @@ export default function StudentOverview({user} : IStudentOverviewProps) {
                         <div className="view-all-grp d-flex">
                             <div className="student-ticket-view">
                                 <h3>{user.referrals_count}</h3>
-                                <p>Total Deposit</p>
+                                <p>Referrals</p>
                                 <Link href={route('student.referrals')}>View All</Link>
                             </div>
                             <div className="img-deposit-ticket">

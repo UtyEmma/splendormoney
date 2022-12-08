@@ -11,19 +11,14 @@ class ReferralController extends Controller {
     
     function index(){
         $user_id = auth()->id();
-        $referrals = User::find($user_id)->downlines;
+        $referrals = User::find($user_id)->downlines()->withCount(['transactions', 'enrollments'])->withSum('transactions', 'amount')->withSum('referred', 'earnings')->paginate(env('PAGINATION_COUNT'));
+        
+        $totalEarnings = Referral::where('referrer_id', $user_id)->sum('earning');
 
         return Inertia::render('Student/Referrals', [
-            'referrals' => $referrals
+            'referrals' => $referrals,
+            'total_earnings' => $totalEarnings
         ]);
     }
-
-    function list(){
-        $referrals = Referral::all();
-        return Inertia::render('Admin/Referrals/Referrals', [
-            'referrals' => $referrals
-        ]);
-    }
-
 
 }

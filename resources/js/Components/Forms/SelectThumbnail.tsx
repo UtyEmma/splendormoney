@@ -27,6 +27,12 @@ export const SelectThumbnail = ({name, defaultValue, ...props} : InputHTMLAttrib
         if(!imgInput.current?.value) setSrc(defaultValue)
     }, [imgInput.current?.value])
 
+    useEffect(() => {
+        imgInput.current?.form?.addEventListener('reset', () => setSrc(defaultValue))
+
+        return imgInput.current?.form?.removeEventListener('reset', () => setSrc(defaultValue))
+    }, [])
+
     return (
         <div className="image-input image-input-empty image-input-outline  mb-3" data-kt-image-input="true" style={{backgroundImage: `url(${src || "/assets/img/blank-user.png"})`}}>
             <div className="image-input-wrapper w-150px h-150px position-relative">

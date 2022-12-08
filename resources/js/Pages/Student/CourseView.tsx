@@ -1,10 +1,12 @@
+import { Disclose } from '@/Components/Toggle/Disclose'
 import MainLayout from '@/Layouts/MainLayout'
 import { StudentLayout } from '@/Layouts/Student/StudentLayout'
 import { ICourse, ILecture, IModule } from '@/Types/course'
 import Date from '@/Utils/Date'
+import { Inertia } from '@inertiajs/inertia'
 import { Link } from '@inertiajs/inertia-react'
 import pluralize from 'pluralize'
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import ReactPlayer from 'react-player'
 import { ReviewModal } from './Components/ReviewModal'
 
@@ -13,127 +15,118 @@ interface ICourseViewProps {
     review: any,
     enrollment: any,
     video: string
+    lecture: ILecture
+    lectures: ILecture[]
 }
 
 
-export default function CourseView({course, review, enrollment, video} : ICourseViewProps ) {
+export default function CourseView({course, review, lecture, lectures, enrollment} : ICourseViewProps ) {
 
-    const defaultItem = {
-        module: course.modules?.[0],
-        lecture: course.modules?.[0].lectures[0],
-        module_index: 0,
-        index: 0
-    }
+    const currentLecture = lecture
 
-    const [currentVideo, setCurrentVideo] = useState(video)
-    const [playing, setPlaying] = useState(defaultItem)
-
-    const next = () => {
-        const module_index = playing.index === (playing.module.lectures.length - 1) ? playing.module_index + 1 : playing.module_index
-        if(module_index === (course.modules.length )) return setPlaying(defaultItem) // or set to course completed
-
-        const lecture_index = (playing.index === (playing.module.lectures.length - 1)) ? 0 : playing.index + 1
-        
-        setPlaying({
-            module: course.modules[module_index],
-            lecture: course.modules[module_index].lectures[lecture_index],
-            module_index, index: lecture_index
-        })
-
-    }
+    const progress = useMemo(() => {
+        return Math.floor((enrollment.progress + 1) * (100 / course.lectures_count))  
+    }, [enrollment.progress])
 
     return (
-        <MainLayout title='Course'>
-            <div className="container py-5">
-                <div className='col-md-10 mx-auto mb-5'>
-                    <Link href='..' replace className='fs-6'> <span className="feather-chevron-left"></span> Back to Courses</Link>
-                    <h3 className='fw-bold'>Course Content</h3>
-                    <h5>{course.name}</h5>
-                </div>
-
-                <div className="row gap-4 gap-md-0">
-                    <div className="col-lg-10 mx-auto">
-                        <div className="card content-sec border-0">
-                            <div className="introduct-video">
-                                <ReactPlayer url={route('media.file', {
-                                    path: video
-                                })} width={'100%'} height="570px" playing  controls={true}  />
-                            </div>
-
-                            <div className="card-body px-0 py-2">
-                                <div className="d-flex justify-content-between">
-                                    <div>
-                                        <h4 style={{fontWeight: "600"}} >{playing.lecture.title}</h4>
-                                        <p>{playing.lecture.description}</p>
-                                    </div>
-                                    <div>
-                                        
-                                    </div>  
-                                </div>
-
-                            </div>
+        // <MainLayout title='Course'>
+            <div className='vh-100'>
+                <div style={{height: '10%'}} className='card-body bg-warning d-md-flex justify-content-between align-items-center'>
+                    <div className='d-flex  align-items-center gap-3'>
+                        <Link href={route('student.courses')} className='btn btn-light' >Back to Dashboard</Link>
+                        <div>
+                            <h3 className='mb-0' >{course?.name}</h3>
+                            <Disclose show={!!lecture} >
+                                <p className='fs-5 mb-0'>Lecture: {lecture?.title}</p>
+                            </Disclose>
                         </div>
+                    </div>
 
-                        <div className="card content-sec">
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="col-sm-6">
-                                        <h5 className="subs-title">Course Content</h5>
-                                    </div>
-                                    <div className="col-sm-6 text-sm-end">
-                                    <h6>{course.lectures_count} Lectures {course.course_duration ? `- ${Date.secondsToHms(course.course_duration!)}` : ''}</h6>
-                                    </div>
-                                </div>
-
-                                <div id="module-accordion">
-                                    {
-                                        course.modules.map((module, index) => (
-                                            <div className="course-card">
-                                                <h6 className="cou-title">
-                                                    <a className="collapsed" data-bs-toggle="collapse" data-bs-accordion={"#module-accordion"} href={"#collapseOne"+module.id} aria-expanded="false">Module {index + 1}: {module.title}</a>
-                                                </h6>
-
-                                                <div id={"collapseOne"+module.id} className="card-collapse collapse pb-3" >
-                                                    <ul className='px-3'>
-                                                        {
-                                                            module.lectures.map((lecture, i) => (
-                                                                <li role={'button'} className={`${(playing.lecture.id === lecture.id) && 'text-primary'} `} onClick={() => setPlaying({
-                                                                    module: module,
-                                                                    lecture: lecture,
-                                                                    index: i,
-                                                                    module_index: index
-                                                                })}>
-                                                                    <Link href={route('lecture.load', {
-                                                                        enrollment: enrollment.id,
-                                                                        lecture: lecture.id
-                                                                    })}>
-                                                                        <img src="assets/img/icon/play.svg" alt="" className="me-2" />
-                                                                        Lecture {index + 1}: {lecture.title}
-                                                                    </Link>
-                                                                    <div>
-                                                                        {
-                                                                            playing.lecture.id === lecture.id  &&
-                                                                            <img src="/assets/img/icon/play-icon.svg" alt="" />
-                                                                        }
-                                                                    </div>
-                                                                </li>
-                                                            ))
-                                                        }
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        ))
-                                    }
-                                </div>
-                                
-                            </div>
-                        </div>
+                    <div>
+                        <ReviewModal {...{course, review}} >Course Review</ReviewModal>
                     </div>
                 </div>
 
-                <hr />
+                <div style={{height: '90%'}}>
+                    <div className="row h-100">
+                        <div className="col-md-8 h-100 mx-0 px-0">
+                            <div className="h-100 ratio ratio-16x9 position-relative">
+                                <ReactPlayer url={route('media.file', {
+                                    path: lecture?.file
+                                })} width={'100%'} height="100%" playing  controls={true}  />
+                            </div>
+                        </div>
+
+                        <div className="col-md-4 h-100 px-0" style={{overflowY: 'scroll'}}  >
+                            <div className="bg-light h-100 ">
+                                    <div className="card-body d-flex flex-column">
+                                        <div >
+                                            <div className='mb-2'>
+                                                <p className='fs-6 mb-0'>Your Progress - <span className='fw-bold'>{progress}%</span></p>
+                                                <div className="progress-stip mb-0">
+                                                    <div className="progress-bar bg-success mb-0  progress-bar-striped active-stip" style={{width: `${progress}%`}} />
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-sm-6">
+                                                    <h5 className="">Course Content</h5>
+                                                </div>
+                                                <div className="col-sm-6 text-sm-end">
+                                                <h6>{course.lectures_count} Lectures {course.course_duration ? `- ${Date.secondsToHms(course.course_duration!)}` : ''}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className='flex-1'>
+                                            <div>
+                                                {
+                                                    course.modules.map((module, index) => (
+                                                        <div className="course-card mt-2 d-flex flex-column ">
+                                                            <h5 className="cou-title mb-0">
+                                                                Module {index + 1}: {module.title}
+                                                            </h5>
+                                                        
+                                                            <ul className='d-flex flex-column flex-1'>
+                                                                {
+                                                                    module.lectures.map((lecture, i) => (
+                                                                        <li role={'button'} className={`${(currentLecture?.id === lecture.id) && 'text-primary'} px-0 py-3 mt-0`} >
+                                                                            <div className='d-flex'>
+                                                                                <img src="/assets/img/icon/play.svg" alt="" />
+                                                                                
+                                                                                <div className='ms-3'>
+                                                                                    <Link href={route('student.courses.single', {
+                                                                                        enrollment: enrollment.id,
+                                                                                        course: course.slug,
+                                                                                        lecture: lecture.id
+                                                                                    })} style={{fontWeight: '600'}} className="text-decoration-none">
+                                                                                        <span  className='ms-0'>Lecture {i + 1}: {lecture.title}</span>
+                                                                                    </Link>
+                                                                                    <p className='mb-0' >{Date.secondsToHms(lecture.duration!)}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div>
+                                                                                {
+                                                                                    currentLecture?.id === lecture.id  &&
+                                                                                    <img src="/assets/img/icon/play-icon.svg" alt="" />
+                                                                                }
+                                                                            </div>
+                                                                        </li>
+                                                                    ))
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
             </div>
-        </MainLayout>
+        // </MainLayout>
     )
 }
 

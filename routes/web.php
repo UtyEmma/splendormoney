@@ -39,6 +39,8 @@ Route::get('/categories', [CategoryController::class, 'index'])->name('categorie
 Route::get('/courses/{course:slug}', [CourseController::class, 'show'])->name('courses.single');
 Route::get('/cart', [PaymentController::class, 'cart'])->name('payment.cart');
 Route::get('/faqs', [FaqController::class, 'index'])->name('pages.faq');
+Route::get('/terms', [PagesController::class, 'terms'])->name('pages.terms');
+Route::get('/privacy', [PagesController::class, 'privacy'])->name('pages.privacy');
 
 
 Route::middleware(['auth'])->group(function(){
@@ -55,7 +57,7 @@ Route::middleware(['auth'])->group(function(){
             });
             
             Route::get('/courses', [EnrollmentController::class, 'index'])->name('student.courses');
-            Route::get('/courses/{enrollment}/{course:slug}', [EnrollmentController::class, 'show'])->name('student.courses.single');
+            Route::get('/courses/{enrollment}/{course:slug}/{lecture?}', [EnrollmentController::class, 'show'])->name('student.courses.single');
             
             Route::prefix('profile')->group(function(){
                 Route::get('/', [StudentController::class, 'profile'])->name('student.profile');
@@ -150,10 +152,6 @@ Route::middleware(['auth'])->group(function(){
         Route::prefix('reviews')->group(function(){
             Route::get('/', [ReviewController::class, 'index'])->name('admin.reviews');
             Route::delete('/{review}', [ReviewController::class, 'destroy'])->name('admin.reviews.delete');
-        });
-
-        Route::prefix('referrals')->group(function(){
-            Route::get('/', [ReferralController::class, 'list'])->name('admin.referrals');
         });
 
         Route::prefix('testimonials')->group(function(){

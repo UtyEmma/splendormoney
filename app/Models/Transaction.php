@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,10 @@ class Transaction extends Model
 
     function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    function scopeIsCompleted(Builder $query){
+        $query->where('status', 'completed');
     }
 
 }

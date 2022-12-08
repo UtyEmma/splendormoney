@@ -1,10 +1,16 @@
+import { Rating } from '@/Components/Rating/Rating'
 import { StudentLayout } from '@/Layouts/Student/StudentLayout'
 import { ICourse } from '@/Types/course'
 import { Link } from '@inertiajs/inertia-react'
 import React from 'react'
+import { ReviewModal } from './Components/ReviewModal'
 
 interface IEnrolledCoursesProps {
     enrollments: any
+}
+
+const progress = (progress: number, lectures: number) => {
+    return Math.floor((progress + 1) * (100 / lectures))  
 }
 
 export default function EnrolledCourses ({enrollments} : IEnrolledCoursesProps) {
@@ -13,32 +19,7 @@ export default function EnrolledCourses ({enrollments} : IEnrolledCoursesProps) 
                 <div className="student-widget">
                     <div className="student-widget-group p-5">
                             <div className="showing-list">
-                                <div className="row">
-                                    <div className="col-lg-12">
-                                    <div className="show-filter choose-search-blk">
-                                        <form action="#">
-                                        <div className="mycourse-student align-items-center">
-                                            <div className="student-search">
-                                            <div className=" search-group">
-                                                <i className="feather-search" />
-                                                <input type="text" className="form-control" placeholder="Search our courses" />
-                                            </div>
-                                            </div>
-                                            <div className="student-filter">
-                                            <div className="form-group select-form mb-0">
-                                                <select className="form-select select" name="sellist1">
-                                                <option>Newly published </option>
-                                                <option>Angular</option>
-                                                <option>React</option>
-                                                <option>Node</option>
-                                                </select>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        </form>
-                                    </div>
-                                    </div>
-                                </div>
+                                <h3>Enrolled Courses</h3>
                             </div>
                             <div className="row">
                                 {
@@ -52,34 +33,22 @@ export default function EnrolledCourses ({enrollments} : IEnrolledCoursesProps) 
                                                 <div className="product p-0 m-0">
                                                     <div className="row mb-3">
                                                         <div className="col-md-4">
-                                                            <div className="product-img ratio-1x1 overflow-hidden" style={{height: '100px !important'}}>
-                                                                <a href="course-details.html">
-                                                                    <img className="img-fluid" alt="" src={enrollment.course.image || "/assets/img/course/course-10.jpg"} />
-                                                                </a>
+                                                            <div className="product-img ratio-1x1 h-100 overflow-hidden" >
+                                                                <img className="img-fluid" style={{objectFit: 'cover', minHeight: '100%'}} alt="" src={enrollment.course.image || "/assets/img/course/course-10.jpg"} />
                                                             </div>
                                                         </div>
 
                                                         <div className="col-md-8">
                                                             <div className="product-content p-0">
-                                                                <h3 className="title"><a href="course-details.html">{enrollment.course.name}</a></h3>
-                                                                <div className="rating-student">
-                                                                    <div className="rating">
-                                                                    <i className="fas fa-star filled" />
-                                                                    <i className="fas fa-star filled" />
-                                                                    <i className="fas fa-star filled" />
-                                                                    <i className="fas fa-star filled" />
-                                                                    <i className="fas fa-star" />
-                                                                    <span className="d-inline-block average-rating"><span>4.0</span></span>
-                                                                    </div>
-                                                                    <div className="edit-rate">
-                                                                        <a href="javascript:;">Edit rating</a>
-                                                                    </div>
-                                                                </div>
+                                                                <h3 className="title"><Link href={route('student.courses.single', {
+                                                                    enrollment: enrollment.id,
+                                                                    course: enrollment.course.slug
+                                                                })}>{enrollment?.course.name}</Link></h3>
                                                                 <div className="progress-stip mb-0">
-                                                                    <div className="progress-bar bg-success mb-0 progress-bar-striped active-stip" />
+                                                                    <div className="progress-bar bg-success mb-0  progress-bar-striped active-stip" style={{width: `${progress(enrollment.progress, enrollment.course.lectures?.length)}%`}} />
                                                                 </div>
                                                                 <div className="student-percent">
-                                                                    <p className='m-0'>35% Completed</p>
+                                                                    <p className='m-0'>{progress(enrollment.progress, enrollment.course.lectures?.length)}% Completed</p>
                                                                 </div>
                                                             </div>
                                                         </div>

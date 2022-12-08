@@ -1,20 +1,28 @@
-import Naira from '@/Components/Currency/Naira'
 import { Pagination } from '@/Components/Pagination/Pagination'
+import { useParams } from '@/Hooks/useParams'
 import { InstructorLayout } from '@/Layouts/Instructor/InstructorLayout'
 import { IPagination } from '@/Types/app'
 import { IEnrollment } from '@/Types/enrollments'
-import { IUser } from '@/Types/user'
-import Date from '@/Utils/Date'
-import { Link } from '@inertiajs/inertia-react'
-import React from 'react'
+import Form from '@/Utils/Form'
+import { Inertia } from '@inertiajs/inertia'
+import React, { FormEvent } from 'react'
 
 interface InstructorStudentsProps {
     students: IPagination<IEnrollment[]>
 }
 
 export default function InstructorStudents({students}: InstructorStudentsProps) {
-    console.log(students);
     
+    const {keyword} = useParams()
+
+    const searchUsers = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const data = Form.entries(e.currentTarget) as any
+        Inertia.get(route('instructor.students', {
+            keyword: data?.search
+        }))
+    }
+
     return (
         <InstructorLayout title='Students'>
             <div className="settings-widget">
@@ -22,14 +30,14 @@ export default function InstructorStudents({students}: InstructorStudentsProps) 
                     <div className="comman-space">
                         <div className="settings-tickets-blk course-instruct-blk table-responsive">
                             <div className="d-flex justify-content-between py-4">
-                                {/* <form onSubmit={searchUsers}>
+                                <form onSubmit={searchUsers}>
                                     <div className="input-group mb-3">
-                                            <input type="text" defaultValue={search} name="search" className="form-control" placeholder="Search User's Name or Email Address" aria-label="Search User's Name or Email Address" aria-describedby="button-addon2" />
+                                            <input type="text" defaultValue={keyword} name="search" className="form-control" placeholder="Search User's Name or Email Address" aria-label="Search User's Name or Email Address" aria-describedby="button-addon2" />
                                             <button className="btn btn-outline-secondary btn-icon btn-primary" type="submit" id="button-addon2">
                                                 <i className="feather-search"></i>
                                             </button>
                                     </div>
-                                </form> */}
+                                </form>
                             </div>
                             <table className="table table-nowrap mb-0">
                                 <thead>
@@ -53,7 +61,7 @@ export default function InstructorStudents({students}: InstructorStudentsProps) 
                                                 </td>
 
                                                 <td>{enrollment.course?.name}</td>
-                                                <td>{Date.toDateTimeString(enrollment.updated_at)}</td>
+                                                {/* <td>{Date.toDateTimeString(enrollment.updated_at)}</td> */}
                                             </tr>
                                         ))
 

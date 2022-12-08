@@ -8,6 +8,7 @@ use App\Http\Services\PaymentService;
 use App\Http\Services\TransactionService;
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\Lecture;
 use App\Models\Review;
 use App\Models\Transaction;
 use App\Models\User;
@@ -28,7 +29,7 @@ class EnrollmentController extends Controller {
 
         $enrolled_courses = User::find($user_id)
                                 ->enrollments()
-                                ->with(['course.modules.lectures', 'course.instructor', 'course.reviews'])
+                                ->with(['course.modules.lectures', 'course.lectures', 'course.instructor', 'course.reviews'])
                                 ->addSelect([
                                     // 'reviewed' => Review::whereColumn('course_id', 'enrollments.course_id')->exists()
                                 ])->get();
@@ -72,23 +73,36 @@ class EnrollmentController extends Controller {
      * @param  \App\Models\Enrollment  $enrollment
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Enrollment $enrollment, $course) {
+    public function show(Request $request, Enrollment $enrollment, $course, Lecture $lecture = null) {
         $user_id = Auth::id();
 
         if($enrollment->student_id !== $user_id) return back()->with('error', 'You are not enrolled for this course');
         $course = $enrollment->course()->withRelations()->first();
 
+        $lectures = $course->lectures;
+
         $is_reviewed = Review::where([
             'student_id' => $user_id,
             'course_id' => $course->id
         ])->first();
+        
+        $currentLecture = $lecture ?? ($enrollment->progress === array_key_last($lectures->toArray()) ? $lectures[0] : $lectures[$enrollment->progress]);
+        
+        if(!$enrollment->is_completed){
+            $enrollment->progress = $currentLecture->position;
+            if($enrollment->progress === array_key_last($lectures->toArray())) $enrollment->is_completed = true;
+        }
+        
+        
 
-        Inertia::share('video', session()->get('video', ''));
+        $enrollment->save();
 
         return Inertia::render('Student/CourseView', [
             'course' => $course,
             'review' => $is_reviewed,
-            'enrollment' => $enrollment
+            'enrollment' => $enrollment,
+            'lecture' => $currentLecture,
+            'lectures' => $lectures
         ]);
     }
 

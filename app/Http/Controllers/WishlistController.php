@@ -18,7 +18,7 @@ class WishlistController extends Controller
      */
     public function index() {
         $user = User::find(auth()->id());
-        $wishlists = $user->wishlists()->with(['course.instructor'])->withCount(['course.reviews', 'course.lectures'])->paginate(env('PAGINATION_COUNT'));
+        $wishlists = $user->wishlists()->with(['course.instructor'])->with(['course.reviews', 'course.lectures'])->paginate(env('PAGINATION_COUNT'));
 
         return Inertia::render('Student/Wishlist', [
             'wishlists' => $wishlists

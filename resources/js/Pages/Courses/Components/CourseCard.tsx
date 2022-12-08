@@ -5,6 +5,7 @@ import { useCart } from '@/Hooks/useCart'
 import { InertiaProps } from '@/Types/app'
 import { ICourse } from '@/Types/course'
 import Date from '@/Utils/Date'
+import { Inertia } from '@inertiajs/inertia'
 import { Link, usePage } from '@inertiajs/inertia-react'
 import pluralize from 'pluralize'
 import React from 'react'
@@ -31,7 +32,7 @@ export const CourseCard = ({course} : ICourseCard) => {
                     <h3 ><PriceDiscount course={course} /></h3>
                 </div>
             </div>
-            <div className="product-content">
+            <div className="product-content px-1">
                 <div className="course-group d-flex">
                 <div className="course-group-img d-flex align-items-center">
                     <div className='me-2'>
@@ -50,9 +51,9 @@ export const CourseCard = ({course} : ICourseCard) => {
                     &&
 
                     <div className="course-share d-flex align-items-center justify-content-center">
-                        <Link href={route('student.wishlist.toggle', {
+                        <button className='btn px-0' onClick={() => Inertia.get(route('student.wishlist.toggle', {
                             course: course.id
-                        })}><i className={`fa-heart ${course.wishlist_count ? 'fa-solid' : 'fa-regular'}`} /></Link>
+                        }))}><i className={`fa-heart ${course.wishlist_count ? 'fa-solid' : 'fa-regular'}`} /></button>
                     </div>
                 }
                 </div>

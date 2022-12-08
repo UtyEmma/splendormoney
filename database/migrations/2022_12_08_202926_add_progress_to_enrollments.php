@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('image');
-            $table->string('slug');
-            $table->string('status');
-            $table->timestamps();
+        Schema::table('enrollments', function (Blueprint $table) {
+            $table->integer('progress')->default(0);
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::table('enrollments', function (Blueprint $table) {
+            //
+        });
     }
 };

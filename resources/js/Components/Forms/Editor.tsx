@@ -2,7 +2,7 @@
 import React, { FormEvent, useEffect } from 'react'
 import { useRef } from 'react'
 import { useState } from 'react'
-import ReactQuill from 'react-quill'
+import ReactQuill, { ReactQuillProps } from 'react-quill'
 
 interface EditorModel {
     name: string,
@@ -24,7 +24,7 @@ interface EditorModel {
 
 export const Editor = ({name, placeholder, className, onChange, defaultValue = "", minHeight = 200} : EditorModel) => {
     const [content, setContent] = useState(defaultValue)
-    const editor : any = useRef()
+    const editor = useRef<any>()
     const inputRef = useRef<HTMLInputElement>(null)
 
     const formats = [
@@ -42,11 +42,21 @@ export const Editor = ({name, placeholder, className, onChange, defaultValue = "
 
     const handleChange = (value: string) => {
         setContent(value)
+
         onChange && onChange({
             currentTarget: {name, value},
             target: {name, value}
         })
     }
+
+
+    useEffect(() => {
+        inputRef.current?.form?.addEventListener('reset', () => {
+            setContent(defaultValue)
+        })
+
+        return inputRef.current?.form?.removeEventListener('reset', () => setContent(''))
+    }, [])
 
     useEffect(() => {
         if(!inputRef.current?.value) setContent("")
@@ -54,7 +64,7 @@ export const Editor = ({name, placeholder, className, onChange, defaultValue = "
 
     return (
         <div className='position-relative'>
-            <ReactQuill theme="snow"  defaultValue={defaultValue} onChange={handleChange} formats={formats} ref={editor} placeholder={placeholder} />
+            <ReactQuill theme="snow"  value={content} onChange={handleChange} formats={formats} ref={editor} placeholder={placeholder} />
             <input name={name} value={content} ref={inputRef} hidden />
         </div>
     )

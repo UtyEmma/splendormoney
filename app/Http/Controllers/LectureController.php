@@ -58,6 +58,8 @@ class LectureController extends Controller
         $path =  $course->slug."/".Str::slug($module->title);
         $path = $request->file('file')->store($path, 'files');
 
+        $position = $course->lectures()->count();
+
         $lecture = Lecture::create([
             'title' => $request->title,
             'file' => $path,
@@ -66,7 +68,8 @@ class LectureController extends Controller
             'extension' => $extension, 
             'size' => $size, 
             'duration' => $request->duration, 
-            'type' => $file_type
+            'type' => $file_type,
+            'position' => $position
         ]);
 
 
@@ -78,15 +81,7 @@ class LectureController extends Controller
     public function load(Enrollment $enrollment, Lecture $lecture) {
         $user = Auth::user();
         if($enrollment->student_id !== $user->id) return back()->with('error', "You are not enrolled for this course");
-
-        // dd($lecture->file);
-        // return back Storage::drive('files')->response($lecture->file);
-        // $file = file($video);        
-        // dd($stream);
-        // dd($file);
-        // dd($video);
-
-        return back()->with('video', $lecture->file);
+        return back()->with('lecture', $lecture);
     }
 
     /**

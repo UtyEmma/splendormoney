@@ -32,6 +32,7 @@
         "moment-duration-format": "^2.3.2",
         "notiflix": "^3.2.5",
         "pluralize": "^8.0.0",
+        "react-dropzone": "^14.2.3",
         "react-player": "^2.11.0",
         "react-quill": "^2.0.0",
         "react-rating": "^2.0.5",

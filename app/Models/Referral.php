@@ -19,6 +19,10 @@ class Referral extends Model {
         return $this->belongsTo(User::class, 'referrer_id', 'id');
     }
 
+    function referred(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     function transaction(){
         return $this->hasOne(Transaction::class, 'id', 'transaction_id');
     }

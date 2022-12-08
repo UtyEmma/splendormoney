@@ -6,7 +6,7 @@ export interface IUser {
     email: string
     avatar: string
     description?: string
-    role: 'admin' | 'superadmin' | 'user' | 'instructor',
+    role: IUserRole,
     created_at: string
     earnings: number
     status: keyof typeof StatusColor
@@ -17,10 +17,13 @@ export interface IUser {
     wishlists: IWishlist[]
 }
 
+export type IUserRole = 'admin' | 'superadmin' | 'user' | 'instructor' 
+
 export interface IStudent extends IUser{
     enrollments_count: number,
     transactions_sum_amount?: number
     referrals_count: number
+    referred_sum_earnings: number
     enrollments?: any[] 
 }
 

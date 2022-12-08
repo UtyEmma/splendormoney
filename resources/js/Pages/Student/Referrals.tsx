@@ -1,13 +1,21 @@
+import Naira from '@/Components/Currency/Naira'
 import { ShareButton } from '@/Components/Share/ShareButton'
 import { StudentLayout } from '@/Layouts/Student/StudentLayout'
-import { InertiaProps } from '@/Types/app'
+import { InertiaProps, IPagination } from '@/Types/app'
+import { IStudent, IUser } from '@/Types/user'
 import { Navigator } from '@/Utils/Navigator'
 import { usePage } from '@inertiajs/inertia-react'
 import React from 'react'
 
-export default function Referrals() {
-    const {auth} = usePage().props as unknown as InertiaProps
+interface IReferralsProps extends InertiaProps {
+    referrals: IPagination<IStudent[]>
+    total_earnings: number
+}
 
+export default function Referrals({referrals, total_earnings} : IReferralsProps) {
+    const {auth} = usePage().props as unknown as InertiaProps    
+    
+    
     return (
         <StudentLayout title='Referrals'>
             <div>
@@ -16,9 +24,8 @@ export default function Referrals() {
                     <div className="col-xl-3 col-lg-6">
                         <div className="card stat-info net-earn">
                         <div className="card-body">
-                            <span>Net Earnings</span>
-                            <h3>$ 63,240</h3>
-                            <p>Earning this month</p>
+                            <span>All Time Earnings</span>
+                            <h3><Naira /> {total_earnings.toLocaleString()}</h3>
                         </div>
                         </div>
                     </div>
@@ -26,8 +33,7 @@ export default function Referrals() {
                         <div className="card stat-info bal">
                         <div className="card-body">
                             <span>Balance</span>
-                            <h3>$ 8,530</h3>
-                            <p>Earning this month</p>
+                            <h3><Naira /> {auth.user?.earnings}</h3>
                         </div>
                         </div>
                     </div>
@@ -44,7 +50,7 @@ export default function Referrals() {
                                 <div className="d-flex gap-2">
                                     <button onClick={() => Navigator.copy(route('register', {
                                     ref: auth.user?.affiliate_id
-                                }))} className='btn btn-icon'>
+                                }))} className='btn btn-icon btn-primary'>
                                         <span className='feather-copy' />
                                     </button>
                                     <button onClick={() => Navigator.share(route('register', {
@@ -60,56 +66,35 @@ export default function Referrals() {
                     </div>
                 </div>
                 <div className="settings-widget">
-                    <div className="settings-inner-blk p-0">
-                    <div className="comman-space pb-0">
+                    <div className="settings-inner-blk">
+                    <div className="comman-space">
                         <div className="filter-grp user-referred table-select-blk d-flex align-items-center justify-content-between">
                         <h3>Referred Users</h3>
-                        <div className="filter-blk d-flex">
-                            <div className="form-group select-form mb-0">
-                            <select className="form-select select" id="datefilter" name="datefilterby">
-                                <option>Month</option>
-                                <option>Daily</option>
-                                <option>Week</option>
-                            </select>
-                            </div>
-                            <div className="form-group select-form mb-0">
-                            <select className="form-select select" id="filterpicker" name="filterpickerby">
-                                <option>Oct 2020</option>
-                                <option>Jan 2020</option>
-                                <option>Feb 2020</option>
-                                <option>Mar 2020</option>
-                            </select>
-                            </div>
-                        </div>
+                        
                         </div>
                         <div className="settings-referral-blk table-responsive">
-                        <table className="table table-nowrap mb-0">
-                            <thead>
-                            <tr>
-                                <th>Referrals</th>
-                                <th>Referred ID</th>
-                                <th>URL</th>
-                                <th>&nbsp;</th>
-                                <th className="text-center">Visits</th>
-                                <th className="text-end">Total earned</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                    <a href="student-profile.html" className="refer-avatar-blk d-flex align-items-center">
-                                        <img src="assets/img/students/refer-img1.png" className="rounded-circle me-2" alt="Referred User Info" />
-                                        <p>Guy Hawkins</p>
-                                    </a>
-                                    </td>
-                                    <td>09341</td>
-                                    <td><span className="text-wrap">https://dreamslmscourse.com/reffer/?refid=345re667877k9</span></td>
-                                    <td><a href="javascript:;" className="btn-style"><i className="feather-clipboard" /></a></td>
-                                    <td className="text-center">10</td>
-                                    <td className="text-end">$45.00</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <table className="table table-nowrap mb-0">
+                                <thead >
+                                    <tr>
+                                        <th className='ps-3'>Referred User</th>
+                                        <th>Total Enrollments</th>
+                                        <th className="text-end pe-3">Amount Earned</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        referrals.data.map(referral => (
+                                            <tr>
+                                                <td>
+                                                    <p>{referral.name}</p>
+                                                </td>
+                                                <td className="text-end">{referral.enrollments_count || 0}</td>
+                                                <td className="text-end"><Naira />{referral.referred_sum_earnings.toLocaleString()}</td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     </div>

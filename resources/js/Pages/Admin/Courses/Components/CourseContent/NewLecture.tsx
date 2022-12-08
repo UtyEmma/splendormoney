@@ -4,18 +4,20 @@ import { useCourse } from '@/Context/CourseContext'
 import { ICourse, ILecture } from '@/Types/course'
 import Form from '@/Utils/Form'
 import { useForm } from '@inertiajs/inertia-react'
-import React, { ChangeEvent, FormEvent, useEffect } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 
 
 export const NewLecture = ({setShowNew, module} : any) => {
 
+    const [duration, setDuration] = useState(0)
     
     const {data, setData, processing, post, errors} = useForm({
         title: '',
         file: '',
         description: '',
-        duration: 0
+        duration: duration
     })
+    
     const {course, setCourse} = useCourse()
     
     
@@ -45,11 +47,19 @@ export const NewLecture = ({setShowNew, module} : any) => {
         video.src = url;
       
         video.onloadedmetadata = function() {
-          window.URL.revokeObjectURL(video.src)          
-          setData('duration', video.duration);
+          window.URL.revokeObjectURL(video.src) 
           setData('file', file)
+          setDuration(Math.floor(video.duration));
         }
     }
+
+    useEffect(() => {
+        console.log(data)
+    }, [data])
+
+    useEffect(() => {
+        setData('duration', duration)
+    }, [duration])
 
     return (
         <div>

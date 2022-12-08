@@ -35,9 +35,10 @@ export default function Home({auth, courses, categories, testimonials, instructo
                     <div className="col-md-7">
                     <div className="home-slide-face aos" data-aos="fade-up">
                         <div className="home-slide-text ">
-                        <h5>The Leader in Online Learning</h5>
-                        <h1>Engaging &amp; Accessible Online Courses For All</h1>
-                        <p>Own your future learning new skills online</p>
+                            <h5>The Leader in Online Learning</h5>
+                            <h1>Master the skills to keep you always smiling to the bank.</h1>
+                            {/* <p>Tired of having to spend hours online daily without making even a penny? <br/> Then this is for you</p> */}
+                            {/* <p>Get certified, master modern skills of making money online, and guarantee your financial futire — whether you’re a student, employed or unemployed we have just the course to meet your schedule.</p> */}
                         </div>
                         <div className="banner-content">
                         <form className="form" onSubmit={search}>
@@ -214,11 +215,11 @@ export default function Home({auth, courses, categories, testimonials, instructo
                             <div className="section-header aos" data-aos="fade-up">
                                 <div className="section-sub-head">
                                 <span>What’s New</span>
-                                <h2>Master the skills to drive your career</h2>
+                                <h2>Tired of having to spend hours online daily without making even a penny? Then this is for you.</h2>
                                 </div>
                             </div>
                             <div className="section-text aos" data-aos="fade-up">
-                                <p>Get certified, master modern tech skills, and level up your career — whether you’re starting out or a seasoned pro. 95% of eLearning learners report our hands-on content directly helped their careers.</p>
+                                <p>Get certified, master modern skills of making money online, and guarantee your financial futire — whether you’re a student, employed or unemployed we have just the course to meet your schedule</p>
                             </div>
                             <div className="career-group aos" data-aos="fade-up">
                                 <div className="row">
@@ -294,7 +295,7 @@ export default function Home({auth, courses, categories, testimonials, instructo
                         </div>
                     </div>
                     <div className="section-text aos" data-aos="fade-up">
-                        <p className="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget aenean accumsan bibendum gravida maecenas augue elementum et neque. Suspendisse imperdiet.</p>
+                        <p className="mb-0">Gain access to our long list of courses to prepare you for your money making journey.</p>
                     </div>
                     <div className="owl-carousel trending-course owl-theme aos" data-aos="fade-up">
                         {

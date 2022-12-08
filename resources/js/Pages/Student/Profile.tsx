@@ -4,6 +4,7 @@ import { SelectThumbnail } from '@/Components/Forms/SelectThumbnail'
 import { StudentLayout } from '@/Layouts/Student/StudentLayout'
 import { InertiaProps } from '@/Types/app'
 import Form from '@/Utils/Form'
+import { Navigator } from '@/Utils/Navigator'
 import { useForm, usePage } from '@inertiajs/inertia-react'
 import React, { ChangeEvent, FormEvent, useRef } from 'react'
 
@@ -41,10 +42,34 @@ export default function Profile() {
                     <div className="settings-menu p-0">
                         <div className="checkout-form personal-address add-course-info">
                             <div className="personal-info-head">
-                                <h4>Update Profile</h4>
+                                <h4>Profile</h4>
                                 <p>Edit your personal information and address.</p>
                             </div>
 
+                            <div className="card link-box flex-fill">
+                                <div className="card-body">
+                                    <h5 className='mb-2 text-primary'>Your Referral Link</h5>
+                                    <p>Share your referral link with your friends and earn a commission every time they purchase a course.</p>
+                                    <div className="form-group d-flex gap-3">
+                                        <input type="text" className="form-control flex-fill" defaultValue={`${route('register', {
+                                            ref: auth.user?.affiliate_id
+                                        })}`} />
+
+                                        <div className="d-flex gap-2">
+                                            <button onClick={() => Navigator.copy(route('register', {
+                                            ref: auth.user?.affiliate_id
+                                        }))} className='btn btn-icon btn-primary'>
+                                                <span className='feather-copy' />
+                                            </button>
+                                            <button onClick={() => Navigator.share(route('register', {
+                                            ref: auth.user?.affiliate_id
+                                        }))} className='btn btn-icon btn-info'>
+                                                <span className='feather-share-2' />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="row">
                                 <div className="col-12">
                                     <div className='course-group border-0 px-0 mb-0 d-flex'>

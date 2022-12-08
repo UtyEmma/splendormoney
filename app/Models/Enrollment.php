@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 class Enrollment extends Model {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['id', 'course_id', 'student_id', "transaction_id", 'amount', 'status', 'referrer_id'];
+    protected $fillable = ['id', 'course_id', 'student_id', "transaction_id", 'amount', 'is_completed', 'status', 'referrer_id'];
 
     protected $attributes = [
-        'status' => 'active'
+        'status' => 'active',
+        'progress' => 0,
+        'is_completed' => false
     ];
 
     public function course (){

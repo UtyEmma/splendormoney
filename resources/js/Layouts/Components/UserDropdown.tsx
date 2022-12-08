@@ -227,8 +227,8 @@ const AdminDropDownItems = () => {
 const InstructorDropdownItems = () => {
     return (
         <>
-            <Link className="dropdown-item" href={route('admin.dashboard')}><i className="feather-user me-1" /> Dashboard</Link>
-            <Link className="dropdown-item" href={route('admin.settings')}><i className="feather-settings me-1" /> My Courses</Link>
+            <Link className="dropdown-item" href={route('instructor.dashboard')}><i className="feather-user me-1" /> Dashboard</Link>
+            <Link className="dropdown-item" href={route('instructor.courses')}><i className="feather-settings me-1" /> My Courses</Link>
         </>
     )
 }
@@ -238,12 +238,12 @@ const StudentDropDownItems = () => {
         <>
             <Link className="dropdown-item" href={route('student.dashboard')}><i className="feather-user me-1" /> Dashboard</Link>
             <Link className="dropdown-item" href={route('student.courses')}><i className="feather-star me-1" />Enrolled Courses</Link>
-            <div className="dropdown-item night-mode">
+            {/* <div className="dropdown-item night-mode">
                 <span><i className="feather-moon me-1" /> Night Mode </span>
                 <div className="form-check form-switch check-on m-0">
                 <input className="form-check-input" type="checkbox" id="night-mode" />
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

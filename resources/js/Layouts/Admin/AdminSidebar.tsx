@@ -53,11 +53,6 @@ export const AdminSidebar = () => {
                             <i className="feather-dollar-sign" /> Transactions
                         </Link>
                     </li>
-                    <li className={`${route().current() === 'admin.referrals' && 'active'} nav-item`}>
-                        <Link href={route('admin.referrals')} className="nav-link">
-                            <i className="feather-user-plus" /> Referrals
-                        </Link>
-                    </li>
                     <li className={`${route().current() === 'admin.testimonials' && 'active'} nav-item`}>
                         <Link href={route('admin.testimonials')} className="nav-link">
                             <i className="feather-message-circle" /> Testimonials

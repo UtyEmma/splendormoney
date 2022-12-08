@@ -72,8 +72,8 @@ export const Footer = () => {
                     <div className="col-md-6">
                         <div className="privacy-policy">
                         <ul>
-                            <li><a href="term-condition.html">Terms</a></li>
-                            <li><a href="privacy-policy.html">Privacy</a></li>
+                            <li><Link href={route('pages.terms')}>Terms</Link></li>
+                            <li><Link href={route('pages.privacy')}>Privacy</Link></li>
                         </ul>
                         </div>
                     </div>

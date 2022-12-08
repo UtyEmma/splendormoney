@@ -24,13 +24,16 @@ class InstructorController extends Controller {
         ]);
     }
 
-    function courses(){
+    function courses(Request $request){
         $user_id = auth()->id();
         $user = User::find($user_id);
         $courses = $user->courses()
                         ->with(['enrollments', ])
                         ->withCount(['enrollments', 'lectures'])
                         ->withSum('transactions', 'amount')
+                        ->when($request->keyword, function($query, $keyword){
+                            $query->where('name', 'LIKE', "%$keyword%");
+                        })
                         ->paginate(env('PAGINATION_COUNT'));
 
         return Inertia::render('Instructor/InstructorCourses', [
@@ -38,10 +41,14 @@ class InstructorController extends Controller {
         ]);
     }
     
-    function students (){
+    function students (Request $request){
         $user = User::find(auth()->id());
         
-        $students = $user->students()->distinct()->with(['student', 'student.enrollments', 'course'])->paginate(env('PAGINATION_COUNT'));
+        $students = $user->students()->distinct()
+                        ->when($request->keyword, function($query, $keyword){
+                            $query->where('name', 'LIKE', "%$keyword%");
+                        })
+                        ->with(['student', 'student.enrollments', 'course'])->paginate(env('PAGINATION_COUNT'));
     
         return Inertia::render('Instructor/InstructorStudents', [
             'students' => $students
