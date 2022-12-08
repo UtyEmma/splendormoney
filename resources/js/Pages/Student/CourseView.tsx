@@ -31,10 +31,11 @@ export default function CourseView({course, review, lecture, lectures, enrollmen
     return (
         // <MainLayout title='Course'>
             <div className='vh-100'>
-                <div style={{height: '10%'}} className='card-body bg-warning d-md-flex justify-content-between align-items-center'>
-                    <div className='d-flex  align-items-center gap-3'>
+                <div style={{minHeight: '10%'}} className='card-body bg-warning d-md-flex justify-content-between align-items-center'>
+                    <div className='d-md-flex  align-items-center gap-3'>
                         <Link href={route('student.courses')} className='btn btn-light' >Back to Dashboard</Link>
-                        <div>
+
+                        <div className='my-3'>
                             <h3 className='mb-0' >{course?.name}</h3>
                             <Disclose show={!!lecture} >
                                 <p className='fs-5 mb-0'>Lecture: {lecture?.title}</p>
@@ -49,11 +50,15 @@ export default function CourseView({course, review, lecture, lectures, enrollmen
 
                 <div style={{height: '90%'}}>
                     <div className="row h-100">
-                        <div className="col-md-8 h-100 mx-0 px-0">
-                            <div className="h-100 ratio ratio-16x9 position-relative">
+                        <div className="col-md-8 h-md-100 mx-0 px-0">
+                            <div className="h-md-100 ratio ratio-16x9 position-relative">
                                 <ReactPlayer url={route('media.file', {
                                     path: lecture?.file
-                                })} width={'100%'} height="100%" playing  controls={true}  />
+                                })} width={'100%'} height="100%" playing  controls={true} config={{ file: { 
+                                    attributes: {
+                                      controlsList: 'nodownload'
+                                    }
+                                  }}} />
                             </div>
                         </div>
 
@@ -62,7 +67,7 @@ export default function CourseView({course, review, lecture, lectures, enrollmen
                                     <div className="card-body d-flex flex-column">
                                         <div >
                                             <div className='mb-2'>
-                                                <p className='fs-6 mb-0'>Your Progress - <span className='fw-bold'>{progress}%</span></p>
+                                                <p className='fs-5 mb-0'>Your Progress - <span className='fw-bold'>{progress}%</span></p>
                                                 <div className="progress-stip mb-0">
                                                     <div className="progress-bar bg-success mb-0  progress-bar-striped active-stip" style={{width: `${progress}%`}} />
                                                 </div>
